@@ -49,7 +49,7 @@ This document defines how **Cursor** and **Codex** work together on this project
 
 ### 1. Single source of truth
 
-<!-- e.g. roles.md, skills-for-codex.md, .cursor/rules/ -->
+<!-- e.g. roles.md, skills-for-cursor.md, .cursor/rules/ -->
 
 ### 2. Handoffs
 
