@@ -33,12 +33,16 @@ app.innerHTML = `
       <p class="eyebrow">Local Seed Shares</p>
       <h1>Split a test recovery phrase locally</h1>
       <p class="warning"><strong>Hackathon prototype.</strong> Use only with a disposable test wallet containing no real funds.</p>
-      <p>After this page loads, cryptographic processing happens locally on this device. This app does not read your clipboard automatically.</p>
+      <p>Supports only the English 24-word BIP-39 recovery phrase from Wallet in Telegram's DeFi Account.</p>
+      <p>This project is not affiliated with or approved by Telegram, Wallet in Telegram, Trezor, SatoshiLabs, or Ian Coleman.</p>
+      <p>The application files are downloaded from the static host when the Mini App opens. After loading, cryptographic processing happens locally on this device. The app makes no application-initiated network requests and does not intentionally transmit or save your phrase or shares.</p>
+      <p>This app does not read your clipboard automatically.</p>
     </header>
 
     <section aria-labelledby="create-heading">
       <h2 id="create-heading">Create 3 shares</h2>
       <p>Paste an English 24-word BIP-39 phrase. The app creates a fixed 2-of-3 backup.</p>
+      <p class="warning">These shares reconstruct your original 24-word phrase through Local Seed Shares. Do not enter them directly into Trezor or another wallet's SLIP-39 recovery flow because that may restore a different wallet.</p>
       <label for="seed-input">24-word recovery phrase</label>
       <div class="input-row">
         <input id="seed-input" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" translate="no" lang="en" />
@@ -55,6 +59,7 @@ app.innerHTML = `
     <section id="share-section" aria-labelledby="shares-heading" hidden>
       <h2 id="shares-heading">Your three shares</h2>
       <p class="warning">Anyone with two shares can recover the wallet phrase. Do not send or store two shares through the same Telegram account, chat, device, or storage location.</p>
+      <p class="warning">Normal Telegram Cloud Chats are stored in Telegram's cloud. When chat transfer is necessary, prefer a Secret Chat and keep the shares separated.</p>
       <p>These shares must be recovered through this application before importing the resulting 24 words into a wallet.</p>
       <div class="share-output">
         <h3>Share 1 <span>33 words · 2 required</span></h3>

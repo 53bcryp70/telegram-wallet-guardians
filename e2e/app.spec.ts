@@ -68,6 +68,18 @@ test.describe("SLIP-39 cryptographic checkpoint", () => {
       () => document.documentElement.dataset.appReady === "true",
     );
     expect(initialRequests.every((url) => new URL(url).origin === "http://127.0.0.1:4173")).toBe(true);
+    await expect(
+      page.getByText(
+        "Supports only the English 24-word BIP-39 recovery phrase from Wallet in Telegram's DeFi Account.",
+        { exact: true },
+      ),
+    ).toBeVisible();
+    await expect(
+      page.getByText(
+        "This project is not affiliated with or approved by Telegram, Wallet in Telegram, Trezor, SatoshiLabs, or Ian Coleman.",
+        { exact: true },
+      ),
+    ).toBeVisible();
 
     const checkpoint = await page.evaluate(
       ({ testFixture, entropyHex }) => {
@@ -115,6 +127,18 @@ test.describe("SLIP-39 cryptographic checkpoint", () => {
     await page.locator("#seed-input").fill(fixedMnemonic);
     await page.getByRole("button", { name: "Create 3 shares" }).click();
     await expect(page.locator("#share-section")).toBeVisible();
+    await expect(
+      page.getByText(
+        "These shares reconstruct your original 24-word phrase through Local Seed Shares. Do not enter them directly into Trezor or another wallet's SLIP-39 recovery flow because that may restore a different wallet.",
+        { exact: true },
+      ),
+    ).toBeVisible();
+    await expect(
+      page.getByText(
+        "Normal Telegram Cloud Chats are stored in Telegram's cloud. When chat transfer is necessary, prefer a Secret Chat and keep the shares separated.",
+        { exact: true },
+      ),
+    ).toBeVisible();
     const shareOne = await page.locator("#share-1").inputValue();
     const shareTwo = await page.locator("#share-2").inputValue();
     const shareThree = await page.locator("#share-3").inputValue();
