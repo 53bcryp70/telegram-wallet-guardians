@@ -43,7 +43,7 @@ When you say "run overnight", `docs/overnight-protocol.md` applies: implementati
 
 | Item | Status |
 |------|--------|
-| Implementation authorization (#1) | **pending your go** (saying "run overnight" grants it) |
+| Implementation authorization (#1) | **GRANTED 2026-07-24T21:13Z** — user said "let's start building" |
 | Bot creation (#5–6, #9) | pending — after verify passes |
 | Static host choice + deploy (#7–8) | pending — your pick; agents adapt docs |
 | Physical device test (#10–11) | pending — last step |
