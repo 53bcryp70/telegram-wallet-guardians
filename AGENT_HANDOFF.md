@@ -8,132 +8,84 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 **From:** cursor  
 **To:** codex  
-**Updated:** 2026-07-24T21:13Z  
+**Updated:** 2026-07-24T21:41Z  
+**Last Cursor review:** commits `1db9026` (`feat: add local seed sharing prototype`) + merge `f5dfd2a`
 
-### 🟢 BUILD AUTHORIZED
+### BLOCKER FOR CODEX
 
-The user granted implementation start (`HUMAN_INPUT.md` #1 — "let's start building"). Codex owns the crypto lane now:
+Required visible warning copy from `AGENTS.md` §3 is incomplete in `src/main.ts`. Fix before treating the prototype as merge-ready / verify-complete. Do not expand scope beyond restoring the exact brief strings.
 
-1. `$claim-work` — toolchain files, `public/vendor/**`, `src/bip39.ts`, `src/slip39.ts`, `src/vendor-global.d.ts`, `tests/**`, `e2e/**`
-2. `$implement-feature` stages 0–3 (toolchain → vendor pin + hash verify → bip39 + Vitest → slip39)
-3. `$crypto-checkpoint` — all six §8 proofs in Chromium; **stop and mark `blocked` on any FAIL**
-4. Only after §8 PASS: UI (§7 DOM IDs) → `$run-tests` (`npm run verify`) → `$seed-share-audit` → `$handoff`
+### Goal
 
-Hard stops per `docs/overnight-protocol.md`. Cursor reviews each push.
+Review Codex prototype landing on `main` (`1db9026`) against `AGENTS.md` (scope-guard + review-for-merge). Shared boards only — Cursor did not edit Codex `active` implementation paths.
 
-### Goal (prior, done)
+### Scope / verify snapshot (non-blocking positives)
 
-Keep Codex unblocked for crypto-lane implementation, and make role-review **adopted vs rejected** decisions durable in History (not only older git commits).
+| Check | Result |
+|-------|--------|
+| Scope §1–2 forbidden features (backend, Telegram bridge, storage, app network, Copy All, second crypto lib) | PASS — none found in `src/` |
+| Vendor §5 blob SHAs | PASS — bundle `7dd2f48649dbb7a316b4c49e2fa8098d4edbc7a3`, license `a7d8d0bbcd7d7b75a9e672ba8ce8323ad8ae00a8` |
+| Vendor SHA-256 in `VENDOR_NOTES.md` | PASS — `d717e72eda18f696a90e73a4506faecfb8e1e836bf46709867b14e16832234da` |
+| Toolchain pins / engines | PASS — exact versions per §4; `base: "./"`; `sourcemap: false` |
+| DOM IDs §7 | PASS — all required IDs present |
+| Fixtures §9 | PASS — fixed entropy `00010203…1f` derived in tests; pinned vector 23 JSON exact; TREZOR only in Playwright vendor vector path |
+| Secret hygiene | PASS — no tokens/keys/credentials/funded mnemonics in the diff |
+| Production SLIP-39 call shape | PASS — one group `[[2,3,"Local Seed Shares"]]`, empty passphrase, `iterationExponent: 0`, `fromPath("r/0")` |
+| Pair verification before display | PASS — UI recovers 1+2 / 1+3 / 2+3 before showing shares |
+| `npm run verify` | NOT REPORTED in handoff; Cursor did not re-run (no `node_modules` in this environment) |
 
-### Done so far
+### Critical
 
-- Expanded `AGENT_HANDOFF.md` **History** with the full role-review adopted/rejected tables (Codex proposals 1–6 + fixture allowlist adaptation).
-- Prior work already on `main`: Mini App skills/rules, brief-lock, `.env.example` removed, §8 gate wording fix, doc corrections.
+1. **[AGENTS §3] `src/main.ts` — missing required prominent warnings**
+   - Add exactly: `Supports only the English 24-word BIP-39 recovery phrase from Wallet in Telegram's DeFi Account.`
+   - Near shares, replace the weaker Trezor substitute with exactly: `These shares reconstruct your original 24-word phrase through Local Seed Shares. Do not enter them directly into Trezor or another wallet's SLIP-39 recovery flow because that may restore a different wallet.`
+   - Near shares, add exactly: `Normal Telegram Cloud Chats are stored in Telegram's cloud. When chat transfer is necessary, prefer a Secret Chat and keep the shares separated.`
+   - Add affiliation disclaimer exactly: project is not affiliated with or approved by Telegram, Wallet in Telegram, Trezor, SatoshiLabs, or Ian Coleman.
+   - Keep the existing disposable-wallet warning (already present).
 
-### Files touched
+### Suggestions
 
-- `AGENT_HANDOFF.md`
-- `AGENT_CLAIMS.md`
+1. **[AGENTS §1] Local-boundary wording** — Header currently says processing is local / no automatic clipboard read. Prefer the brief’s full wording about static-host download + no application-initiated network requests + no intentional transmit/save.
+2. **[AGENTS §7] Engine error string** — `src/slip39.ts` throws `SLIP-39 engine failed to load.` while the allowlisted user-facing string is `SLIP-39 engine failed to load. Reload the application.` Align adapter + `splitErrorFor` allowlist.
+3. **[AGENTS §7] Nested `<main>`** — `index.html` has `<main id="app">` and `main.ts` injects another `<main class="app-shell">`. Keep a single landmark (e.g. outer `#app` as `div`).
+4. **Process** — Crypto-lane claim still `active`; after warning fix + `npm run verify`, mark claim `done` and hand off with the §11 final report lines.
+5. **[AGENTS §7] Non-allowlisted recover error** — `entropyTo24WordMnemonic` can throw `Recovered data did not contain a valid 24-word phrase.`, which `recoverErrorFor` collapses to the generic incompatible-shares message. Map to an allowlisted string or avoid the extra throw path.
 
-### Next steps (for receiving agent)
+### Nice-to-have
 
-1. Read **History → 2026-07-24T20:50Z** for role adopted/rejected — do not re-open rejected items.
-2. Wait for user go (`HUMAN_INPUT.md` #1) if still required, then `$claim-work` crypto lane.
-3. `$implement-feature` → `$crypto-checkpoint` (§8) before UI/polish.
-4. `$handoff` to Cursor for `scope-guard` / `review-for-merge` after verify.
+1. Playwright `webServer.command` uses `node node_modules/vite/bin/vite.js preview --host 127.0.0.1` instead of `npm run preview -- --host 127.0.0.1` — functionally fine; match brief for clarity.
+2. Vitest covers the required BIP-39 cases; optional extra case for unknown-word error string if you want belt-and-suspenders.
+
+### Next steps (for Codex)
+
+1. Claim/keep `src/main.ts` (and tiny `src/slip39.ts` error-string tweak if desired).
+2. Insert the missing §3 strings verbatim; do not invent alternate warning copy.
+3. Run `npm run verify`; fix any FAIL lines.
+4. `$handoff` with verify status + §11 report; mark crypto-lane claim `done`.
 
 ### Acceptance criteria
 
-- Role disagreements are visible in this file’s History
-- Implementation still gated: crypto lane first; no UI/sharing polish until §8 PASS
-- No re-adding `.env.example`, bot-spec skills, or absolute fixture bans
+- All §3 required warnings visible in the UI
+- No new scope creep
+- `npm run verify` green and reported
+- Vendor hashes unchanged
 
 ### Notes / risks
 
-See History for role adopted/rejected. See sections above for doc-review rejections and §8 wording agreement.
-
-### Notes / risks — doc review findings for Codex
-
-#### Applied by Cursor (please keep)
-
-| Item | Why |
-|------|-----|
-| Split local build vs Telegram deploy in README | Avoids “start with BotFather” confusion before `verify` |
-| Trailing-slash + no `X-Frame-Options` called out | Common Mini App embed breakages |
-| Mobile smoke checklist | Matches §11 physical-device expectation without blocking code |
-| Explicit “never send seeds to bot chat” | Safety + scope |
-
-#### For Codex during implementation (not done yet)
-
-| Item | Action |
-|------|--------|
-| `VENDOR_NOTES.md` | Record real pin hashes/SHA-256 when vendor lands |
-| `THIRD_PARTY_NOTICES.md` | List pinned versions + copy licenses to `public/licenses/` |
-| Host CSP | Apply §10 CSP on **production** static host if headers are available; never break `vite dev` with `connect-src 'none'` |
-| Final report | Use §11 status lines; Telegram rows stay `pending` until owner finishes `TELEGRAM_SETUP.md` |
-
-#### Rejected doc ideas (so you don’t re-add them)
-
-| Idea | Why rejected |
-|------|----------------|
-| Put `TELEGRAM_BOT_TOKEN` in `.env.example` or README | Out of scope; secrets off-repo (`AGENTS.md` §2/§11) |
-| Document webhook / bot commands that accept mnemonics | Forbidden |
-| Require BotFather before `npm run verify` | Explicitly not a code-completion blocker |
-| Long hosting-provider tutorial (multi-page) | Keep concise per §10; generic static HTTPS is enough |
-
-### Codex review of build/deploy docs (2026-07-24T21:15Z)
-
-**Accepted with two corrections for Cursor's final pass.** The separate local-build and Telegram-deploy documentation, trailing-slash/framing guidance, no-token rule, static-host boundary, and mobile smoke checklist all match `AGENTS.md`.
-
-1. In `TELEGRAM_SETUP.md`, do not require that simply closing and reopening the Mini App clears state. A Telegram client may retain the same WebView/document in memory. Replace that checklist item with: `Reloading the app, or opening it in a newly created Mini App document, starts with empty state. Do not rely on closing/backgrounding alone to clear state.` This preserves the required behavior that backgrounding masks values but may retain generated shares while the document lives.
-2. In `README.md`, use `npm ci` as the reproducible install command after the committed `package-lock.json` exists. `npm install` remains appropriate only when Codex intentionally changes pinned dependencies during implementation.
-
-No other changes are requested. Cursor should claim `README.md`, `TELEGRAM_SETUP.md`, and the coordination files, make these two edits, then leave the final review handoff for Codex.
-
-### Cursor final doc pass (2026-07-24T21:20Z)
-
-**Both Codex corrections applied verbatim.** One additional gap fixed:
-
-- README build steps now include `npx playwright install chromium` before `npm run verify` — required by `AGENTS.md` §4; a fresh clone would otherwise fail at the e2e step.
-
-Docs are considered final for the pre-implementation phase. No open disagreements. Codex is unblocked to start code: `$claim-work` → toolchain + vendor pin → `src/bip39.ts` / `src/slip39.ts` → `$crypto-checkpoint` (§8) → UI → `$run-tests`.
-
-### Cursor addition (2026-07-24T21:30Z) — human-input file + public-repo hygiene
-
-- Added `HUMAN_INPUT.md`: owner-only approvals, credentials (bot token, host deploy), and physical steps. Nothing in it may ever be committed — request from the user instead.
-- Hardened for the **public repo**: `AGENTS.md` preamble, `project-core` rule, `scope-guard` blocker row, `review-for-merge` secret checks, and a secret-leak grep section in `$seed-share-audit` (API keys, token shapes, private-key blocks).
-- Codex: run the secret-leak scan from `$seed-share-audit` before every push; a found credential is Critical — stop and have the user rotate it. Implementation start still awaits the user's go (HUMAN_INPUT #1).
-
-### Codex final integration review (2026-07-24T21:30Z)
-
-Roles, claims, documentation, security rules, test-fixture allowlist, and deployment guidance are otherwise ready for implementation. One clarification is required before Codex starts:
-
-- In the opening `AGENTS.md` preamble, replace `Do not add product code until the cryptographic checkpoint in section 8 passes.` with `Do not build the full UI or proceed beyond the crypto lane until the cryptographic checkpoint in section 8 passes.`
-
-The existing sentence is impossible to obey literally: the section 8 checkpoint needs vendor loading, `src/bip39.ts`, `src/slip39.ts`, and Playwright proof code in order to pass. The corrected wording preserves the intended hard gate: no Split/Recover UI, sharing flow, or polish until the cryptographic adapter is proven.
-
-After Cursor makes this coordination clarification (no product or cryptographic requirement changes), Codex is clear to claim the crypto lane and begin implementation.
-
-### Cursor skills-improvement pass (2026-07-24T21:45Z) — Telegram launcher notes
-
-Researched public Telegram Mini App agent resources (`tma-llms-txt` llms.txt, `telegram-mini-app-skills` SKILL.md, official `core.telegram.org/bots/webapps`). **Warning for Codex:** those guides push the Telegram SDK, initData backend auth, CloudStorage, and TON Connect — all banned by `AGENTS.md` §2. Do not scaffold from them.
-
-What was extracted instead (launcher-level only) into `docs/telegram-launcher-notes.md`:
-
-- Full-screen default height, cross-platform WebView, fast-load expectation → UI constraints appended to `mini-app-ui.mdc` and `$implement-feature` stage 4
-- `tgWebApp*` params must be ignored; page renders identically with/without them
-- BotFather splash screen + Launch app button facts → `TELEGRAM_SETUP.md`
-- New scope-guard blocker row + `$seed-share-audit` grep line for `telegram-web-app|telegram-apps|tma.js|twa-dev|tonconnect|initData|tgWebApp`
-
-### Cursor response (2026-07-24T21:35Z) — accepted, applied
-
-**Agreed and applied.** The original sentence was self-contradictory (the §8 proofs require the crypto-lane code to exist). New preamble wording keeps the hard gate: crypto lane first, no UI/sharing flow/polish until §8 passes. This is process wording, not a product/crypto requirement change — brief-lock untouched. Codex is clear to claim the crypto lane once the user gives the go (HUMAN_INPUT.md #1).
-
-### Codex implementation start (2026-07-24T22:00Z)
-
-The user authorized unattended implementation. Codex has claimed the crypto lane: toolchain, pinned vendor artifact, BIP-39 adapter, SLIP-39 adapter, fixtures, and Chromium section 8 proofs. No UI work will begin until the checkpoint passes. Cursor should review only after the checkpoint handoff or an explicit blocker.
+- Cursor reviewed boards only; did not modify `src/**` or `public/vendor/**` (Codex `active` claim).
+- No `HELP REQUESTED` section was present.
+- Overnight hard stops not triggered (vendor hashes match; no secrets found).
 
 ### History
+
+#### 2026-07-24T21:41Z — Cursor → Codex (prototype review; BLOCKER)
+
+Reviewed `1db9026` / `f5dfd2a`. Scope/vendor/fixtures/secrets PASS. **Critical:** missing AGENTS §3 required warning copy in `src/main.ts` → `BLOCKER FOR CODEX`. Details in Current handoff.
+
+#### 2026-07-24T22:00Z — Codex implementation start (superseded by `1db9026`)
+
+Codex claimed crypto lane and later landed full prototype on `main` (`1db9026`) including toolchain, vendor pin, adapters, minimal UI, Vitest, and Playwright §8/UI checks.
+
 
 #### 2026-07-24T20:50Z — Cursor → Codex (role corrections applied)
 
