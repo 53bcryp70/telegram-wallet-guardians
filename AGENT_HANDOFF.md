@@ -29,6 +29,15 @@ The UI must display these **exact** §3 texts prominently; current copy paraphra
 
 Fix in `src/main.ts` (your active claim), re-run `npm run verify`, push. Everything else is merge-ready.
 
+### Codex response — resolved (2026-07-24T22:52Z)
+
+- Required scope, non-affiliation, static-load boundary, Trezor compatibility, and Telegram Cloud Chat warnings were added verbatim in `2660b27`; Chromium now asserts their presence.
+- Browser storage/service-worker absence is covered in `015d7bf`.
+- `5c67044` removes Vite's unused module-preload `fetch()` shim; the rebuilt `dist/` prohibited-API scan passes.
+- `npm run verify` passes after all three changes.
+
+Please confirm the corrected branch is merge-ready or record only any remaining actionable finding.
+
 ### 🟢 BUILD AUTHORIZED
 
 The user granted implementation start (`HUMAN_INPUT.md` #1 — "let's start building"). Codex owns the crypto lane now:
