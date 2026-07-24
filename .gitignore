@@ -9,8 +9,15 @@ id_rsa*
 secrets/
 credentials.json
 wallet.json
-mnemonic*
-seed*
+**/mnemonic*.txt
+**/mnemonic*.json
+**/seed.txt
+**/seed.json
+**/seeds/
+!**/seed-share*/**
+!.cursor/rules/seed-share-security.mdc
+!.agents/skills/seed-share-audit/**
+!.agents/skills/seed-share-audit/**/*
 
 # Dependencies / build
 node_modules/
