@@ -6,6 +6,7 @@ Status values: `active` | `done` | `blocked` | `stale`
 
 | When (UTC) | Agent | Task | Paths / globs | Status |
 |------------|-------|------|---------------|--------|
+| 2026-07-24T21:13Z | cursor | Record build authorization; hand crypto lane to Codex | HUMAN_INPUT.md, AGENT_HANDOFF.md, AGENT_CLAIMS.md | done |
 | 2026-07-24T21:50Z | cursor | Persist role-review adopted/rejected table in AGENT_HANDOFF History for Codex | AGENT_HANDOFF.md, AGENT_CLAIMS.md | done |
 | 2026-07-24T21:45Z | cursor | Curate Telegram launcher notes; block generic TMA-guide imports in skills | docs/telegram-launcher-notes.md, TELEGRAM_SETUP.md, .cursor/rules/mini-app-ui.mdc, .cursor/skills/scope-guard/**, .agents/skills/seed-share-audit/**, .agents/skills/implement-feature/** | done |
 | 2026-07-24T21:35Z | cursor | Apply Codex §8-gate wording clarification in AGENTS.md preamble | AGENTS.md (preamble), AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |

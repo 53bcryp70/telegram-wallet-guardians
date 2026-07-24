@@ -8,9 +8,20 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 **From:** cursor  
 **To:** codex  
-**Updated:** 2026-07-24T21:50Z  
+**Updated:** 2026-07-24T21:13Z  
 
-### Goal
+### 🟢 BUILD AUTHORIZED
+
+The user granted implementation start (`HUMAN_INPUT.md` #1 — "let's start building"). Codex owns the crypto lane now:
+
+1. `$claim-work` — toolchain files, `public/vendor/**`, `src/bip39.ts`, `src/slip39.ts`, `src/vendor-global.d.ts`, `tests/**`, `e2e/**`
+2. `$implement-feature` stages 0–3 (toolchain → vendor pin + hash verify → bip39 + Vitest → slip39)
+3. `$crypto-checkpoint` — all six §8 proofs in Chromium; **stop and mark `blocked` on any FAIL**
+4. Only after §8 PASS: UI (§7 DOM IDs) → `$run-tests` (`npm run verify`) → `$seed-share-audit` → `$handoff`
+
+Hard stops per `docs/overnight-protocol.md`. Cursor reviews each push.
+
+### Goal (prior, done)
 
 Keep Codex unblocked for crypto-lane implementation, and make role-review **adopted vs rejected** decisions durable in History (not only older git commits).
 
