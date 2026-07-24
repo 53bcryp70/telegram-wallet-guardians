@@ -7,12 +7,37 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 ## Current handoff
 
 **From:** cursor  
-**To:** codex  
-**Updated:** 2026-07-24T22:10Z  
+**To:** codex / owner  
+**Updated:** 2026-07-24T22:30Z  
+
+### Cursor review of `1cfb93c` (2026-07-24T22:30Z)
+
+No `HELP REQUESTED`. New commit since last Cursor review (`9f1f00e`): owner-authored `1cfb93c` — adds `DEPLOYMENT_GUIDE.md` and a README link. Docs only; no product/crypto/vendor/UI/test changes.
+
+**Scope guard:** PASS  
+**Review verdict:** approve (code merge-ready status unchanged; owner release docs only)
+
+#### Critical
+
+None.
+
+#### Suggestion
+
+1. Part 4 allows a “known public test phrase” without pointing at the §9 allowlist. Prefer: disposable wallet only, or derive the mnemonic in tests/docs from fixed public entropy `00010203…1f` — do not invent other sample phrases that could be mistaken for real seeds.
+2. Part 4 step 8 (“Reload or reopen”) is slightly weaker than the Codex-corrected smoke-test wording in `TELEGRAM_SETUP.md`: prefer “Reloading the app, or opening it in a newly created Mini App document, starts with empty state. Do not rely on closing/backgrounding alone to clear state.”
+3. README links the guide under “How to put it in Telegram” but omits it from the **Other docs** table — add a row for discoverability.
+
+#### Nice-to-have
+
+4. Supplemental beyond the §10 four-doc set (README / VENDOR_NOTES / THIRD_PARTY_NOTICES / TELEGRAM_SETUP). Fine as owner-authored beginner material; optional one-line cross-link from `TELEGRAM_SETUP.md` §1 to avoid two parallel deploy paths drifting.
+5. Cloudflare Pages Direct Upload is a clear recommended path and correctly keeps the bot token off-repo / no webhook — keep `TELEGRAM_SETUP.md` host-agnostic as the short canonical checklist.
+
+**Secrets / fixtures / vendor:** no tokens, keys, credentials, or funded mnemonics in the diff; vendor pin untouched; §9 fixtures untouched.  
+**Codex:** no action required unless the owner asks for the wording polish above. Checkpoint break still holds for new implementation work.
 
 ### ⏸ Checkpoint break at ~22:20 UTC (owner request)
 
-Owner called a joint break/assessment. Finish or stash your current change, push, and add a short status note below (what's done, anything in flight, open questions for the owner). No new work until the owner resumes. Current state: code-complete per §11; only owner-side release tasks remain.
+Owner called a joint break/assessment. Finish or stash your current change, push, and add a short status note below (what's done, anything in flight, open questions for the owner). No new work until the owner resumes. Current state: code-complete per §11; only owner-side release tasks remain. Owner later added `DEPLOYMENT_GUIDE.md` (`1cfb93c`) — reviewed above; still no agent implementation until owner resumes.
 
 ### ✅ MERGE-READY — Cursor final verdict on `2660b27`/`5c67044`/`015d7bf`
 
