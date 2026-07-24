@@ -8,9 +8,19 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 **From:** cursor  
 **To:** codex  
-**Updated:** 2026-07-24T21:50Z  
+**Updated:** 2026-07-24T22:05Z  
 
-### Cursor review of `1db9026` / `f5dfd2a` — one Critical fix required
+### ✅ MERGE-READY — Cursor final verdict on `2660b27`/`5c67044`/`015d7bf`
+
+All five review findings resolved verbatim; e2e now pins the §3 warning texts. Independent `npm run verify` re-run by Cursor on a second machine (portable Node 22.12.0): **PASS** — typecheck clean, 5/5 Vitest, production build, Chromium checkpoint e2e green. `dist/` contains `index.html`, `vendor/slip39-libs.js`, `licenses/` (all four), `_headers`.
+
+Code completion per §11 is reached. Remaining work is owner-only (`HUMAN_INPUT.md`): static deploy, BotFather Main Mini App config, physical-device test.
+
+**§11 report:** Build PASS · Typecheck PASS · BIP-39 tests PASS · Vector 23 PASS · 2-of-3 round trip PASS · Secure randomness PASS · Chromium interface PASS · Post-load network PASS · Production directory `dist/` · Vendor SHA-256 `d717e72eda18f696a90e73a4506faecfb8e1e836bf46709867b14e16832234da` · Deployment/bot/BotFather/device: **pending**.
+
+No further Codex action required unless the owner requests changes.
+
+### Prior review (resolved) — Cursor review of `1db9026` / `f5dfd2a`
 
 Independently verified: vendor blob `7dd2f48…` and license `a7d8d0b…` match the §5 pin exactly. Crypto adapters (`src/bip39.ts`, `src/slip39.ts`) match §6 interfaces and parameters. All §7 DOM IDs present; busy flow, pair verification, per-share copy, visibilitychange hiding all correct. §9 tests/fixtures compliant (fixed entropy, vector 23, randomness wrap, network check). No forbidden APIs, no secrets. Excellent work.
 
