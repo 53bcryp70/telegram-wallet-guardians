@@ -6,28 +6,52 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 ## Current handoff
 
+**BLOCKER FOR CODEX**
+
 **From:** cursor  
 **To:** codex  
-**Updated:** 2026-07-24T21:50Z  
+**Updated:** 2026-07-24T21:55Z  
 
-### Cursor review of `1db9026` / `f5dfd2a` — one Critical fix required
+### HELP ANSWER / status
 
-Independently verified: vendor blob `7dd2f48…` and license `a7d8d0b…` match the §5 pin exactly. Crypto adapters (`src/bip39.ts`, `src/slip39.ts`) match §6 interfaces and parameters. All §7 DOM IDs present; busy flow, pair verification, per-share copy, visibilitychange hiding all correct. §9 tests/fixtures compliant (fixed entropy, vector 23, randomness wrap, network check). No forbidden APIs, no secrets. Excellent work.
+No `HELP REQUESTED` section present this cycle.
 
-#### Critical — §3 mandatory warnings missing (blocks merge-ready)
+### Cursor review of `67a8dc8` (+ `9b023d2` gitignore) — Critical still open
 
-The UI must display these **exact** §3 texts prominently; current copy paraphrases or omits them:
+Reviewed commits after last Cursor review `8fa7367` (through `fe280a9` / `origin/main`).
+
+#### Scope guard — new commits: **PASS**
+
+| Commit | Summary | Verdict |
+|--------|---------|---------|
+| `67a8dc8` | `public/_headers` with §10 CSP + README/TELEGRAM_SETUP notes | In scope; matches AGENTS §10 CSP string exactly; no `X-Frame-Options`; no `frame-ancestors`; `connect-src 'none'` is host headers only (not Vite `dev`) |
+| `9b023d2` | Ignore `test-results/`, `playwright-report/`, `pnpm-lock.yaml` | Fine hygiene |
+
+Vendor pin re-checked: blob `7dd2f48649dbb7a316b4c49e2fa8098d4edbc7a3`, license `a7d8d0bbcd7d7b75a9e672ba8ce8323ad8ae00a8`. No secrets in the new diff. No forbidden storage/network/Telegram-bridge APIs.
+
+#### Critical — §3 mandatory warnings still missing (unchanged; blocks merge-ready)
+
+`src/main.ts` was **not** updated in these commits. Exact §3 texts still missing / weakened:
 
 1. Missing: "Supports only the English 24-word BIP-39 recovery phrase from Wallet in Telegram's DeFi Account."
-2. Weakened: the Trezor warning must say shares reconstruct the phrase **through Local Seed Shares** and that entering them directly into Trezor/another wallet's SLIP-39 flow **may restore a different wallet**.
+2. Weakened: Trezor warning must say shares reconstruct the phrase **through Local Seed Shares** and that entering them directly into Trezor/another wallet's SLIP-39 flow **may restore a different wallet**.
 3. Missing near shares: "Normal Telegram Cloud Chats are stored in Telegram's cloud. When chat transfer is necessary, prefer a Secret Chat and keep the shares separated."
 4. Missing: non-affiliation statement (Telegram, Wallet in Telegram, Trezor, SatoshiLabs, Ian Coleman).
 
+**Fix next (your active claim includes `src/` UI):** edit `src/main.ts` warning copy to the exact §3 strings, re-run `npm run verify`, push. Do not expand scope.
+
 #### Suggestion
 
-5. Replace the header's short network sentence with the exact approved §1 wording ("The application files are downloaded from the static host when the Mini App opens. …").
+5. Still open from prior review: replace the header's short network sentence with the exact approved §1 wording ("The application files are downloaded from the static host when the Mini App opens. After loading, cryptographic processing happens locally on this device. The app makes no application-initiated network requests and does not intentionally transmit or save your phrase or shares.").
+6. `public/_headers` is good for Netlify/Cloudflare Pages-style hosts; keep the README note that other hosts must set equivalent response headers manually.
 
-Fix in `src/main.ts` (your active claim), re-run `npm run verify`, push. Everything else is merge-ready.
+#### Nice-to-have
+
+7. Extra `Referrer-Policy: no-referrer` and `X-Content-Type-Options: nosniff` in `_headers` are fine hardening; not required by the brief.
+
+### Prior review of `1db9026` / `f5dfd2a` (still valid)
+
+Independently verified earlier: crypto adapters match §6; all §7 DOM IDs present; busy flow, pair verification, per-share copy, visibilitychange hiding correct; §9 fixtures compliant. Excellent prototype — only the §3 warning copy blocks merge-ready.
 
 ### 🟢 BUILD AUTHORIZED
 
@@ -56,10 +80,9 @@ Keep Codex unblocked for crypto-lane implementation, and make role-review **adop
 
 ### Next steps (for receiving agent)
 
-1. Read **History → 2026-07-24T20:50Z** for role adopted/rejected — do not re-open rejected items.
-2. Wait for user go (`HUMAN_INPUT.md` #1) if still required, then `$claim-work` crypto lane.
-3. `$implement-feature` → `$crypto-checkpoint` (§8) before UI/polish.
-4. `$handoff` to Cursor for `scope-guard` / `review-for-merge` after verify.
+1. **Priority:** fix Critical §3 warning strings in `src/main.ts`, then `npm run verify`, push.
+2. Headers/`_headers` work is accepted; no rework needed unless host deploy proves `_headers` ignored (then set CSP manually per TELEGRAM_SETUP).
+3. `$handoff` to Cursor after verify for re-review.
 
 ### Acceptance criteria
 
