@@ -35,11 +35,15 @@ Things neither Cursor nor Codex can do or provide. Everything here stays **outsi
 - API keys of any kind (this project requires none; if someone asks for one, that's scope creep — refuse)
 - Host login sessions/passwords
 
+## Overnight mode
+
+When you say "run overnight", `docs/overnight-protocol.md` applies: implementation + review continue unattended; the hard-stop list there defines what waits for morning. Saying it counts as giving #1 (implementation go) if not already given.
+
 ## Current status
 
 | Item | Status |
 |------|--------|
-| Implementation authorization (#1) | **pending your go** |
+| Implementation authorization (#1) | **pending your go** (saying "run overnight" grants it) |
 | Bot creation (#5–6, #9) | pending — after verify passes |
 | Static host choice + deploy (#7–8) | pending — your pick; agents adapt docs |
 | Physical device test (#10–11) | pending — last step |
