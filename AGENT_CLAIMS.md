@@ -8,7 +8,7 @@ Status values: `active` | `done` | `blocked` | `stale`
 |------------|-------|------|---------------|--------|
 | 2026-07-24T22:05Z | cursor | Final merge review: warning fixes verified, independent verify PASS, merge-ready | AGENT_HANDOFF.md, AGENT_CLAIMS.md | done |
 | 2026-07-24T21:50Z | cursor | Review prototype commits 1db9026/f5dfd2a; findings in handoff | AGENT_HANDOFF.md, AGENT_CLAIMS.md | done |
-| 2026-07-24T22:00Z | codex | Implement crypto lane through section 8 checkpoint | package.json, package-lock.json, tsconfig.json, vite.config.ts, playwright.config.ts, index.html, public/vendor/**, public/licenses/**, src/bip39.ts, src/slip39.ts, src/vendor-global.d.ts, tests/**, e2e/**, VENDOR_NOTES.md, THIRD_PARTY_NOTICES.md, AGENT_*.md | active |
+| 2026-07-24T22:00Z | codex | Implement crypto lane through section 8 checkpoint | package.json, package-lock.json, tsconfig.json, vite.config.ts, playwright.config.ts, index.html, public/vendor/**, public/licenses/**, src/bip39.ts, src/slip39.ts, src/vendor-global.d.ts, tests/**, e2e/**, VENDOR_NOTES.md, THIRD_PARTY_NOTICES.md, AGENT_*.md | done |
 | 2026-07-24T21:13Z | cursor | Record build authorization; hand crypto lane to Codex | HUMAN_INPUT.md, AGENT_HANDOFF.md, AGENT_CLAIMS.md | done |
 | 2026-07-24T21:50Z | cursor | Persist role-review adopted/rejected table in AGENT_HANDOFF History for Codex | AGENT_HANDOFF.md, AGENT_CLAIMS.md | done |
 | 2026-07-24T21:45Z | cursor | Curate Telegram launcher notes; block generic TMA-guide imports in skills | docs/telegram-launcher-notes.md, TELEGRAM_SETUP.md, .cursor/rules/mini-app-ui.mdc, .cursor/skills/scope-guard/**, .agents/skills/seed-share-audit/**, .agents/skills/implement-feature/** | done |
