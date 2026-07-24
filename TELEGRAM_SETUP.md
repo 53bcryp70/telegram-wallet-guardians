@@ -24,7 +24,7 @@ Serve the **contents of `dist/`** over HTTPS (any static host: GitHub Pages, Clo
 | URL ends with `/` **or** host redirects to a trailing-slash URL | Required by `AGENTS.md` §4 / §11 |
 | Do **not** set `X-Frame-Options` | Telegram embeds the app in a WebView/iframe |
 | Do **not** put `frame-ancestors` in a meta CSP | Same embedding constraint |
-| Prefer the production CSP from `AGENTS.md` §10 when the host allows custom headers | `connect-src 'none'` etc. — **not** for Vite `dev` |
+| Use the included `dist/_headers` file on compatible static hosts, or configure the production CSP from `AGENTS.md` §10 manually | Enforces `connect-src 'none'` without affecting Vite `dev` |
 | Serve `vendor/` and `licenses/` as same-origin static files | No CDN for app assets |
 
 After deploy, open the URL in a normal mobile browser once and confirm the page loads (create/recover UI visible). That does not replace Telegram testing.
