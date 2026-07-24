@@ -53,8 +53,8 @@ Owner credentials stay off-repo. Code completion is not blocked by missing bot s
 | Doc | Purpose |
 |-----|---------|
 | [HUMAN_INPUT.md](HUMAN_INPUT.md) | Owner-only inputs: approvals, credentials (off-repo), device tests |
-| [VENDOR_NOTES.md](VENDOR_NOTES.md) | Pinned SLIP-39 artifact + hashes (fill during impl) |
-| [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) | Runtime/vendor licenses (fill during impl) |
+| [VENDOR_NOTES.md](VENDOR_NOTES.md) | Pinned SLIP-39 artifact, hashes, and limitations |
+| [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) | Runtime/vendor licenses |
 | [TELEGRAM_SETUP.md](TELEGRAM_SETUP.md) | Deploy + BotFather + device test |
 
 Do not enter shares directly into another wallet's SLIP-39 recovery flow. Recover the original 24 words through this app first.

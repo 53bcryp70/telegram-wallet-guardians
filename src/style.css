@@ -1,0 +1,47 @@
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, sans-serif;
+  background: Canvas;
+  color: CanvasText;
+}
+
+* { box-sizing: border-box; }
+
+body { margin: 0; }
+
+.app-shell {
+  width: min(100% - 2rem, 44rem);
+  margin: 0 auto;
+  padding: max(1.25rem, env(safe-area-inset-top)) 0 max(2rem, env(safe-area-inset-bottom));
+}
+
+section, header { border-bottom: 1px solid color-mix(in srgb, CanvasText 18%, transparent); padding: 1.25rem 0; }
+
+h1, h2, h3, p { margin-top: 0; }
+h1 { font-size: clamp(1.7rem, 6vw, 2.4rem); }
+h2 { font-size: 1.3rem; }
+h3 { font-size: 1rem; }
+h3 span, .word-count { color: color-mix(in srgb, CanvasText 65%, transparent); font-size: .9rem; font-weight: normal; }
+.eyebrow { color: #3a6bdf; font-weight: 700; margin-bottom: .3rem; }
+.warning { border-left: 4px solid #bc7a00; padding-left: .75rem; }
+.error { color: #b42318; font-weight: 600; }
+.status { min-height: 1.5rem; font-weight: 600; }
+
+label { display: block; font-weight: 700; margin: 1rem 0 .4rem; }
+input, textarea, button { font: inherit; }
+input, textarea { width: 100%; border: 1px solid color-mix(in srgb, CanvasText 35%, transparent); border-radius: .45rem; padding: .7rem; background: Canvas; color: CanvasText; }
+textarea { min-height: 8rem; resize: vertical; }
+button { border: 1px solid #315bb6; border-radius: .45rem; padding: .65rem .85rem; background: #315bb6; color: white; cursor: pointer; min-height: 2.75rem; }
+button.secondary { background: transparent; color: CanvasText; border-color: color-mix(in srgb, CanvasText 35%, transparent); }
+button:disabled { opacity: .55; cursor: not-allowed; }
+button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid #84a9ff; outline-offset: 2px; }
+.input-row { display: flex; gap: .5rem; align-items: stretch; }
+.input-row input { min-width: 0; }
+.actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .8rem; }
+.share-output, .result { margin-top: 1rem; padding: 1rem; border: 1px solid color-mix(in srgb, CanvasText 22%, transparent); border-radius: .6rem; }
+
+@media (max-width: 420px) {
+  .app-shell { width: min(100% - 1rem, 44rem); }
+  .input-row { flex-direction: column; }
+  .input-row button { width: 100%; }
+}
