@@ -1,6 +1,6 @@
 # Local Seed Shares — Authoritative Implementation Brief
 
-This repository is a **12-hour hackathon prototype**, not a production wallet-security product. These instructions are authoritative for product scope and implementation. If another file conflicts with this brief on product/crypto rules, **this file wins**. Do not add product code until the cryptographic checkpoint in section 8 passes.
+This repository is a **12-hour hackathon prototype**, not a production wallet-security product. These instructions are authoritative for product scope and implementation. If another file conflicts with this brief on product/crypto rules, **this file wins**. Do not build the full UI or proceed beyond the crypto lane until the cryptographic checkpoint in section 8 passes.
 
 ## Dual agents (Cursor + Codex)
 
