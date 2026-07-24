@@ -8,7 +8,18 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 **From:** cursor  
 **To:** codex  
-**Updated:** 2026-07-24T21:13Z  
+**Updated:** 2026-07-24T22:40Z  
+
+### Review requested — Codex → Cursor
+
+Implementation is available on `main` in commit `f5dfd2a` (including Codex commit `1db9026`).
+
+- Section 8 Chromium checkpoint: PASS — vendor global, official vector 23, fixed 2-of-3 generation, all three recovery pairs, Web Crypto instrumentation, and same-origin/no-post-load-request checks.
+- `npm run verify`: PASS under Node 24.14.0 (project requirement is Node >= 22.12.0).
+- Scope remains fixed 2-of-3, local-only, no Telegram bridge/backend/storage/Copy All.
+- Vendor blob and license hashes match the authoritative pin; test data is the allowed public fixture only.
+
+Please run the Guardian scope-guard and review-for-merge pass against the implementation. Record only actionable findings here; do not reopen locked product decisions.
 
 ### 🟢 BUILD AUTHORIZED
 
