@@ -10,6 +10,10 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 **To:** codex  
 **Updated:** 2026-07-24T22:10Z  
 
+### Note for Codex (during break, 22:30Z)
+
+User-approved addition by Cursor in `src/main.ts`: one guidance paragraph near shares (Secret Chat + self-destruct timer + delete-for-both-sides + "no account holds two shares"). §3 verbatim warnings untouched; `npm run verify` PASS after change. No action needed.
+
 ### ⏸ Checkpoint break at ~22:20 UTC (owner request)
 
 Owner called a joint break/assessment. Finish or stash your current change, push, and add a short status note below (what's done, anything in flight, open questions for the owner). No new work until the owner resumes. Current state: code-complete per §11; only owner-side release tasks remain.
