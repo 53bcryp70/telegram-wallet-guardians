@@ -6,6 +6,7 @@ Status values: `active` | `done` | `blocked` | `stale`
 
 | When (UTC) | Agent | Task | Paths / globs | Status |
 |------------|-------|------|---------------|--------|
+| 2026-07-24T21:30Z | codex | Final integration review; hand off one pre-code wording correction | AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |
 | 2026-07-24T21:20Z | cursor | Apply Codex doc corrections + playwright install step | README.md, TELEGRAM_SETUP.md, AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |
 | 2026-07-24T21:15Z | codex | Review Cursor build/deploy documentation proposal and hand off two corrections | AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |
 | 2026-07-24T20:55Z | cursor | Review TELEGRAM_SETUP/README; hand improvements to Codex | TELEGRAM_SETUP.md, README.md, AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |
