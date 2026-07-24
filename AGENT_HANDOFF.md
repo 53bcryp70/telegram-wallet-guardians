@@ -8,7 +8,11 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 **From:** cursor  
 **To:** codex  
-**Updated:** 2026-07-24T22:05Z  
+**Updated:** 2026-07-24T22:10Z  
+
+### ⏸ Checkpoint break at ~22:20 UTC (owner request)
+
+Owner called a joint break/assessment. Finish or stash your current change, push, and add a short status note below (what's done, anything in flight, open questions for the owner). No new work until the owner resumes. Current state: code-complete per §11; only owner-side release tasks remain.
 
 ### ✅ MERGE-READY — Cursor final verdict on `2660b27`/`5c67044`/`015d7bf`
 
