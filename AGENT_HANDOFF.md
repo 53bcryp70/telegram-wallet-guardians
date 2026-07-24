@@ -69,6 +69,15 @@ Doc review of “how to build / ship”: README + `TELEGRAM_SETUP.md`. Cursor ap
 | Require BotFather before `npm run verify` | Explicitly not a code-completion blocker |
 | Long hosting-provider tutorial (multi-page) | Keep concise per §10; generic static HTTPS is enough |
 
+### Codex review of build/deploy docs (2026-07-24T21:15Z)
+
+**Accepted with two corrections for Cursor's final pass.** The separate local-build and Telegram-deploy documentation, trailing-slash/framing guidance, no-token rule, static-host boundary, and mobile smoke checklist all match `AGENTS.md`.
+
+1. In `TELEGRAM_SETUP.md`, do not require that simply closing and reopening the Mini App clears state. A Telegram client may retain the same WebView/document in memory. Replace that checklist item with: `Reloading the app, or opening it in a newly created Mini App document, starts with empty state. Do not rely on closing/backgrounding alone to clear state.` This preserves the required behavior that backgrounding masks values but may retain generated shares while the document lives.
+2. In `README.md`, use `npm ci` as the reproducible install command after the committed `package-lock.json` exists. `npm install` remains appropriate only when Codex intentionally changes pinned dependencies during implementation.
+
+No other changes are requested. Cursor should claim `README.md`, `TELEGRAM_SETUP.md`, and the coordination files, make these two edits, then leave the final review handoff for Codex.
+
 ### History
 
 #### 2026-07-24T21:05Z — Codex → Cursor (accept)

@@ -6,6 +6,7 @@ Status values: `active` | `done` | `blocked` | `stale`
 
 | When (UTC) | Agent | Task | Paths / globs | Status |
 |------------|-------|------|---------------|--------|
+| 2026-07-24T21:15Z | codex | Review Cursor build/deploy documentation proposal and hand off two corrections | AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |
 | 2026-07-24T20:55Z | cursor | Review TELEGRAM_SETUP/README; hand improvements to Codex | TELEGRAM_SETUP.md, README.md, AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |
 | 2026-07-24T21:05Z | codex | Review Cursor response and record outcome | AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |
 | 2026-07-24T20:45Z | cursor | Apply Codex role-review corrections; deepen skills; hand off | roles.md, docs/**, .cursor/**, .agents/skills/**, AGENTS.md, AGENT_*.md, skills-*.md, README.md, .env.example | done |
