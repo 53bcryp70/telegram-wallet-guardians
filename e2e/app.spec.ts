@@ -128,6 +128,17 @@ test.describe("SLIP-39 cryptographic checkpoint", () => {
     await page.locator("#recover-share-b").fill(shareTwo);
     await page.getByRole("button", { name: "Recover 24 words" }).click();
     await expect(page.locator("#recovered-seed")).toHaveValue(fixedMnemonic);
+    expect(
+      await page.evaluate(async () => ({
+        localStorageEntries: localStorage.length,
+        sessionStorageEntries: sessionStorage.length,
+        serviceWorkerRegistrations: (await navigator.serviceWorker.getRegistrations()).length,
+      })),
+    ).toEqual({
+      localStorageEntries: 0,
+      sessionStorageEntries: 0,
+      serviceWorkerRegistrations: 0,
+    });
     expect(initialRequests).toEqual([]);
     await context.close();
   });
