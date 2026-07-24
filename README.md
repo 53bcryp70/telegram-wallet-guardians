@@ -4,6 +4,8 @@ Hackathon prototype for a static Telegram Mini App. It accepts an English 24-wor
 
 The initial app files load from a static HTTPS host. After that, cryptographic processing is local; the app has no backend, storage, Telegram bridge, analytics, or application-initiated network requests.
 
+The production build includes a `_headers` file for static hosts that support it. It applies the agreed same-origin CSP, including `connect-src 'none'`. Verify equivalent response headers when using a host that ignores `_headers`.
+
 > Hackathon prototype only. Use only with a disposable test wallet containing no real funds.
 
 **Authoritative build/spec:** [AGENTS.md](AGENTS.md) (sections 1–11). Do not contradict it.
