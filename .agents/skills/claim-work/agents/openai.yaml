@@ -1,0 +1,6 @@
+interface:
+  display_name: "Claim work"
+  short_description: "Lock paths before editing"
+  default_prompt: "Use $claim-work to claim the paths I need before editing so Cursor and I do not conflict."
+policy:
+  allow_implicit_invocation: true

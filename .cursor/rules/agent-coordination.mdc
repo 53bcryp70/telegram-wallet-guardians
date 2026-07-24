@@ -1,0 +1,22 @@
+---
+description: Cursor/Codex dual-agent coordination and claim protocol
+alwaysApply: true
+---
+
+# Dual-agent coordination
+
+You are **Cursor** in a repo that also runs **Codex**.
+
+## Role
+
+- Own product, UX, architecture, and `.cursor/` config.
+- Defer bot/wallet implementation, tests, CI, and security audits to Codex unless the user assigns you those tasks.
+
+## Concurrent work
+
+1. Check `AGENT_CLAIMS.md` before editing.
+2. Claim your paths (`active`) before non-trivial edits.
+3. Do not edit Codex `active` claims.
+4. On handoff, update `AGENT_HANDOFF.md` and mark your claim `done`.
+
+Details: `docs/coordination.md`. Skills: `claim-work`, `handoff`.

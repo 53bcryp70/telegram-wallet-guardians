@@ -1,0 +1,13 @@
+---
+description: Core project standards for telegram-wallet-guardians
+alwaysApply: true
+---
+
+# Project core
+
+- Read `AGENTS.md` and `roles.md` at session start.
+- Never commit secrets, bot tokens, private keys, or seed phrases.
+- Prefer small diffs; one concern per change.
+- Update `AGENT_CLAIMS.md` before editing shared or contested paths.
+- Wallet signing, key custody, and fund-moving paths default to Codex ownership.
+- Keep `.env.example` as names-only documentation; real secrets stay out of git.

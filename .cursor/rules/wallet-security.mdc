@@ -1,0 +1,13 @@
+---
+description: Wallet and guardian security boundaries
+globs: "**/wallet/**/*","**/guardian*/**/*","**/signing/**/*","**/*custody*"
+alwaysApply: false
+---
+
+# Wallet security
+
+- Treat any signing / key / approval-threshold change as high risk.
+- Cursor may design flows and threat notes; Codex implements and audits by default.
+- No private keys or mnemonics in logs, fixtures committed to git, or Telegram messages.
+- Require multi-step confirmation for fund movement and guardian membership changes.
+- Prefer allowlisted destinations and explicit amount limits when designing features.

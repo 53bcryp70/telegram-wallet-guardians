@@ -1,0 +1,6 @@
+interface:
+  display_name: "Wallet security audit"
+  short_description: "Audit signing and guardian paths"
+  default_prompt: "Use $wallet-security-audit to review wallet/guardian changes for critical security issues before merge."
+policy:
+  allow_implicit_invocation: true

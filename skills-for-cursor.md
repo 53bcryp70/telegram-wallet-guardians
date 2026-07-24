@@ -1,47 +1,43 @@
 # Skills for Cursor
 
-This document defines **Cursor-specific skills and workflows** for this project.
-
----
+Cursor-specific skills live in [`.cursor/skills/`](.cursor/skills/). Shared roles: [`roles.md`](roles.md).
 
 ## Overview
 
 | Skill | Purpose | When to use |
 |-------|---------|-------------|
-| | | |
-
----
+| `claim-work` | Lock paths in `AGENT_CLAIMS.md` | Starting work / parallel with Codex |
+| `handoff` | Write `AGENT_HANDOFF.md` | Passing work to Codex (or receiving context) |
+| `draft-bot-spec` | Spec Telegram UX/flows | Designing features before implementation |
+| `review-for-merge` | Merge readiness review | After Codex handoff / before merge |
 
 ## Cursor skills
 
-<!-- List skills Cursor should use on this project -->
+### claim-work
 
-### Skill name
+Claim paths before editing so Codex does not collide.
 
-<!-- What it does -->
+### handoff
 
-**When to use**
+Package goal, files, and acceptance criteria for the other agent.
 
-<!-- Trigger scenarios -->
+### draft-bot-spec
 
-**Instructions**
+Write `docs/specs/<feature>.md` with flow, copy, confirmations, and Codex handoff notes.
 
-<!-- How Cursor should apply this skill -->
+### review-for-merge
 
----
+Checklist review: secrets, roles, claims, confirmations, tests.
 
 ## Workflows
 
-<!-- Multi-step workflows Cursor owns -->
-
----
+1. **Design → build**: `draft-bot-spec` → `handoff` → Codex `$implement-feature` → `review-for-merge`
+2. **Parallel work**: both agents `claim-work` on disjoint paths
 
 ## Handoff to Codex
 
-<!-- Tasks or skills that should move from Cursor to Codex -->
-
----
+Use when implementation, tests, CI, or wallet security work is needed. Prefer `$implement-feature` / `$wallet-security-audit` on the Codex side.
 
 ## Quick Reference
 
-<!-- Short summary once skills are defined -->
+Rules: `.cursor/rules/` · Protocol: `docs/coordination.md` · Claims: `AGENT_CLAIMS.md`

@@ -1,0 +1,13 @@
+---
+description: Telegram bot UX and conversation design conventions
+globs: docs/**/*.{md,mdx},**/bot/**/*.{ts,js,py},**/telegram/**/*
+alwaysApply: false
+---
+
+# Telegram bot UX
+
+- One clear job per message; avoid wall-of-text replies.
+- Dangerous actions (sign, transfer, threshold change) require explicit confirmation steps.
+- Prefer inline keyboards / buttons over ambiguous free-text commands for approvals.
+- Surface errors with actionable next steps; never leak secrets in bot replies.
+- Document new flows under `docs/specs/` before large implementation handoffs to Codex.

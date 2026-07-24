@@ -1,0 +1,33 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Secrets / keys
+*.pem
+*.key
+id_rsa*
+secrets/
+credentials.json
+wallet.json
+mnemonic*
+seed*
+
+# Dependencies / build
+node_modules/
+dist/
+build/
+coverage/
+.venv/
+__pycache__/
+*.pyc
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+
+# Logs
+*.log
+logs/
