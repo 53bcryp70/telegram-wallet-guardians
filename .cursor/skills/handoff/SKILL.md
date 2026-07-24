@@ -1,28 +1,34 @@
 ---
 name: handoff
-description: Write a Cursor→Codex or Codex→Cursor handoff in AGENT_HANDOFF.md. Use when passing work to the other agent, finishing a partial task, or asking Codex to implement a plan.
+description: Write a Cursor→Codex or Codex→Cursor handoff in AGENT_HANDOFF.md. Use when passing build work to Codex, returning review notes, or finishing a partial task.
 ---
 
 # Handoff
 
 ## Steps
 
-1. Mark your `AGENT_CLAIMS.md` row `done` (or leave `blocked` with reason).
-2. Replace the **Current handoff** section in `AGENT_HANDOFF.md` with:
+1. Mark your claim `done` or `blocked`.
+2. Replace **Current handoff** in `AGENT_HANDOFF.md` (move prior current to **History** if useful, keep short).
+3. Tell the user which agent is next; do not impersonate Codex.
 
-- From / To / Updated (UTC)
-- Goal
-- Done so far
-- Files touched
-- Next steps
-- Acceptance criteria
-- Notes / risks
+## Template
 
-3. Move the previous current handoff into **History** if useful (keep it short).
-4. Tell the user the receiving agent is next (do not impersonate the other agent).
+```markdown
+**From:** cursor
+**To:** codex
+**Updated:** <ISO-UTC>
 
-## Good handoffs
+### Goal
+### Done so far
+### Files touched
+### Next steps (for receiving agent)
+### Acceptance criteria
+### Notes / risks
+```
 
-- Concrete paths and acceptance checks
-- Explicit out-of-scope items
-- Security risks called out for wallet/Telegram money paths
+## Quality bar
+
+- Acceptance criteria cite `AGENTS.md` sections (e.g. §8 items) and commands (`npm run verify`).
+- List concrete paths, not “the app.”
+- Call out secret/crypto risks explicitly.
+- For review returns: paste Blockers from `scope-guard` / `review-for-merge`.

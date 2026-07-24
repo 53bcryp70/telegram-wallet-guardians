@@ -1,98 +1,126 @@
 # Roles: Cursor & Codex
 
-How **Cursor** and **Codex** work together on **Local Seed Shares** (`telegram-wallet-guardians`).
+Proposed operating model for **Local Seed Shares** (`telegram-wallet-guardians`).
 
-Product/crypto rules in [`AGENTS.md`](AGENTS.md) win over this file if they conflict.
+**Authority:** [`AGENTS.md`](AGENTS.md) wins on product, crypto, scope, tests, and release rules. This file only defines *who does what*.
+
+---
+
+## Proposed roles (summary)
+
+| Agent | Codename | Job on this project |
+|-------|----------|---------------------|
+| **Codex** | **Builder** | Implement the Mini App exactly per `AGENTS.md`, pin vendor SLIP-39, pass section 8 checkpoint, drive `npm run verify` |
+| **Cursor** | **Guardian / Orchestrator** | Keep agents from colliding, enforce scope, review diffs against `AGENTS.md`, polish IDE workflows, do human-in-the-loop checks |
+
+Default bias for a 12-hour hackathon: **Codex builds; Cursor guards and reviews.** Parallelize only on disjoint paths.
 
 ---
 
 ## Overview
 
-| Agent | Primary environment | Main strength |
-|-------|---------------------|---------------|
-| **Cursor** | Cursor IDE / Composer | IDE orchestration, review polish, Cursor rules/skills |
-| **Codex** | Codex CLI / autonomous agent | Implementation, BIP-39/SLIP-39 paths, Vitest/Playwright, `npm run verify` |
+| Agent | Environment | Strength here |
+|-------|-------------|---------------|
+| **Cursor** | Cursor IDE | Fast review, claim/handoff hygiene, `.cursor/` config, spotting scope creep |
+| **Codex** | Codex CLI | Long autonomous implementation, crypto adapters, Vitest + Playwright |
 
 ---
 
-## Cursor — Role & Responsibilities
+## Codex — Builder
 
-### Cursor owns
+### Owns
 
-- Everything under `.cursor/` (rules, skills, hooks)
-- Dual-agent docs: `roles.md`, claim/handoff boards (shared writes OK)
-- Review polish and merge readiness from the IDE
-- Non-crypto copy tweaks that stay within `AGENTS.md` wording constraints
+- `src/**`, `index.html`, `public/vendor/**`, `public/licenses/**`
+- `tests/**`, `e2e/**`
+- `package.json`, `package-lock.json`, `tsconfig.json`, `vite.config.ts`, `playwright.config.ts`
+- `VENDOR_NOTES.md` (hashes/SHA-256), keeping `THIRD_PARTY_NOTICES.md` / `TELEGRAM_SETUP.md` accurate
+- `.agents/skills/**`
+- Section 8 cryptographic checkpoint and final `npm run verify` report
 
-### Cursor should defer to Codex when
+### Defers to Cursor when
 
-- Implementing `src/`, vendor pin, tests, Vite/Playwright config
-- Running or fixing `npm run verify`
-- Any BIP-39 / SLIP-39 / entropy / share logic
-- Long autonomous implementation toward the section 8 checkpoint
+- Changing dual-agent process (`.cursor/`, `roles.md` process sections)
+- User asks for IDE/browser visual review after UI exists
+- Scope fight: Cursor cites `AGENTS.md`; user decides
 
-### Cursor must not
+### Must not
 
-- Edit paths claimed `active` by Codex in `AGENT_CLAIMS.md`
-- Expand product scope beyond `AGENTS.md`
-- Commit real wallet phrases, tokens, or secrets
-
----
-
-## Codex — Role & Responsibilities
-
-### Codex owns
-
-- App implementation (`src/`, `index.html`, `public/vendor/`, tests, e2e)
-- Toolchain files (`package.json`, lockfile, Vite/TS/Playwright configs)
-- Security-sensitive crypto adapters and verification gates
-- Everything under `.agents/skills/`
-
-### Codex should defer to Cursor when
-
-- Editing `.cursor/rules` or `.cursor/skills`
-- Needing IDE/browser visual review after UI exists
-- Dual-agent process changes the user assigns to Cursor
-
-### Codex must not
-
-- Edit paths claimed `active` by Cursor in `AGENT_CLAIMS.md`
-- Commit secrets or real mnemonics
-- Violate `AGENTS.md` scope (backends, Telegram bridge, storage, network, etc.)
+- Touch Cursor `active` claims
+- Add backends, bots, Telegram JS bridge, storage, network calls, CDNs, or extra crypto schemes
+- Use real wallet phrases; use only the fixed test entropy from `AGENTS.md`
+- Skip the vendor integrity hashes or fake a failed checkpoint
 
 ---
 
-## Coordination Rules
+## Cursor — Guardian / Orchestrator
 
-### 1. Single source of truth
+### Owns
 
-| Concern | Canonical file |
-|---------|----------------|
+- `.cursor/rules/**`, `.cursor/skills/**`
+- Coordination boards: `AGENT_CLAIMS.md`, `AGENT_HANDOFF.md` (shared writes), `docs/coordination.md`
+- Process docs: `roles.md`, skill indexes
+- Diff review vs `AGENTS.md` (scope, warnings text, forbidden features, secret hygiene)
+- Optional: static hosting / BotFather checklist with the human (not blocking Codex code completion)
+
+### Defers to Codex when
+
+- Any implementation of BIP-39 / SLIP-39 / entropy / shares / UI wiring in `src/`
+- Installing deps, running Playwright, fixing `npm run verify`
+- Vendor download + `git hash-object` verification
+
+### Must not
+
+- Touch Codex `active` claims
+- Expand or “improve” product scope past `AGENTS.md`
+- Re-implement crypto in Cursor while Codex is mid-claim
+- Soften security warnings or allow real-fund guidance
+
+---
+
+## Parallel work lanes (recommended)
+
+Use these lanes so both agents can run at once without fighting:
+
+| Lane | Owner | Examples |
+|------|-------|----------|
+| **A — Crypto core** | Codex | `src/bip39.ts`, `src/slip39.ts`, vendor pin, section 8 proofs |
+| **B — App shell / UI** | Codex (after A checkpoint) | `src/main.ts`, `src/style.css`, DOM IDs from brief |
+| **C — Agent ops** | Cursor | claims, handoffs, rules, skills, review notes |
+| **D — Docs polish** | Cursor *or* Codex (claim it) | README clarity only; do not contradict `AGENTS.md` |
+
+Do **not** split A across both agents. Crypto is single-threaded under Codex.
+
+---
+
+## Suggested sequence
+
+1. **Codex:** vendor pin + BIP-39 + SLIP-39 adapter → section 8 checkpoint  
+2. **Cursor:** review checkpoint evidence / claim hygiene  
+3. **Codex:** UI + Vitest + Playwright → `npm run verify`  
+4. **Cursor:** merge-readiness review against `AGENTS.md` checklist  
+5. **Human (+ Cursor assist):** static host + BotFather (pending items in final report)
+
+---
+
+## Coordination
+
+| Concern | File |
+|---------|------|
 | Product + crypto brief | `AGENTS.md` |
-| Agent roles | `roles.md` |
-| Live path claims | `AGENT_CLAIMS.md` |
-| Cross-agent handoffs | `AGENT_HANDOFF.md` |
-| Protocol detail | `docs/coordination.md` |
+| Roles (this file) | `roles.md` |
+| Live locks | `AGENT_CLAIMS.md` |
+| Handoffs | `AGENT_HANDOFF.md` |
+| Protocol | `docs/coordination.md` |
 
-### 2. Handoffs
-
-Use `AGENT_HANDOFF.md`: goal, done so far, files touched, next agent, acceptance criteria.
-
-### 3. Conflict avoidance
-
-Claim before edit. Prefer: Cursor → `.cursor/` + review; Codex → `src/`, tests, vendor, CI scripts.
-
-### 4. Default when unclear
-
-Codex implements against `AGENTS.md`; Cursor reviews and coordinates.
+Claim before edit. Prefer handoff notes over overlapping edits. Details: [`docs/coordination.md`](docs/coordination.md).
 
 ---
 
-## Quick Reference
+## Quick reference
 
 | Need | Agent |
 |------|-------|
-| Implement Mini App / crypto / tests | Codex |
-| Cursor rules or IDE workflows | Cursor |
-| Parallel work | Claim paths → work → handoff |
-| Scope questions | `AGENTS.md` wins |
+| Build / crypto / tests / verify | **Codex** |
+| Scope guard / review / agent files | **Cursor** |
+| BotFather / real device | **Human** (Cursor may assist) |
+| Ambiguous product change | Stop → `AGENTS.md` → ask user |

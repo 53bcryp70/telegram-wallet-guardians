@@ -1,17 +1,49 @@
 ---
 name: run-tests
-description: Run and fix the project test suite for telegram-wallet-guardians. Use when verifying a change, after implementation, or before handing off for merge.
+description: Run Local Seed Shares verification (typecheck, Vitest, build, Playwright) via npm run verify when available. Use after implementation or before handoff.
 ---
 
 # Run tests
 
-## Steps
+## Preferred
 
-1. Detect the stack (`package.json`, `pyproject.toml`, `go.mod`, etc.).
-2. Run the standard test command for this repo (document it in the handoff if missing).
-3. Fix failures caused by your change; do not broaden scope.
-4. Summarize: command used, pass/fail, any skipped tests.
+```bash
+npm run verify
+```
 
-## Until app code exists
+That should equal: typecheck + Vitest + build + Playwright (`AGENTS.md` §10).
 
-If there is no test runner yet, say so and add a minimal placeholder only if the user asked for scaffolding.
+## If scripts are partial
+
+Run what exists, in order:
+
+1. `npm run typecheck`
+2. `npm run test` (Vitest — BIP-39 only)
+3. `npm run build` — confirm `dist/index.html` and `dist/vendor/slip39-libs.js`
+4. `npm run test:e2e` (Playwright Chromium, preview `:4173`)
+
+## Fix policy
+
+- Fix failures caused by your change
+- Do not broaden scope to silence tests
+- Do not weaken assertions to greenwash §8
+
+## Report (map to §11)
+
+```text
+Typecheck: PASS|FAIL
+BIP-39 tests: PASS|FAIL
+Official SLIP-39 vector 23: PASS|FAIL
+Generated 2-of-3 round trip: PASS|FAIL
+Secure randomness test: PASS|FAIL
+Chromium interface test: PASS|FAIL
+Post-load network requests: PASS|FAIL
+Production directory: dist/
+Vendor SHA-256: <value>
+```
+
+Then `$handoff` or continue fixing.
+
+## Until toolchain exists
+
+State that clearly; scaffold with `$implement-feature` using exact versions from §4 — no alternate stacks.

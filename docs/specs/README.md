@@ -1,5 +1,5 @@
 # Specs
 
-Product and Telegram UX specs owned by **Cursor**. Codex implements from these plus `AGENT_HANDOFF.md`.
+Optional Cursor notes only. **`AGENTS.md` is the product spec** — do not fork requirements here.
 
-Create one file per feature: `<feature-name>.md` (see Cursor skill `draft-bot-spec`).
+If you add a note file, link the relevant `AGENTS.md` section and keep it non-authoritative.

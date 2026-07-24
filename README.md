@@ -10,14 +10,12 @@ Implementation requirements, dependencies, validation gates, test fixtures, and 
 
 ## Dual agents
 
-Cursor and Codex can work in parallel:
+| Agent | Role | Focus |
+|-------|------|--------|
+| **Codex** | Builder | Implement per `AGENTS.md`, crypto checkpoint, `npm run verify` |
+| **Cursor** | Guardian / Orchestrator | Scope guard, claims/handoffs, review, `.cursor/` |
 
-| Agent | Focus |
-|-------|--------|
-| Cursor | IDE orchestration, `.cursor/`, review polish |
-| Codex | Implementation, crypto, tests, `npm run verify` |
-
-- [`roles.md`](roles.md) — ownership and boundaries
+- [`roles.md`](roles.md) — proposed roles and lanes
 - [`docs/coordination.md`](docs/coordination.md) — claims + handoffs
 - [`AGENT_CLAIMS.md`](AGENT_CLAIMS.md) — live path locks
 - [`AGENT_HANDOFF.md`](AGENT_HANDOFF.md) — cross-agent handoff board

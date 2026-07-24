@@ -1,6 +1,6 @@
 interface:
   display_name: "Handoff"
-  short_description: "Pass work to the other agent"
-  default_prompt: "Use $handoff to write a clear handoff for Cursor with acceptance criteria."
+  short_description: "Pass work to Cursor"
+  default_prompt: "Use $handoff to write a Codex→Cursor handoff with verify results and acceptance criteria."
 policy:
   allow_implicit_invocation: true

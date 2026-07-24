@@ -7,18 +7,23 @@ description: Claim file paths in AGENT_CLAIMS.md before editing so Cursor and Co
 
 ## Steps
 
-1. Read `AGENT_CLAIMS.md` and `docs/coordination.md`.
-2. Ensure no other agent has an `active` claim on the paths you need.
+1. Read `AGENT_CLAIMS.md`, `roles.md`, and `docs/coordination.md`.
+2. Skip if another agent holds an overlapping `active` claim (ask user or wait).
 3. Append a row:
 
 ```markdown
 | <ISO-UTC> | cursor | <short task> | <paths or globs> | active |
 ```
 
-4. Do the work only within claimed paths.
-5. Set status to `done` (or `blocked` + reason) when finished.
+4. Edit only those paths.
+5. Set `done` or `blocked` (+ reason) when finished. Never delete history rows.
 
-## Rules
+## Lane hints (Cursor)
 
-- Do not delete old rows; mark them `done`.
-- If blocked by another claim, update `AGENT_HANDOFF.md` or ask the user.
+| Prefer claiming | Avoid unless user assigns |
+|-----------------|---------------------------|
+| `.cursor/**`, `roles.md`, skill indexes | `src/bip39.ts`, `src/slip39.ts` |
+| `AGENT_*.md`, `docs/coordination.md` | `public/vendor/**` |
+| Review notes / handoff text | Whole `src/**` while Codex is active |
+
+Keep claims tight (hours, not days). Mark stale if abandoned.

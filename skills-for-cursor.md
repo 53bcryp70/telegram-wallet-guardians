@@ -1,43 +1,24 @@
 # Skills for Cursor
 
-Cursor-specific skills live in [`.cursor/skills/`](.cursor/skills/). Shared roles: [`roles.md`](roles.md).
+Cursor = **Guardian / Orchestrator**. Skills: [`.cursor/skills/`](.cursor/skills/). Roles: [`roles.md`](roles.md).
 
 ## Overview
 
 | Skill | Purpose | When to use |
 |-------|---------|-------------|
 | `claim-work` | Lock paths in `AGENT_CLAIMS.md` | Starting work / parallel with Codex |
-| `handoff` | Write `AGENT_HANDOFF.md` | Passing work to Codex (or receiving context) |
-| `draft-bot-spec` | Spec Telegram UX/flows | Designing features before implementation |
-| `review-for-merge` | Merge readiness review | After Codex handoff / before merge |
-
-## Cursor skills
-
-### claim-work
-
-Claim paths before editing so Codex does not collide.
-
-### handoff
-
-Package goal, files, and acceptance criteria for the other agent.
-
-### draft-bot-spec
-
-Write `docs/specs/<feature>.md` with flow, copy, confirmations, and Codex handoff notes.
-
-### review-for-merge
-
-Checklist review: secrets, roles, claims, confirmations, tests.
+| `handoff` | Write `AGENT_HANDOFF.md` | Passing work to Codex or returning notes |
+| `scope-guard` | Diff/plan vs `AGENTS.md` boundaries | Reviewing Codex output / new proposals |
+| `review-for-merge` | Merge readiness | After verify / before merge |
+| `check-codex-updates` | Fetch/summarize remote Codex commits | Waiting on Codex / before shared-doc edits |
 
 ## Workflows
 
-1. **Design → build**: `draft-bot-spec` → `handoff` → Codex `$implement-feature` → `review-for-merge`
-2. **Parallel work**: both agents `claim-work` on disjoint paths
+1. **After Codex build**: `scope-guard` → `review-for-merge` → approve or `handoff` blockers back
+2. **Parallel ops**: `claim-work` on `.cursor/**` / docs only while Codex owns `src/**`
+3. **Awaiting Codex**: `check-codex-updates` on remote `guardians`
 
-## Handoff to Codex
+## Quick reference
 
-Use when implementation, tests, CI, or wallet security work is needed. Prefer `$implement-feature` / `$wallet-security-audit` on the Codex side.
-
-## Quick Reference
-
-Rules: `.cursor/rules/` · Protocol: `docs/coordination.md` · Claims: `AGENT_CLAIMS.md`
+Rules: `.cursor/rules/` · Protocol: `docs/coordination.md` · Claims: `AGENT_CLAIMS.md`  
+Fixture allowlist: `AGENTS.md` §9 only (public entropy + vector 23).

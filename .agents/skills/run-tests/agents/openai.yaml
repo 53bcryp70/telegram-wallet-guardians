@@ -1,6 +1,6 @@
 interface:
   display_name: "Run tests"
-  short_description: "Run and fix the test suite"
-  default_prompt: "Use $run-tests to run the project tests and fix failures from my recent changes."
+  short_description: "Run npm run verify suite"
+  default_prompt: "Use $run-tests to run npm run verify (or the nearest scripts) and report PASS/FAIL using the AGENTS.md section 11 lines."
 policy:
   allow_implicit_invocation: true

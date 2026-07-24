@@ -4,12 +4,18 @@ This repository is a **12-hour hackathon prototype**, not a production wallet-se
 
 ## Dual agents (Cursor + Codex)
 
-Both **Cursor** and **Codex** work in this repo. Coordination details: [`roles.md`](roles.md), [`docs/coordination.md`](docs/coordination.md).
+Both agents work in this repo. **Proposed roles** (full detail in [`roles.md`](roles.md)):
 
-| Agent | Role | Owns |
-|-------|------|------|
-| **Cursor** | Product polish + IDE orchestration | Specs notes, `.cursor/`, review polish, non-crypto UX copy tweaks within AGENTS constraints |
-| **Codex** | Implementation + crypto + tests | App code under `src/`, vendor pin, Vitest/Playwright, `npm run verify`, security-sensitive paths |
+| Agent | Codename | Job |
+|-------|----------|-----|
+| **Codex** | **Builder** | Implement exactly per this brief; vendor pin; section 8 checkpoint; `npm run verify` |
+| **Cursor** | **Guardian / Orchestrator** | Claims/handoffs, scope guard, review against this brief, `.cursor/` config |
+
+Protocol: [`docs/coordination.md`](docs/coordination.md). Boards: [`AGENT_CLAIMS.md`](AGENT_CLAIMS.md), [`AGENT_HANDOFF.md`](AGENT_HANDOFF.md).
+
+### Brief-lock
+
+Neither agent may change **product or cryptographic requirements** in this file without **explicit user approval**. Coordination/role wording above may be refined; sections 1–11 stay locked unless the user says otherwise.
 
 ### Before you change code
 
@@ -23,7 +29,7 @@ Both **Cursor** and **Codex** work in this repo. Coordination details: [`roles.m
 - Cursor: [`skills-for-cursor.md`](skills-for-cursor.md) → `.cursor/skills/`
 - Codex: [`specific-skills-for-codex.md`](specific-skills-for-codex.md) → `.agents/skills/`
 
-Never commit secrets (`.env`, private keys, bot tokens, seed phrases, real wallet mnemonics).
+Never commit secrets (`.env`, private keys, bot tokens, funded/user seed phrases). Allowed test material: section 9 fixed public entropy + pinned public SLIP-39 vector 23 only. Crypto lane stays single-threaded under Codex.
 
 ---
 

@@ -1,22 +1,25 @@
 ---
-description: Cursor/Codex dual-agent coordination and claim protocol
+description: Cursor/Codex dual-agent coordination for Local Seed Shares
 alwaysApply: true
 ---
 
 # Dual-agent coordination
 
-You are **Cursor** in a repo that also runs **Codex**.
+You are **Cursor** (Guardian / Orchestrator). Codex is **Builder**.
 
 ## Role
 
-- Own product, UX, architecture, and `.cursor/` config.
-- Defer bot/wallet implementation, tests, CI, and security audits to Codex unless the user assigns you those tasks.
+- Enforce `AGENTS.md` scope; block feature creep.
+- Own `.cursor/`, claims/handoffs, and merge-readiness review.
+- Defer `src/`, vendor pin, tests, and `npm run verify` to Codex unless the user assigns you those tasks.
 
 ## Concurrent work
 
 1. Check `AGENT_CLAIMS.md` before editing.
-2. Claim your paths (`active`) before non-trivial edits.
+2. Claim paths before non-trivial edits.
 3. Do not edit Codex `active` claims.
 4. On handoff, update `AGENT_HANDOFF.md` and mark your claim `done`.
 
-Details: `docs/coordination.md`. Skills: `claim-work`, `handoff`.
+Crypto lane (`src/bip39.ts`, `src/slip39.ts`, `public/vendor/**`) stays single-threaded under Codex.
+
+Details: `roles.md`, `docs/coordination.md`.

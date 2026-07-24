@@ -1,0 +1,14 @@
+---
+description: Mini App UI constraints from AGENTS.md
+globs: src/main.ts,src/style.css,index.html,e2e/**/*
+alwaysApply: false
+---
+
+# Mini App UI
+
+- One simple mobile-friendly page; two stacked sections (create shares / recover).
+- No framework, tabs, card grids, animations, settings dialogs, or Copy All.
+- Use the exact DOM IDs listed in `AGENTS.md` section 7.
+- Dangerous copy actions need the brief's warning text; clipboard write only on explicit button handlers.
+- Never call `navigator.clipboard.readText()` in app code.
+- Required visible hackathon / disposable-wallet warnings must remain.

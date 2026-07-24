@@ -1,13 +1,16 @@
 ---
-description: Core project standards for telegram-wallet-guardians
+description: Core Local Seed Shares standards and AGENTS.md authority
 alwaysApply: true
 ---
 
 # Project core
 
-- Read `AGENTS.md` and `roles.md` at session start.
-- Never commit secrets, bot tokens, private keys, or seed phrases.
+- `AGENTS.md` is authoritative for product, crypto, scope, tests, and release.
+- **Brief-lock:** neither agent changes product or cryptographic requirements in `AGENTS.md` without explicit user approval.
+- This is a hackathon Mini App (BIP-39 → 2-of-3 SLIP-39), not a custodial wallet or Telegram bot backend.
+- Never commit secrets, bot tokens, private keys, or **funded/user** mnemonics.
+- Allowed test material only: fixed public entropy + pinned SLIP-39 vector 23 from `AGENTS.md` §9.
+- No `.env` / `.env.example` for app secrets — static Mini App needs none (`TELEGRAM_SETUP.md` for owner-side BotFather).
 - Prefer small diffs; one concern per change.
-- Update `AGENT_CLAIMS.md` before editing shared or contested paths.
-- Wallet signing, key custody, and fund-moving paths default to Codex ownership.
-- Keep `.env.example` as names-only documentation; real secrets stay out of git.
+- Update `AGENT_CLAIMS.md` before non-trivial edits.
+- Default: Codex builds; Cursor reviews and coordinates (`roles.md`).

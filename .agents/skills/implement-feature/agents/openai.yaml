@@ -1,6 +1,6 @@
 interface:
   display_name: "Implement feature"
-  short_description: "Build from spec/handoff"
-  default_prompt: "Use $implement-feature to implement the current handoff/spec with tests, then hand off for Cursor review."
+  short_description: "Build Mini App per AGENTS.md"
+  default_prompt: "Use $implement-feature to implement the next AGENTS.md slice (claim paths first), stop on section 8 failure, then hand off."
 policy:
   allow_implicit_invocation: true

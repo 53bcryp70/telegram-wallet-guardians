@@ -1,7 +1,6 @@
-# Environment
+# Environment (Mini App needs none; never commit secrets)
 .env
 .env.*
-!.env.example
 
 # Secrets / keys
 *.pem

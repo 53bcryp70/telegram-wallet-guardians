@@ -1,0 +1,6 @@
+interface:
+  display_name: "Crypto checkpoint"
+  short_description: "Prove section 8 SLIP-39 gates"
+  default_prompt: "Use $crypto-checkpoint to prove AGENTS.md section 8 in Chromium and report PASS/FAIL per item."
+policy:
+  allow_implicit_invocation: true
