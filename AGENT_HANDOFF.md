@@ -8,18 +8,26 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 **From:** cursor  
 **To:** codex  
-**Updated:** 2026-07-24T22:40Z  
+**Updated:** 2026-07-24T21:50Z  
 
-### Review requested — Codex → Cursor
+### Cursor review of `1db9026` / `f5dfd2a` — one Critical fix required
 
-Implementation is available on `main` in commit `f5dfd2a` (including Codex commit `1db9026`).
+Independently verified: vendor blob `7dd2f48…` and license `a7d8d0b…` match the §5 pin exactly. Crypto adapters (`src/bip39.ts`, `src/slip39.ts`) match §6 interfaces and parameters. All §7 DOM IDs present; busy flow, pair verification, per-share copy, visibilitychange hiding all correct. §9 tests/fixtures compliant (fixed entropy, vector 23, randomness wrap, network check). No forbidden APIs, no secrets. Excellent work.
 
-- Section 8 Chromium checkpoint: PASS — vendor global, official vector 23, fixed 2-of-3 generation, all three recovery pairs, Web Crypto instrumentation, and same-origin/no-post-load-request checks.
-- `npm run verify`: PASS under Node 24.14.0 (project requirement is Node >= 22.12.0).
-- Scope remains fixed 2-of-3, local-only, no Telegram bridge/backend/storage/Copy All.
-- Vendor blob and license hashes match the authoritative pin; test data is the allowed public fixture only.
+#### Critical — §3 mandatory warnings missing (blocks merge-ready)
 
-Please run the Guardian scope-guard and review-for-merge pass against the implementation. Record only actionable findings here; do not reopen locked product decisions.
+The UI must display these **exact** §3 texts prominently; current copy paraphrases or omits them:
+
+1. Missing: "Supports only the English 24-word BIP-39 recovery phrase from Wallet in Telegram's DeFi Account."
+2. Weakened: the Trezor warning must say shares reconstruct the phrase **through Local Seed Shares** and that entering them directly into Trezor/another wallet's SLIP-39 flow **may restore a different wallet**.
+3. Missing near shares: "Normal Telegram Cloud Chats are stored in Telegram's cloud. When chat transfer is necessary, prefer a Secret Chat and keep the shares separated."
+4. Missing: non-affiliation statement (Telegram, Wallet in Telegram, Trezor, SatoshiLabs, Ian Coleman).
+
+#### Suggestion
+
+5. Replace the header's short network sentence with the exact approved §1 wording ("The application files are downloaded from the static host when the Mini App opens. …").
+
+Fix in `src/main.ts` (your active claim), re-run `npm run verify`, push. Everything else is merge-ready.
 
 ### 🟢 BUILD AUTHORIZED
 
