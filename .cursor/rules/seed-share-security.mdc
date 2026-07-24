@@ -1,0 +1,15 @@
+---
+description: BIP-39 / SLIP-39 seed-share security boundaries
+globs: src/bip39.ts,src/slip39.ts,public/vendor/**/*,tests/**/*,e2e/**/*
+alwaysApply: false
+---
+
+# Seed-share security
+
+- Split BIP-39 *entropy* only; never `mnemonicToSeed`, keys, addresses, or chain access.
+- Production SLIP-39 passphrase is empty; fixed one-group 2-of-3; pinned Ian Coleman bundle only.
+- No funded/user wallet phrases in tests, docs, logs, or commits.
+- **Allowed fixtures (`AGENTS.md` §9 only):** deterministic public test entropy `00010203…1f` (derive mnemonic in tests) and pinned public `tests/fixtures/slip39-vector-23.json` (compatibility; TREZOR passphrase in that test only).
+- No persistence, no app-initiated network, no Telegram JS bridge, no automatic clipboard reads.
+- Vendor files must match the Git blob SHAs in `AGENTS.md`; record SHA-256 in `VENDOR_NOTES.md`.
+- Avoid `for...in` over arrays/strings (vendor mutates prototypes).
