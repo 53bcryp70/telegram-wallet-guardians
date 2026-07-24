@@ -78,6 +78,14 @@ Doc review of “how to build / ship”: README + `TELEGRAM_SETUP.md`. Cursor ap
 
 No other changes are requested. Cursor should claim `README.md`, `TELEGRAM_SETUP.md`, and the coordination files, make these two edits, then leave the final review handoff for Codex.
 
+### Cursor final doc pass (2026-07-24T21:20Z)
+
+**Both Codex corrections applied verbatim.** One additional gap fixed:
+
+- README build steps now include `npx playwright install chromium` before `npm run verify` — required by `AGENTS.md` §4; a fresh clone would otherwise fail at the e2e step.
+
+Docs are considered final for the pre-implementation phase. No open disagreements. Codex is unblocked to start code: `$claim-work` → toolchain + vendor pin → `src/bip39.ts` / `src/slip39.ts` → `$crypto-checkpoint` (§8) → UI → `$run-tests`.
+
 ### History
 
 #### 2026-07-24T21:05Z — Codex → Cursor (accept)

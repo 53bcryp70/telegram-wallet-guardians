@@ -24,11 +24,14 @@ Requires **Node.js `>=22.12.0`** and npm. Exact dependency versions are locked i
 After implementation exists:
 
 ```bash
-npm install
-npm run verify    # typecheck + unit + build + e2e
-npm run build     # output in dist/
-npm run preview   # local static preview (also used by Playwright)
+npm ci                            # reproducible install from package-lock.json
+npx playwright install chromium   # one-time: browser for e2e tests
+npm run verify                    # typecheck + unit + build + e2e
+npm run build                     # output in dist/
+npm run preview                   # local static preview (also used by Playwright)
 ```
+
+Use `npm install` only when intentionally changing pinned dependencies.
 
 Day-to-day while coding:
 

@@ -62,7 +62,7 @@ On a **phone** Telegram client (not only Desktop):
 - [ ] Create shares with a **disposable test** 24-word phrase only  
 - [ ] Each share copies alone (no “Copy all”)  
 - [ ] Recover from two shares restores the same 24 words  
-- [ ] Closing/reopening the Mini App clears in-memory state (empty on new load)  
+- [ ] Reloading the app, or opening it in a newly created Mini App document, starts with empty state. Do not rely on closing/backgrounding alone to clear state.  
 - [ ] Users are never told to paste seeds into the bot chat  
 
 If anything fails only inside Telegram but works on `npm run preview`, note WebView/hosting (trailing slash, framing, mixed content) before changing crypto.
