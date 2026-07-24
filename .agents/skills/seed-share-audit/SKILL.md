@@ -12,7 +12,10 @@ Scan changed files (and quickly grep the tree) against `AGENTS.md` §2–3, §5,
 ```bash
 rg -n "fetch\\(|XMLHttpRequest|WebSocket|localStorage|sessionStorage|indexedDB|window\\.Telegram|sendBeacon|Math\\.random|mnemonicToSeed|slip39" src e2e index.html
 rg -n "Copy all|copy-all|clipboard\\.read" src e2e
+rg -n -i "telegram-web-app|telegram-apps|tma\\.js|twa-dev|tonconnect|ton-connect|initData|tgWebApp" src index.html package.json
 ```
+
+The third line catches generic Telegram-Mini-App-guide imports (SDK, TON Connect, initData auth) — all banned; see `docs/telegram-launcher-notes.md`. `tgWebApp` params must be ignored, never read.
 
 ## Secret-leak scan (repo is PUBLIC)
 

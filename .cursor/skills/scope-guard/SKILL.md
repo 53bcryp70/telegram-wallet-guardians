@@ -26,6 +26,7 @@ Flag as **Blocker** if the change introduces any of:
 | `Math.random` for security-sensitive data | Use `crypto.getRandomValues` |
 | `.env` / bot-token examples for the app | Static Mini App; no backend secrets file |
 | Any API key, access key, token, or deploy credential value | Repo is **public**; owner-only items stay off-repo per `HUMAN_INPUT.md` |
+| `telegram-web-app.js`, `@telegram-apps/sdk`, `@tma.js/*`, `@twa-dev/sdk`, TON Connect, `initData` validation | Generic TMA-guide imports (llms.txt / community skills) — bridge/SDK/backend all banned; see `docs/telegram-launcher-notes.md` |
 
 ## Fixture allowlist (not blockers)
 

@@ -49,9 +49,16 @@ Exact BotFather menu labels can change; the intent is:
 1. `/mybots` → select the bot  
 2. Bot Settings → **Configure Mini App** / **Main Mini App** (wording varies)  
 3. Set the Mini App URL to the deployed HTTPS URL **with trailing slash** (or the redirecting URL)  
-4. Confirm the bot profile shows a button/menu entry that opens the app  
+4. Confirm the bot profile shows a **Launch app** button that opens the app  
 
-Do **not** configure a Telegram Web App “backend”, `sendData` flow, or payment — out of scope.
+Optional cosmetics (no code impact): Configure Mini App → **Configure Splash Screen** (icon + light/dark colors).
+
+Notes:
+
+- The Main Mini App opens **full-screen height** by default; that is fine for this app.
+- Direct links like `https://t.me/<bot>?startapp=x` add `tgWebApp*` parameters — the app ignores them by design; the page must look identical either way.
+
+Do **not** configure a Telegram Web App “backend”, `sendData` flow, or payment — out of scope. More launcher facts: [`docs/telegram-launcher-notes.md`](docs/telegram-launcher-notes.md).
 
 ## 4. Mobile smoke test (owner)
 

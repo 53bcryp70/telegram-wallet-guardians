@@ -12,3 +12,5 @@ alwaysApply: false
 - Dangerous copy actions need the brief's warning text; clipboard write only on explicit button handlers.
 - Never call `navigator.clipboard.readText()` in app code.
 - Required visible hackathon / disposable-wallet warnings must remain.
+- Telegram WebView realities (see `docs/telegram-launcher-notes.md`): opens full-screen height, runs on Android/iOS/Desktop, must load fast (tiny bundle, no fonts/frameworks), must not overflow at narrow widths.
+- Render identically with or without `tgWebApp*` query params — ignore them all; no Telegram SDK (`telegram-web-app.js`, `@telegram-apps/*`, `@twa-dev/*`).

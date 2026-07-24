@@ -21,7 +21,7 @@ Authoritative brief: `AGENTS.md`. Coordination: `roles.md`, `$claim-work`, `$han
 | 1 Vendor | `public/vendor/slip39-libs.js` + license; blob SHAs match §5 | hash check |
 | 2 BIP-39 | `src/bip39.ts` + `tests/bip39.test.ts` | Vitest PASS |
 | 3 SLIP-39 | `src/slip39.ts` + Playwright crypto proofs | `$crypto-checkpoint` PASS |
-| 4 UI | `src/main.ts`, `src/style.css`, `index.html`, §7 DOM IDs | manual + e2e |
+| 4 UI | `src/main.ts`, `src/style.css`, `index.html`, §7 DOM IDs (WebView constraints: `docs/telegram-launcher-notes.md`) | manual + e2e |
 | 5 Verify | licenses, docs, `npm run verify` | `$run-tests` PASS |
 
 Required file shape is listed in `AGENTS.md` §6 — prefer that list over new modules.

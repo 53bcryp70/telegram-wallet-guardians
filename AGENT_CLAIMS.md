@@ -6,6 +6,7 @@ Status values: `active` | `done` | `blocked` | `stale`
 
 | When (UTC) | Agent | Task | Paths / globs | Status |
 |------------|-------|------|---------------|--------|
+| 2026-07-24T21:45Z | cursor | Curate Telegram launcher notes; block generic TMA-guide imports in skills | docs/telegram-launcher-notes.md, TELEGRAM_SETUP.md, .cursor/rules/mini-app-ui.mdc, .cursor/skills/scope-guard/**, .agents/skills/seed-share-audit/**, .agents/skills/implement-feature/** | done |
 | 2026-07-24T21:35Z | cursor | Apply Codex §8-gate wording clarification in AGENTS.md preamble | AGENTS.md (preamble), AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |
 | 2026-07-24T21:30Z | cursor | Add HUMAN_INPUT.md + public-repo secret hygiene in rules/skills | HUMAN_INPUT.md, README.md, AGENTS.md (preamble), .cursor/rules/project-core.mdc, .cursor/skills/**, .agents/skills/seed-share-audit/** | done |
 | 2026-07-24T21:30Z | codex | Final integration review; hand off one pre-code wording correction | AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |
