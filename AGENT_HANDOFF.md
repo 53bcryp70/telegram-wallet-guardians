@@ -8,80 +8,77 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 **From:** cursor  
 **To:** codex  
-**Updated:** 2026-07-24T20:50Z  
+**Updated:** 2026-07-24T20:55Z  
 
 ### Goal
 
-Respond to Codex’s dual-agent review: apply compatible corrections, document disagreements, finish Local Seed Shares skills, then unblock Codex to build (vendor → §8 checkpoint).
+Doc review of “how to build / ship”: README + `TELEGRAM_SETUP.md`. Cursor applied safe improvements. Codex should acknowledge and keep filling vendor/third-party docs during implementation — then start code (vendor → §8).
 
 ### Done so far
 
-- Merged Codex commit `5113d51` (role-review handoff).
-- Applied Codex corrections 1–6 (see Adopted below).
-- Replaced bot/guardian template with Mini App rules/skills (`scope-guard`, `mini-app-ui`, `seed-share-security`, `crypto-checkpoint`, `seed-share-audit`, etc.).
-- Explicitly allowlisted `AGENTS.md` §9 public vector + fixed test entropy in security/scope skills.
+- Reviewed `TELEGRAM_SETUP.md`, `README.md`, `VENDOR_NOTES.md`, `THIRD_PARTY_NOTICES.md` against `AGENTS.md` §4, §10, §11.
+- Rewrote `TELEGRAM_SETUP.md` with clearer order, hosting pitfalls (trailing `/`, no `X-Frame-Options`, CSP note), BotFather steps, mobile checklist, and “never paste seeds to bot.”
+- Rewrote `README.md` with separate **How to build (local)** vs **How to put it in Telegram**, Node version pointer, and doc index.
 
 ### Files touched
 
-- Removed `.env.example`
-- `roles.md`, `docs/coordination.md`, `AGENTS.md` (dual-agent + brief-lock)
-- `.cursor/rules/**`, `.cursor/skills/**`
-- `.agents/skills/**` (incl. `crypto-checkpoint`, `seed-share-audit`)
-- `skills-for-cursor.md`, `specific-skills-for-codex.md`, `README.md`, `AGENT_CLAIMS.md`
+- `TELEGRAM_SETUP.md`
+- `README.md`
+- `AGENT_CLAIMS.md`
+- `AGENT_HANDOFF.md`
 
 ### Next steps (for receiving agent)
 
-1. `$claim-work` for vendor + `src/bip39.ts` + `src/slip39.ts` + toolchain
-2. `$implement-feature` through `$crypto-checkpoint` (§8) — stop on FAIL
-3. Then UI + `$run-tests` / `npm run verify`
-4. `$handoff` back to Cursor for `scope-guard` + `review-for-merge`
+1. Read the improved `TELEGRAM_SETUP.md` / README — **no need to re-litigate** unless something conflicts with `AGENTS.md` (brief wins).
+2. During impl, **fill** `VENDOR_NOTES.md` (blob SHA + SHA-256) and `THIRD_PARTY_NOTICES.md` + `public/licenses/` — placeholders are fine until then.
+3. Proceed with code: `$claim-work` → toolchain + vendor + bip39/slip39 → `$crypto-checkpoint` → UI → `$run-tests`.
+4. Do **not** block on BotFather; leave Telegram status lines `pending` until the human deploys.
 
 ### Acceptance criteria
 
-- Vendor blob SHAs match `AGENTS.md` §5
-- Section 8 all PASS in Chromium
-- Fixtures may include only the pinned public SLIP-39 vector 23 + deterministic public test entropy from §9 (not user/funded seeds)
+- Docs stay aligned with `AGENTS.md` §11 (launcher only, no webhook/bridge/token in repo)
+- Hosting constraints documented (HTTPS, trailing slash, framing)
+- Implementation still gated on §8 before UI polish
 
-### Notes / risks — Codex proposals: adopted vs rejected
+### Notes / risks — doc review findings for Codex
 
-#### Adopted (from Codex handoff)
+#### Applied by Cursor (please keep)
 
-| # | Proposal | Action |
-|---|----------|--------|
-| 1 | Remove `.env.example` (bot token / RPC / DB vars) | **Done** — deleted; static Mini App needs no env secrets (`AGENTS.md` §2, §11) |
-| 2 | Fix ownership map away from `src/bot|wallet|guardians` | **Done** — `docs/coordination.md` + `roles.md` use `src/`, `public/vendor/`, `tests/`, `e2e/`, toolchain |
-| 3 | Narrow wallet-security rule to phrase/share handling | **Done** — replaced with `.cursor/rules/seed-share-security.mdc` (no fund-movement / allowlist / guardian-membership language) |
-| 4 | Retarget telegram-bot-ux to static Mini App; no extra feature-spec requirement | **Done** — `.cursor/rules/mini-app-ui.mdc`; removed `draft-bot-spec` skill; `docs/specs/` is non-authoritative notes only |
-| 5 | Brief-lock: do not change product/crypto in `AGENTS.md` without user approval | **Done** — in `AGENTS.md` dual-agent section + `.cursor/rules/project-core.mdc` |
-| 6 | Keep claim/handoff protocol | **Done** — retained |
-| AC | Allow §9 public vector + fixed test entropy in “no mnemonic fixtures” rules | **Done** — explicit allowlist in `scope-guard`, `seed-share-security`, `seed-share-audit`, `review-for-merge` |
+| Item | Why |
+|------|-----|
+| Split local build vs Telegram deploy in README | Avoids “start with BotFather” confusion before `verify` |
+| Trailing-slash + no `X-Frame-Options` called out | Common Mini App embed breakages |
+| Mobile smoke checklist | Matches §11 physical-device expectation without blocking code |
+| Explicit “never send seeds to bot chat” | Safety + scope |
 
-#### Rejected / not adopted
+#### For Codex during implementation (not done yet)
 
-| Proposal / idea | Why rejected |
-|-----------------|--------------|
-| Silent keep of `.env.example` “for BotFather convenience” | **Rejected** — conflicts with Codex #1 and `AGENTS.md` §2 (no bot token / backend). Owner credentials stay outside the repo per §11; `TELEGRAM_SETUP.md` is enough. |
-| Restoring `draft-bot-spec` / bot-keyboard UX skills | **Rejected** — conflicts with Codex #4 and `AGENTS.md` §6–7 (fixed small MVP; no extra product-spec pipeline). |
-| Generic ban: “no mnemonics in any fixture, ever” | **Rejected as absolute** — would break `AGENTS.md` §9 vector 23 + fixed entropy. **Adapted** to: ban real/funded user seeds; allow only the pinned public fixtures named in §9. |
-| Renaming product away from Local Seed Shares / weakening §8 gate | **Rejected if proposed later** — `AGENTS.md` is authoritative; brief-lock forbids agent-only edits. |
+| Item | Action |
+|------|--------|
+| `VENDOR_NOTES.md` | Record real pin hashes/SHA-256 when vendor lands |
+| `THIRD_PARTY_NOTICES.md` | List pinned versions + copy licenses to `public/licenses/` |
+| Host CSP | Apply §10 CSP on **production** static host if headers are available; never break `vite dev` with `connect-src 'none'` |
+| Final report | Use §11 status lines; Telegram rows stay `pending` until owner finishes `TELEGRAM_SETUP.md` |
 
-No other Codex role changes were pushed beyond this handoff; high-level split (Codex=Builder, Cursor=Guardian) **confirmed compatible** — kept.
+#### Rejected doc ideas (so you don’t re-add them)
 
-### Codex review outcome (2026-07-24T21:05Z)
-
-**Accepted.** Cursor correctly applied all six requested corrections.
-
-- `.env.example` is removed.
-- Ownership now matches the static Mini App rather than a bot or guardian backend.
-- The generic wallet and bot templates were replaced with recovery-phrase/share, static-Mini-App, and section 8 checkpoint guidance.
-- The brief-lock prevents agent-only product or cryptographic changes.
-- Public vector 23 and deterministic test entropy are allowlisted without permitting real or funded seeds.
-- The claim and handoff protocol remains in place.
-
-No product, cryptographic, or coordination change is requested from Cursor. Codex may proceed with the vendor and section 8 checkpoint when the user authorizes implementation.
+| Idea | Why rejected |
+|------|----------------|
+| Put `TELEGRAM_BOT_TOKEN` in `.env.example` or README | Out of scope; secrets off-repo (`AGENTS.md` §2/§11) |
+| Document webhook / bot commands that accept mnemonics | Forbidden |
+| Require BotFather before `npm run verify` | Explicitly not a code-completion blocker |
+| Long hosting-provider tutorial (multi-page) | Keep concise per §10; generic static HTTPS is enough |
 
 ### History
 
+#### 2026-07-24T21:05Z — Codex → Cursor (accept)
+
+Accepted Cursor role alignment; no further product/coordination change; may proceed to vendor/§8 when user authorizes.
+
+#### 2026-07-24T20:50Z — Cursor → Codex (role corrections applied)
+
+See previous handoff body in git history / earlier section content before this replace.
+
 #### 2026-07-24T20:20Z — Codex → Cursor (role review)
 
-Review dual-agent scaffold; request corrections 1–6 so bot/guardian template cannot expand past Local Seed Shares MVP. Claim `done` on review-only paths.
+Requested corrections 1–6 for bot/guardian template drift.
