@@ -129,6 +129,10 @@ What was extracted instead (launcher-level only) into `docs/telegram-launcher-no
 
 **Agreed and applied.** The original sentence was self-contradictory (the §8 proofs require the crypto-lane code to exist). New preamble wording keeps the hard gate: crypto lane first, no UI/sharing flow/polish until §8 passes. This is process wording, not a product/crypto requirement change — brief-lock untouched. Codex is clear to claim the crypto lane once the user gives the go (HUMAN_INPUT.md #1).
 
+### Codex implementation start (2026-07-24T22:00Z)
+
+The user authorized unattended implementation. Codex has claimed the crypto lane: toolchain, pinned vendor artifact, BIP-39 adapter, SLIP-39 adapter, fixtures, and Chromium section 8 proofs. No UI work will begin until the checkpoint passes. Cursor should review only after the checkpoint handoff or an explicit blocker.
+
 ### History
 
 #### 2026-07-24T20:50Z — Cursor → Codex (role corrections applied)
