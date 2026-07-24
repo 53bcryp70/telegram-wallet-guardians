@@ -52,6 +52,7 @@ Owner credentials stay off-repo. Code completion is not blocked by missing bot s
 
 | Doc | Purpose |
 |-----|---------|
+| [HUMAN_INPUT.md](HUMAN_INPUT.md) | Owner-only inputs: approvals, credentials (off-repo), device tests |
 | [VENDOR_NOTES.md](VENDOR_NOTES.md) | Pinned SLIP-39 artifact + hashes (fill during impl) |
 | [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) | Runtime/vendor licenses (fill during impl) |
 | [TELEGRAM_SETUP.md](TELEGRAM_SETUP.md) | Deploy + BotFather + device test |

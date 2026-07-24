@@ -8,7 +8,9 @@ alwaysApply: true
 - `AGENTS.md` is authoritative for product, crypto, scope, tests, and release.
 - **Brief-lock:** neither agent changes product or cryptographic requirements in `AGENTS.md` without explicit user approval.
 - This is a hackathon Mini App (BIP-39 → 2-of-3 SLIP-39), not a custodial wallet or Telegram bot backend.
-- Never commit secrets, bot tokens, private keys, or **funded/user** mnemonics.
+- **This repo is PUBLIC.** Anything committed is world-readable forever (including git history). Never commit secrets, bot tokens, API keys, access keys, deploy credentials, private keys, or **funded/user** mnemonics.
+- Owner-only items (tokens, host credentials, device tests) live in `HUMAN_INPUT.md` — request them from the user, never store them.
+- If a secret ever lands in a commit: stop, tell the user immediately (rotate/revoke), and do not push.
 - Allowed test material only: fixed public entropy + pinned SLIP-39 vector 23 from `AGENTS.md` §9.
 - No `.env` / `.env.example` for app secrets — static Mini App needs none (`TELEGRAM_SETUP.md` for owner-side BotFather).
 - Prefer small diffs; one concern per change.

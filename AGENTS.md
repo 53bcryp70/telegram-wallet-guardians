@@ -29,7 +29,7 @@ Neither agent may change **product or cryptographic requirements** in this file 
 - Cursor: [`skills-for-cursor.md`](skills-for-cursor.md) → `.cursor/skills/`
 - Codex: [`specific-skills-for-codex.md`](specific-skills-for-codex.md) → `.agents/skills/`
 
-Never commit secrets (`.env`, private keys, bot tokens, funded/user seed phrases). Allowed test material: section 9 fixed public entropy + pinned public SLIP-39 vector 23 only. Crypto lane stays single-threaded under Codex.
+**This repository is public.** Never commit secrets (`.env`, private keys, bot tokens, API/access keys, deploy credentials, funded/user seed phrases) — git history is permanent. Owner-only inputs (approvals, credentials, device tests) are listed in [`HUMAN_INPUT.md`](HUMAN_INPUT.md); request them from the user, never store them. Allowed test material: section 9 fixed public entropy + pinned public SLIP-39 vector 23 only. Crypto lane stays single-threaded under Codex.
 
 ---
 

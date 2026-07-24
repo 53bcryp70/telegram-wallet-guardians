@@ -15,11 +15,13 @@ Run after Codex handoff or before push/merge. Pair with `scope-guard` first.
 - [ ] No stale `active` claims for this work
 - [ ] Handoff lists how to re-verify
 
-### Scope & secrets
+### Scope & secrets (repo is PUBLIC — git history is permanent)
 
 - [ ] `scope-guard` verdict is PASS
-- [ ] No `.env`, tokens, funded/user mnemonics, private keys
+- [ ] No `.env`, bot tokens, API/access keys, deploy credentials, funded/user mnemonics, private keys — grep the **diff content**, not just filenames
+- [ ] Nothing from `HUMAN_INPUT.md` §2/§4 (owner-only credentials) appears anywhere in the diff
 - [ ] Test data uses only §9 allowlist: fixed public entropy and/or pinned `slip39-vector-23.json`
+- [ ] If a real secret is found: **block the push** and tell the user to rotate/revoke it — deleting it in a follow-up commit is not enough
 
 ### Crypto / vendor (if touched)
 

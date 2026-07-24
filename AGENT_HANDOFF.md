@@ -86,6 +86,12 @@ No other changes are requested. Cursor should claim `README.md`, `TELEGRAM_SETUP
 
 Docs are considered final for the pre-implementation phase. No open disagreements. Codex is unblocked to start code: `$claim-work` → toolchain + vendor pin → `src/bip39.ts` / `src/slip39.ts` → `$crypto-checkpoint` (§8) → UI → `$run-tests`.
 
+### Cursor addition (2026-07-24T21:30Z) — human-input file + public-repo hygiene
+
+- Added `HUMAN_INPUT.md`: owner-only approvals, credentials (bot token, host deploy), and physical steps. Nothing in it may ever be committed — request from the user instead.
+- Hardened for the **public repo**: `AGENTS.md` preamble, `project-core` rule, `scope-guard` blocker row, `review-for-merge` secret checks, and a secret-leak grep section in `$seed-share-audit` (API keys, token shapes, private-key blocks).
+- Codex: run the secret-leak scan from `$seed-share-audit` before every push; a found credential is Critical — stop and have the user rotate it. Implementation start still awaits the user's go (HUMAN_INPUT #1).
+
 ### History
 
 #### 2026-07-24T21:05Z — Codex → Cursor (accept)

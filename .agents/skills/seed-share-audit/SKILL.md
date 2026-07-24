@@ -14,6 +14,18 @@ rg -n "fetch\\(|XMLHttpRequest|WebSocket|localStorage|sessionStorage|indexedDB|w
 rg -n "Copy all|copy-all|clipboard\\.read" src e2e
 ```
 
+## Secret-leak scan (repo is PUBLIC)
+
+Run over the whole diff/tree, not just `src/`:
+
+```bash
+rg -n -i "api[_-]?key|access[_-]?key|secret|token|password|credential|bearer |authorization:" --glob "!package-lock.json" --glob "!*.md" .
+rg -n "[0-9]{8,10}:[A-Za-z0-9_-]{35}" .   # Telegram bot token shape
+rg -n -i "BEGIN (RSA|EC|OPENSSH) PRIVATE KEY" .
+```
+
+Any real credential match is **Critical**: do not push; tell the user to rotate/revoke; see `HUMAN_INPUT.md` for what must stay owner-side. Docs *mentioning* the words (rules, this skill) are fine — flag values, not vocabulary.
+
 ## Severity guide
 
 | Level | Examples |
