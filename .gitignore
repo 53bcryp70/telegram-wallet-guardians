@@ -24,6 +24,9 @@ node_modules/
 dist/
 build/
 coverage/
+test-results/
+playwright-report/
+pnpm-lock.yaml
 .venv/
 __pycache__/
 *.pyc
