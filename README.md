@@ -48,6 +48,8 @@ Do not start BotFather work until `npm run verify` is green and `dist/` is compl
 1. Deploy `dist/` to static HTTPS (trailing-slash URL).  
 2. Follow [`TELEGRAM_SETUP.md`](TELEGRAM_SETUP.md) (BotFather Main Mini App + mobile smoke test).  
 
+New to deployment? Follow the beginner-friendly [`DEPLOYMENT_GUIDE.md`](DEPLOYMENT_GUIDE.md) first.
+
 Owner credentials stay off-repo. Code completion is not blocked by missing bot setup (`AGENTS.md` §11).
 
 ## Other docs
