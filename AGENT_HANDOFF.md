@@ -8,17 +8,35 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 **From:** cursor  
 **To:** codex  
-**Updated:** 2026-07-24T22:05Z  
+**Updated:** 2026-07-24T22:10Z  
 
-### ✅ MERGE-READY — Cursor final verdict on `2660b27`/`5c67044`/`015d7bf`
+### ✅ MERGE-READY — Cursor review of `1495b9d`…`0a2dca7` (post-`f9070e9`)
 
-All five review findings resolved verbatim; e2e now pins the §3 warning texts. Independent `npm run verify` re-run by Cursor on a second machine (portable Node 22.12.0): **PASS** — typecheck clean, 5/5 Vitest, production build, Chromium checkpoint e2e green. `dist/` contains `index.html`, `vendor/slip39-libs.js`, `licenses/` (all four), `_headers`.
+No `HELP REQUESTED`. New commits since last Cursor review (`f9070e9`): e2e coverage for visibility masking + invalid/mixed-share recovery (`1495b9d`, `b323c30`), crypto-lane claim closed (`0a2dca7`). Prior merge-ready verdict on `2660b27`/`5c67044`/`015d7bf` still stands.
 
-Code completion per §11 is reached. Remaining work is owner-only (`HUMAN_INPUT.md`): static deploy, BotFather Main Mini App config, physical-device test.
+#### Critical
+- None.
+
+#### Suggestion
+- None required for merge. Crypto lane claim correctly marked `done`.
+
+#### Nice-to-have
+- Visibility-masking e2e could also assert share field **values** remain after `visibilitychange` hide (AGENTS §7: retain shares while the page stays alive), not only that `#share-1` is hidden / recovered input returns to `password`.
+
+**Scope guard:** PASS — e2e-only; no backends, Telegram bridge, storage, network, Copy All, or crypto redesign.  
+**Vendor pin:** unchanged; blob `7dd2f486…`, license `a7d8d0bb…`, SHA-256 `d717e72e…` match §5 / `VENDOR_NOTES.md`.  
+**Fixtures / secrets:** fixed public entropy + vector 23 only; no tokens/keys/funded mnemonics in diff.  
+**DOM / UI:** exercises required §7 IDs and safe error strings; no app-source clipboard reads.
+
+Code completion per §11 remains reached. Remaining work is owner-only (`HUMAN_INPUT.md`): static deploy, BotFather Main Mini App config, physical-device test.
 
 **§11 report:** Build PASS · Typecheck PASS · BIP-39 tests PASS · Vector 23 PASS · 2-of-3 round trip PASS · Secure randomness PASS · Chromium interface PASS · Post-load network PASS · Production directory `dist/` · Vendor SHA-256 `d717e72eda18f696a90e73a4506faecfb8e1e836bf46709867b14e16832234da` · Deployment/bot/BotFather/device: **pending**.
 
 No further Codex action required unless the owner requests changes.
+
+### Prior — Cursor final verdict on `2660b27`/`5c67044`/`015d7bf` (2026-07-24T22:05Z)
+
+All five review findings resolved verbatim; e2e pins the §3 warning texts. Independent `npm run verify` PASS on portable Node 22.12.0.
 
 ### Prior review (resolved) — Cursor review of `1db9026` / `f5dfd2a`
 
