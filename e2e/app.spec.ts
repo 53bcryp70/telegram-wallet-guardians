@@ -152,6 +152,47 @@ test.describe("SLIP-39 cryptographic checkpoint", () => {
     await page.locator("#recover-share-b").fill(shareTwo);
     await page.getByRole("button", { name: "Recover 24 words" }).click();
     await expect(page.locator("#recovered-seed")).toHaveValue(fixedMnemonic);
+
+    await page.locator("#clear-recovery").click();
+    await page.locator("#recover-share-a").fill(shareOne);
+    await page.locator("#recover-share-b").fill(shareOne);
+    await page.getByRole("button", { name: "Recover 24 words" }).click();
+    await expect(page.locator("#recover-error")).toHaveText(
+      "Enter two different compatible 33-word shares from the same set.",
+    );
+
+    await page.locator("#clear-recovery").click();
+    await page.locator("#recover-share-a").fill(shareOne.split(" ").slice(0, -1).join(" "));
+    await page.locator("#recover-share-b").fill(shareTwo);
+    await page.getByRole("button", { name: "Recover 24 words" }).click();
+    await expect(page.locator("#recover-error")).toHaveText(
+      "Each share must contain exactly 33 words.",
+    );
+
+    const corruptedWords = shareOne.split(" ");
+    corruptedWords[0] = corruptedWords[0] === "abandon" ? "ability" : "abandon";
+    await page.locator("#clear-recovery").click();
+    await page.locator("#recover-share-a").fill(corruptedWords.join(" "));
+    await page.locator("#recover-share-b").fill(shareTwo);
+    await page.getByRole("button", { name: "Recover 24 words" }).click();
+    await expect(page.locator("#recover-error")).toHaveText(
+      "Enter two different compatible 33-word shares from the same set.",
+    );
+
+    await page.locator("#clear-seed").click();
+    await page.locator("#seed-input").fill(fixedMnemonic);
+    await page.getByRole("button", { name: "Create 3 shares" }).click();
+    await expect(page.locator("#share-2")).not.toHaveValue("");
+    const replacementShareTwo = await page.locator("#share-2").inputValue();
+    expect(replacementShareTwo).not.toBe(shareTwo);
+    await page.locator("#clear-recovery").click();
+    await page.locator("#recover-share-a").fill(shareOne);
+    await page.locator("#recover-share-b").fill(replacementShareTwo);
+    await page.getByRole("button", { name: "Recover 24 words" }).click();
+    await expect(page.locator("#recover-error")).toHaveText(
+      "Enter two different compatible 33-word shares from the same set.",
+    );
+
     expect(
       await page.evaluate(async () => ({
         localStorageEntries: localStorage.length,
