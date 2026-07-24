@@ -8,37 +8,38 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 **From:** cursor  
 **To:** codex  
-**Updated:** 2026-07-24T20:55Z  
+**Updated:** 2026-07-24T21:50Z  
 
 ### Goal
 
-Doc review of “how to build / ship”: README + `TELEGRAM_SETUP.md`. Cursor applied safe improvements. Codex should acknowledge and keep filling vendor/third-party docs during implementation — then start code (vendor → §8).
+Keep Codex unblocked for crypto-lane implementation, and make role-review **adopted vs rejected** decisions durable in History (not only older git commits).
 
 ### Done so far
 
-- Reviewed `TELEGRAM_SETUP.md`, `README.md`, `VENDOR_NOTES.md`, `THIRD_PARTY_NOTICES.md` against `AGENTS.md` §4, §10, §11.
-- Rewrote `TELEGRAM_SETUP.md` with clearer order, hosting pitfalls (trailing `/`, no `X-Frame-Options`, CSP note), BotFather steps, mobile checklist, and “never paste seeds to bot.”
-- Rewrote `README.md` with separate **How to build (local)** vs **How to put it in Telegram**, Node version pointer, and doc index.
+- Expanded `AGENT_HANDOFF.md` **History** with the full role-review adopted/rejected tables (Codex proposals 1–6 + fixture allowlist adaptation).
+- Prior work already on `main`: Mini App skills/rules, brief-lock, `.env.example` removed, §8 gate wording fix, doc corrections.
 
 ### Files touched
 
-- `TELEGRAM_SETUP.md`
-- `README.md`
-- `AGENT_CLAIMS.md`
 - `AGENT_HANDOFF.md`
+- `AGENT_CLAIMS.md`
 
 ### Next steps (for receiving agent)
 
-1. Read the improved `TELEGRAM_SETUP.md` / README — **no need to re-litigate** unless something conflicts with `AGENTS.md` (brief wins).
-2. During impl, **fill** `VENDOR_NOTES.md` (blob SHA + SHA-256) and `THIRD_PARTY_NOTICES.md` + `public/licenses/` — placeholders are fine until then.
-3. Proceed with code: `$claim-work` → toolchain + vendor + bip39/slip39 → `$crypto-checkpoint` → UI → `$run-tests`.
-4. Do **not** block on BotFather; leave Telegram status lines `pending` until the human deploys.
+1. Read **History → 2026-07-24T20:50Z** for role adopted/rejected — do not re-open rejected items.
+2. Wait for user go (`HUMAN_INPUT.md` #1) if still required, then `$claim-work` crypto lane.
+3. `$implement-feature` → `$crypto-checkpoint` (§8) before UI/polish.
+4. `$handoff` to Cursor for `scope-guard` / `review-for-merge` after verify.
 
 ### Acceptance criteria
 
-- Docs stay aligned with `AGENTS.md` §11 (launcher only, no webhook/bridge/token in repo)
-- Hosting constraints documented (HTTPS, trailing slash, framing)
-- Implementation still gated on §8 before UI polish
+- Role disagreements are visible in this file’s History
+- Implementation still gated: crypto lane first; no UI/sharing polish until §8 PASS
+- No re-adding `.env.example`, bot-spec skills, or absolute fixture bans
+
+### Notes / risks
+
+See History for role adopted/rejected. See sections above for doc-review rejections and §8 wording agreement.
 
 ### Notes / risks — doc review findings for Codex
 
@@ -119,14 +120,35 @@ What was extracted instead (launcher-level only) into `docs/telegram-launcher-no
 
 ### History
 
+#### 2026-07-24T20:50Z — Cursor → Codex (role corrections applied)
+
+Responded to Codex review `5113d51`. High-level split kept (Codex=Builder, Cursor=Guardian).
+
+**Adopted**
+
+| # | Proposal | Action |
+|---|----------|--------|
+| 1 | Remove `.env.example` | Deleted — no app env secrets (`AGENTS.md` §2/§11) |
+| 2 | Fix ownership map (`src/bot|wallet|guardians`) | `docs/coordination.md` + `roles.md` → `src/`, `public/vendor/`, `tests/`, `e2e/`, toolchain |
+| 3 | Narrow wallet-security rule | Replaced with `.cursor/rules/seed-share-security.mdc` |
+| 4 | Retarget telegram-bot-ux; no extra feature specs | `.cursor/rules/mini-app-ui.mdc`; removed `draft-bot-spec` |
+| 5 | Brief-lock on `AGENTS.md` product/crypto | Dual-agent section + `project-core` |
+| 6 | Keep claim/handoff | Retained |
+| AC | Allow §9 public fixtures | Allowlist in `scope-guard`, `seed-share-security`, `seed-share-audit`, `review-for-merge` |
+
+**Rejected / adapted (do not re-litigate)**
+
+| Idea | Why |
+|------|-----|
+| Keep `.env.example` for BotFather convenience | Conflicts with Codex #1 and `AGENTS.md` §2 — credentials stay off-repo (`TELEGRAM_SETUP.md` / `HUMAN_INPUT.md`) |
+| Restore `draft-bot-spec` / bot-keyboard skills | Conflicts with Codex #4 and `AGENTS.md` §6–7 fixed MVP |
+| Absolute “no mnemonics in any fixture” | Would break `AGENTS.md` §9 — adapted to ban funded/user seeds only; allow pinned public vector + fixed entropy |
+| Rename product / weaken §8 gate | Brief-lock; `AGENTS.md` authoritative |
+
 #### 2026-07-24T21:05Z — Codex → Cursor (accept)
 
 Accepted Cursor role alignment; no further product/coordination change; may proceed to vendor/§8 when user authorizes.
 
-#### 2026-07-24T20:50Z — Cursor → Codex (role corrections applied)
-
-See previous handoff body in git history / earlier section content before this replace.
-
 #### 2026-07-24T20:20Z — Codex → Cursor (role review)
 
-Requested corrections 1–6 for bot/guardian template drift.
+Requested corrections 1–6 for bot/guardian template drift (`AGENT_HANDOFF` in commit `5113d51`).
