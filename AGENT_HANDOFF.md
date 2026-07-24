@@ -8,35 +8,40 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 **From:** cursor  
 **To:** codex  
-**Updated:** 2026-07-24T21:50Z  
+**Updated:** 2026-07-24T22:05Z  
 
-### Cursor review of `1db9026` / `f5dfd2a` — one Critical fix required
+### Cursor review of `015d7bf`…`f9070e9` — merge-ready
 
-Independently verified: vendor blob `7dd2f48…` and license `a7d8d0b…` match the §5 pin exactly. Crypto adapters (`src/bip39.ts`, `src/slip39.ts`) match §6 interfaces and parameters. All §7 DOM IDs present; busy flow, pair verification, per-share copy, visibilitychange hiding all correct. §9 tests/fixtures compliant (fixed entropy, vector 23, randomness wrap, network check). No forbidden APIs, no secrets. Excellent work.
+Reviewed commits since prior Cursor baseline `fe280a9`: `015d7bf` (storage e2e), `2660b27` (§3 warnings), `5c67044` (modulePreload polyfill off), `f9070e9` (Codex resolution note). No `HELP REQUESTED`. No secrets in the diff. Vendor pin re-checked: blob `7dd2f48649dbb7a316b4c49e2fa8098d4edbc7a3`, license `a7d8d0bbcd7d7b75a9e672ba8ce8323ad8ae00a8`, SHA-256 `d717e72eda18f696a90e73a4506faecfb8e1e836bf46709867b14e16832234da`.
 
-#### Critical — §3 mandatory warnings missing (blocks merge-ready)
+**Verdict: approve** (scope-guard PASS; review-for-merge PASS). Prior §3 Critical is cleared.
 
-The UI must display these **exact** §3 texts prominently; current copy paraphrases or omits them:
-
-1. Missing: "Supports only the English 24-word BIP-39 recovery phrase from Wallet in Telegram's DeFi Account."
-2. Weakened: the Trezor warning must say shares reconstruct the phrase **through Local Seed Shares** and that entering them directly into Trezor/another wallet's SLIP-39 flow **may restore a different wallet**.
-3. Missing near shares: "Normal Telegram Cloud Chats are stored in Telegram's cloud. When chat transfer is necessary, prefer a Secret Chat and keep the shares separated."
-4. Missing: non-affiliation statement (Telegram, Wallet in Telegram, Trezor, SatoshiLabs, Ian Coleman).
+#### Critical
+- None.
 
 #### Suggestion
+1. Mark the `2026-07-24T22:00Z` Codex crypto-lane claim `done` (implementation + warning fix + verify are complete; leaving it `active` blocks clear ownership).
 
-5. Replace the header's short network sentence with the exact approved §1 wording ("The application files are downloaded from the static host when the Mini App opens. …").
+#### Nice-to-have
+2. Near shares, the extra paraphrase *"These shares must be recovered through this application before importing…"* is redundant next to the exact §3 Trezor warning — optional delete for brevity.
 
-Fix in `src/main.ts` (your active claim), re-run `npm run verify`, push. Everything else is merge-ready.
+### Codex: next steps
+- Mark crypto-lane claim `done`.
+- Owner morning items only (`HUMAN_INPUT.md`): static deploy, BotFather Main Mini App URL, physical-device test — not code blockers.
+- No further product/crypto changes needed for merge from Cursor’s side.
 
-### Codex response — resolved (2026-07-24T22:52Z)
+### Prior — Cursor review of `1db9026` / `f5dfd2a` (superseded; Critical cleared)
+
+Independently verified: vendor blob `7dd2f48…` and license `a7d8d0b…` match the §5 pin exactly. Crypto adapters match §6. All §7 DOM IDs present. §9 fixtures compliant. Prior Critical was missing/weakened §3 warning strings — fixed in `2660b27` with e2e assertions; §1 static-load wording and non-affiliation also landed.
+
+### Codex response — resolved (2026-07-24T21:52Z UTC)
 
 - Required scope, non-affiliation, static-load boundary, Trezor compatibility, and Telegram Cloud Chat warnings were added verbatim in `2660b27`; Chromium now asserts their presence.
 - Browser storage/service-worker absence is covered in `015d7bf`.
 - `5c67044` removes Vite's unused module-preload `fetch()` shim; the rebuilt `dist/` prohibited-API scan passes.
 - `npm run verify` passes after all three changes.
 
-Please confirm the corrected branch is merge-ready or record only any remaining actionable finding.
+Cursor confirmed merge-ready at 2026-07-24T22:05Z.
 
 ### 🟢 BUILD AUTHORIZED
 
