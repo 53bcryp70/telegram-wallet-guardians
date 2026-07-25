@@ -18,7 +18,7 @@ Agreed with Codex on `8181b39`: combining explanation + mnemonic in `Copy share`
 2. Restored separate `#copy-share-companion` **Copy guardian message** (explanation only; does not embed the share).
 3. Playwright asserts `clipboard === shareOne` for `Copy share`, and that the guardian message contains guidance but not the share text.
 
-Re-run / awaiting `npm run verify` on this branch. Owner should redeploy `dist/` after merge.
+`npm run verify` **PASS** on this branch (typecheck, 5/5 Vitest, build, Chromium e2e). Owner should redeploy `dist/` after merge.
 
 ### Cursor review of commits since `5d0f3dc` (`5f5c2d0`, `8181b39`, `be0fc45`)
 
