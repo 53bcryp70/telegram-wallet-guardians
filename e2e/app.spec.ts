@@ -160,9 +160,12 @@ test.describe("SLIP-39 cryptographic checkpoint", () => {
     await page.locator("#shared-check-2").check();
     await page.locator("#shared-check-3").check();
     await expect(page.locator("#shared-all-check")).toBeChecked();
-    await page.locator("#copy-week-reminder").click();
+    await page.locator("#copy-share-companion").click();
     expect(await page.evaluate(() => navigator.clipboard.readText())).toContain(
-      "Ask each guardian whether they saved their single share outside Telegram",
+      "This message is one recovery share from Local Seed Shares",
+    );
+    expect(await page.evaluate(() => navigator.clipboard.readText())).toContain(
+      "Why a Secret Chat",
     );
 
     await page.locator('[data-reveal-share="0"]').click();

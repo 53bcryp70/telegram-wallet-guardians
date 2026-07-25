@@ -121,13 +121,13 @@ app.innerHTML = `
         <p id="shared-all-status" class="hint" aria-live="polite"></p>
       </div>
       <div class="reminder-block">
-        <h3>One-week follow-up</h3>
-        <p>In about a week, ask each person whether they saved their share <em>outside</em> the chat (password manager, paper, or private offline copy).</p>
+        <h3>Message to send with a share</h3>
+        <p>Copy this text and send it in the same Secret Chat <em>with</em> that one share, so the other person knows what to do.</p>
         <div class="actions">
-          <button id="copy-week-reminder" type="button" class="secondary">Copy 1-week reminder note</button>
+          <button id="copy-share-companion" type="button" class="secondary">Copy guardian message</button>
           <button id="bot-week-reminder" type="button" class="ghost" disabled aria-disabled="true">Ask this bot to remind me in 1 week (coming later)</button>
         </div>
-        <p class="hint">Bot reminders need a Telegram bot backend. This Mini App cannot schedule them yet — copy the note into Saved Messages or your calendar for now.</p>
+        <p class="hint">Send only one share per person / chat. Bot reminders stay disabled until a backend is approved.</p>
       </div>
     </section>
 
@@ -232,8 +232,16 @@ function wipe(bytes: Uint8Array): void {
   bytes.fill(0);
 }
 
-const WEEK_REMINDER_NOTE =
-  "Local Seed Shares follow-up (about 1 week): Ask each guardian whether they saved their single share outside Telegram (password manager, paper, or private offline copy). Confirm the Secret Chat message can be deleted. Never keep two shares in any one Telegram account, chat, or device.";
+const SHARE_COMPANION_MESSAGE = [
+  "This message is one recovery share from Local Seed Shares (hackathon prototype).",
+  "It is NOT your full wallet recovery phrase. Keep this share safe and separate from any other share.",
+  "",
+  "Please save it outside this chat as soon as you can, for example in a password manager, on paper, or with a careful private screenshot stored offline. Then reply here to confirm you have saved it.",
+  "",
+  "After you confirm, we can delete this chat message (or let the ~1 week Secret Chat self-destruct finish). Do not leave the only copy inside Telegram.",
+  "",
+  "Why a Secret Chat: normal Telegram Cloud Chats are stored in Telegram's cloud. A Secret Chat is end-to-end encrypted on our devices, is better for transferring a single share, and helps keep shares separated so no account holds two shares.",
+].join("\n");
 
 function resetShareChecklist(): void {
   for (const id of ["shared-check-1", "shared-check-2", "shared-check-3", "shared-all-check"]) {
@@ -551,13 +559,13 @@ byId<HTMLInputElement>("shared-all-check").addEventListener("change", () => {
     : "";
 });
 
-byId<HTMLButtonElement>("copy-week-reminder").addEventListener("click", () => {
-  const button = byId<HTMLButtonElement>("copy-week-reminder");
+byId<HTMLButtonElement>("copy-share-companion").addEventListener("click", () => {
+  const button = byId<HTMLButtonElement>("copy-share-companion");
   const originalLabel = button.textContent ?? "";
   void navigator.clipboard
-    .writeText(WEEK_REMINDER_NOTE)
+    .writeText(SHARE_COMPANION_MESSAGE)
     .then(() => {
-      setStatus("1-week reminder note copied. Paste it into Saved Messages or your calendar.");
+      setStatus("Guardian message copied. Paste it into the Secret Chat with that one share.");
       button.textContent = "Copied";
       button.classList.add("copied");
       window.setTimeout(() => {
