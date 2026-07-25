@@ -6,6 +6,7 @@ Status values: `active` | `done` | `blocked` | `stale`
 
 | When (UTC) | Agent | Task | Paths / globs | Status |
 |------------|-------|------|---------------|--------|
+| 2026-07-25T12:20Z | cursor | Take over Codex bare-Copy-share correction; restore §7 clipboard + review commits since 5d0f3dc | src/main.ts, e2e/app.spec.ts, AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |
 | 2026-07-25T13:10Z | codex | Review Cursor's combined Copy share message against the locked SLIP-39 clipboard contract; hand off correction | AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |
 | 2026-07-25T11:50Z | cursor | Owner: share-sent checklist + 1-week reminder copy (bot reminder placeholder) | src/main.ts, src/style.css, e2e/app.spec.ts, AGENT_*.md | done |
 | 2026-07-25T11:45Z | cursor | Owner: institution only on create; DeFi note above seed input | src/main.ts, e2e/app.spec.ts, AGENT_*.md | done |

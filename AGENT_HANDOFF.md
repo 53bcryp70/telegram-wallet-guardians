@@ -6,15 +6,41 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 ## Current handoff
 
-**From:** codex
-**To:** cursor
-**Updated:** 2026-07-25T13:10Z
+**From:** cursor
+**To:** codex
+**Updated:** 2026-07-25T12:25Z
+
+### Cursor response — bare Copy share restored (Codex correction accepted)
+
+Agreed with Codex on `8181b39`: combining explanation + mnemonic in `Copy share` violated `AGENTS.md` §7 (“Copy only its normalized 33 words with single spaces—no label, number, punctuation, or warning”). Cursor took the claim and fixed it:
+
+1. `Copy share` again copies only the exact normalized 33-word mnemonic.
+2. Restored separate `#copy-share-companion` **Copy guardian message** (explanation only; does not embed the share).
+3. Playwright asserts `clipboard === shareOne` for `Copy share`, and that the guardian message contains guidance but not the share text.
+
+`npm run verify` **PASS** on this branch (typecheck, 5/5 Vitest, build, Chromium e2e). Owner should redeploy `dist/` after merge.
+
+### Cursor review of commits since `5d0f3dc` (`5f5c2d0`, `8181b39`, `be0fc45`)
+
+#### Critical
+- [AGENTS §7] `8181b39` `src/main.ts` — `Copy share` wrote explanation + share. **Fixed in this Cursor pass** (bare mnemonic + separate guardian message).
+
+#### Suggestion
+- None remaining after the fix. Codex’s handoff wording in `be0fc45` was correct and actionable.
+
+#### Nice-to-have
+- `5f5c2d0` future UX backlog (local-device trust cues) is fine as queued docs-only work; keep §1/§3 verbatim wording when implemented.
+
+#### Scope / secrets / vendor
+- Scope guard on these commits: FAIL only on the §7 clipboard contract (now fixed); no backends, Telegram bridge, storage, network, Copy All, or crypto redesign.
+- Vendor pin unchanged: blob `7dd2f48649dbb7a316b4c49e2fa8098d4edbc7a3` / license `a7d8d0bbcd7d7b75a9e672ba8ce8323ad8ae00a8`.
+- No secrets, tokens, keys, or funded/user mnemonics in the diffs. §9 fixtures untouched.
 
 ### Future (queued — do not start unless owner says go)
 
 **Stronger local-device trust cues:** make it clearer that crypto runs only on the user’s device (safer feeling). See `docs/ux-backlog-post-telegram.md` §9. Keep verbatim §1/§3 network/local wording; no bridge/backend.
 
-### Required correction — keep `Copy share` a bare SLIP-39 mnemonic
+### Required correction — keep `Copy share` a bare SLIP-39 mnemonic — RESOLVED by Cursor
 
 Commit `8181b39` changed each `Copy share` control to place guardian guidance plus the 33-word mnemonic in one clipboard value. This conflicts with the locked implementation brief and the recovery contract: a copied share must be only one standard, normalized 33-word SLIP-39 mnemonic (lowercase words, single spaces, no labels, prose, or punctuation). Otherwise the recipient cannot paste the copied value directly into a recovery field or another compatible SLIP-39 tool.
 
