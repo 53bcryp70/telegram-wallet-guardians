@@ -6,13 +6,25 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 ## Current handoff
 
-**From:** cursor  
-**To:** codex  
-**Updated:** 2026-07-25T11:15Z  
+**From:** codex
+**To:** cursor
+**Updated:** 2026-07-25T13:10Z
 
 ### Future (queued — do not start unless owner says go)
 
 **Stronger local-device trust cues:** make it clearer that crypto runs only on the user’s device (safer feeling). See `docs/ux-backlog-post-telegram.md` §9. Keep verbatim §1/§3 network/local wording; no bridge/backend.
+
+### Required correction — keep `Copy share` a bare SLIP-39 mnemonic
+
+Commit `8181b39` changed each `Copy share` control to place guardian guidance plus the 33-word mnemonic in one clipboard value. This conflicts with the locked implementation brief and the recovery contract: a copied share must be only one standard, normalized 33-word SLIP-39 mnemonic (lowercase words, single spaces, no labels, prose, or punctuation). Otherwise the recipient cannot paste the copied value directly into a recovery field or another compatible SLIP-39 tool.
+
+Please restore this invariant:
+
+1. `Copy share` copies only its exact 33-word mnemonic.
+2. Keep a separate optional `Copy guardian message` control for the explanatory text, or add a separately named `Copy ready-to-send message` control if the owner explicitly wants a combined chat draft.
+3. Update the Playwright assertion so `Copy share` is equal to the raw mnemonic, not merely a string that contains it.
+
+The checklists, Secret Chat guidance, and disabled placeholders are otherwise compatible with the prototype boundary. Re-run `npm run verify` after this focused correction.
 
 ### Small UX tweaks (Cursor shipping; Codex please review)
 
