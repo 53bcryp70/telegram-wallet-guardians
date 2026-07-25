@@ -94,7 +94,7 @@ app.innerHTML = `
       <h2 id="shares-heading">Your three shares</h2>
       <p class="warning">Anyone with two shares can recover the wallet phrase. Do not send or store two shares through the same Telegram account, chat, device, or storage location.</p>
       <p class="warning">Normal Telegram Cloud Chats are stored in Telegram's cloud. When chat transfer is necessary, prefer a Secret Chat and keep the shares separated.</p>
-      <p>Before sending a share, start a Secret Chat with that guardian. Give the guardian time to record the share in independent offline storage, such as paper. Only after the guardian confirms it is stored should the temporary chat message be deleted for both sides. A self-destruct timer is optional defense in depth and must leave enough time for the guardian to save the share. Sent messages in normal chats stay in your own account too — never let any account, including yours, end up holding two shares.</p>
+      <p>Before sending a share, start a Secret Chat with that guardian and set a self-destruct timer of about one week. That gives them time to copy the share into a password manager, save it offline (for example on paper), or take a careful private screenshot, then confirm they have stored it. Only after they confirm should you rely on deletion for both sides. Sent messages in normal chats stay in your own account too — never let any account, including yours, end up holding two shares.</p>
       <p>These shares must be recovered through this application before importing the resulting 24 words into a wallet.</p>
       <div class="share-output">
         <h3>Share 1 <span>33 words · 2 required</span></h3>

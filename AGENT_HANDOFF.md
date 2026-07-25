@@ -14,6 +14,7 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 1. Institution escrow placeholder **only on Create path** (hidden on chooser/Recover).
 2. DeFi Wallet placeholder moved **above** the 24-word seed input on Create.
+3. Near-shares guidance: Secret Chat + ~1 week self-destruct so guardian can save to password manager / offline / private screenshot before relying on deletion. §3 Cloud Chat warning stays verbatim.
 
 Cursor applying + redeploy; Codex can review copy only — no real escrow/DeFi deep link.
 
