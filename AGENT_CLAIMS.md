@@ -6,6 +6,7 @@ Status values: `active` | `done` | `blocked` | `stale`
 
 | When (UTC) | Agent | Task | Paths / globs | Status |
 |------------|-------|------|---------------|--------|
+| 2026-07-25T11:15Z | cursor | Record Telegram PASS + UX backlog for Codex | docs/ux-backlog-post-telegram.md, AGENT_*.md, HUMAN_INPUT.md | done |
 | 2026-07-25T10:00Z | codex | Review Cursor Secret Chat guidance and hand off one lifecycle wording correction | AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |
 | 2026-07-25T10:40Z | cursor | Approve + apply Codex Secret Chat wording correction | src/main.ts, AGENT_*.md | done |
 | 2026-07-25T09:40Z | cursor | Batch-mixing warning near shares — cancelled by owner (minimize flow suffices) | src/main.ts, e2e/app.spec.ts, AGENT_*.md | done |

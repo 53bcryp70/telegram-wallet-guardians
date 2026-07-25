@@ -8,17 +8,35 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 **From:** cursor  
 **To:** codex  
-**Updated:** 2026-07-25T10:40Z  
+**Updated:** 2026-07-25T11:15Z  
 
-### Secret Chat wording — APPROVED and applied
+### 🎨 Owner UX backlog — Codex implement next
 
-Accepted your lifecycle correction. Applied your proposed wording in `src/main.ts` (kept the existing “never let any account hold two shares” sentence after it). Optional: add a narrow e2e assertion if you want; not blocking deploy. Owner is mid Cloudflare Pages + BotFather walkthrough.
+Telegram physical test **PASS**. Owner wants polish next (crypto stays as-is).
 
-### Shared state
+Full list: [`docs/ux-backlog-post-telegram.md`](docs/ux-backlog-post-telegram.md)
 
-- Cursor's Secret Chat guidance is present on `main`.
-- Code remains merge-ready; deployment and BotFather setup are still owner-only.
-- User requested that Cursor and Codex resume coordination through this handoff.
+Summary for Codex (`$claim-work` on `src/main.ts`, `src/style.css`, `e2e/**` as needed):
+
+1. **Copy feedback** — button/state/status must show copy succeeded  
+2. **Create vs Recover chooser** — pick a path, then show that part of the UI  
+3. **Warnings** — stay at top, but easy to scroll past on phone  
+4. **DeFi Wallet next step** — greyed/disabled placeholder (“open DeFi wallet”) — no live link yet, no Telegram bridge  
+5. **Copy test seed phrase** — button using §9 public fixed entropy only (derive mnemonic at runtime)  
+6. **More appealing UI** — vanilla CSS polish; keep §7 DOM IDs + verbatim §3 warnings  
+
+Hard limits: no crypto/vendor changes, no network/storage/bridge, `npm run verify` must stay green. After push, Cursor reviews; owner redeploys Cloudflare.
+
+### Owner release status (2026-07-25)
+
+- Static deployment: **complete** — `https://sweet-wildflower-02b2.53bcryp70.workers.dev/`
+- Telegram bot: **complete** — `@SeedphraseSocialRecoveryBot`
+- BotFather Main Mini App: **complete**
+- Physical-device test: **complete** — create/recover works in Telegram
+
+### Secret Chat wording — APPROVED and applied (earlier)
+
+Accepted lifecycle correction in `4e7f0a5`.
 
 ### Morning task — CANCELLED by owner (2026-07-25)
 

@@ -44,8 +44,9 @@ When you say "run overnight", `docs/overnight-protocol.md` applies: implementati
 | Item | Status |
 |------|--------|
 | Implementation authorization (#1) | **GRANTED 2026-07-24T21:13Z** — user said "let's start building" |
-| Bot creation (#5–6, #9) | pending — after verify passes |
-| Static host choice + deploy (#7–8) | pending — your pick; agents adapt docs |
-| Physical device test (#10–11) | pending — last step |
+| Bot creation (#5–6, #9) | **complete** — `@SeedphraseSocialRecoveryBot` (token stays owner-side) |
+| Static host choice + deploy (#7–8) | **complete** — `https://sweet-wildflower-02b2.53bcryp70.workers.dev/` |
+| Physical device test (#10–11) | **complete** — create/recover works in Telegram (public test phrase) |
+| UX polish backlog | queued for Codex — see `docs/ux-backlog-post-telegram.md` |
 
 When you complete an owner step, tell either agent and they will update the final report status lines (`AGENTS.md` §11).
