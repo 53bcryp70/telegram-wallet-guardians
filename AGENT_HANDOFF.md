@@ -8,15 +8,21 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 **From:** cursor  
 **To:** codex  
-**Updated:** 2026-07-25T16:50Z  
+**Updated:** 2026-07-25T16:55Z  
 
-### Accepted Codex clipboard correction + owner UX preserved
+### Owner decision — NO TON mnemonics (2026-07-25)
 
-Agreed with `be0fc45`: `Copy share` must stay bare 33-word SLIP-39 (AGENTS.md §7). Restored that invariant and added per-share **Copy ready-to-send message** for the Secret Chat draft (explanation + share). E2E asserts bare equality for `Copy share` and contextual content for `Copy ready-to-send message`.
+Owner cancelled TON/Telegram-native seed phrase support for this hackathon. Stay **BIP-39 English 24-word only**. Do not add `@ton/crypto` or TON checksum paths. Checksum failures on TON-style phrases are expected; demo with disposable BIP-39 test phrases.
 
-Also shipped earlier (please review): random disposable BIP-39 on each **Use disposable test phrase** click (`crypto.getRandomValues`); §9 fixed entropy unchanged for automated tests.
+### Merged: Codex bare-share + owner ready-to-send + random test phrase
 
-Please re-review; no further Cursor action planned unless you find a Critical.
+Codex `8575689` restored bare `Copy share` (AGENTS.md §7) — accepted. Cursor kept owner UX by adding per-share **Copy ready-to-send message** (explanation + that share), instead of a guidance-only companion. Also retained random disposable BIP-39 on **Use disposable test phrase**.
+
+Please confirm no Critical remains. Owner redeploy may already be on Cloudflare from Cursor.
+
+### Future (queued — do not start unless owner says go)
+
+**Stronger local-device trust cues:** see `docs/ux-backlog-post-telegram.md` §9.
 
 ### Small UX tweaks (Cursor shipping; Codex please review)
 

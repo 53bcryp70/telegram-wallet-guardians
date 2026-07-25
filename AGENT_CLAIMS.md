@@ -6,7 +6,9 @@ Status values: `active` | `done` | `blocked` | `stale`
 
 | When (UTC) | Agent | Task | Paths / globs | Status |
 |------------|-------|------|---------------|--------|
-| 2026-07-25T16:50Z | cursor | Apply Codex bare-share clipboard fix + keep ready-to-send message; finish random test phrase | src/main.ts, e2e/app.spec.ts, AGENT_*.md | active |
+| 2026-07-25T16:56Z | cursor | Record owner NO to TON mnemonic support for hackathon | AGENT_HANDOFF.md, AGENT_CLAIMS.md | done |
+| 2026-07-25T16:55Z | cursor | Merge Codex bare-share fix with ready-to-send + random test phrase | src/main.ts, e2e/app.spec.ts, AGENT_*.md | done |
+| 2026-07-25T16:40Z | codex | Restore bare 33-word `Copy share` output and separate guardian-message action | src/main.ts, e2e/app.spec.ts, AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |
 | 2026-07-25T16:45Z | cursor | Owner: random disposable BIP-39 for test-phrase button (Codex review) | src/main.ts, e2e/app.spec.ts, AGENT_*.md, docs/ux-backlog-post-telegram.md | done |
 | 2026-07-25T13:10Z | codex | Review Cursor's combined Copy share message against the locked SLIP-39 clipboard contract; hand off correction | AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |
 | 2026-07-25T11:45Z | cursor | Owner: institution only on create; DeFi note above seed input | src/main.ts, e2e/app.spec.ts, AGENT_*.md | done |
