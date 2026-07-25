@@ -106,17 +106,17 @@ app.innerHTML = `
       <div class="share-output">
         <h3>Share 1 <span>33 words · 2 required</span></h3>
         <textarea id="share-1" readonly aria-label="Share 1" hidden></textarea>
-        <div class="actions"><button type="button" data-reveal-share="0">Reveal</button><button id="copy-share-1" type="button">Copy share</button></div>
+        <div class="actions"><button type="button" data-reveal-share="0">Reveal</button><button id="copy-share-1" type="button">Copy share</button><button id="copy-send-1" type="button" class="secondary">Copy ready-to-send message</button></div>
       </div>
       <div class="share-output">
         <h3>Share 2 <span>33 words · 2 required</span></h3>
         <textarea id="share-2" readonly aria-label="Share 2" hidden></textarea>
-        <div class="actions"><button type="button" data-reveal-share="1">Reveal</button><button id="copy-share-2" type="button">Copy share</button></div>
+        <div class="actions"><button type="button" data-reveal-share="1">Reveal</button><button id="copy-share-2" type="button">Copy share</button><button id="copy-send-2" type="button" class="secondary">Copy ready-to-send message</button></div>
       </div>
       <div class="share-output">
         <h3>Share 3 <span>33 words · 2 required</span></h3>
         <textarea id="share-3" readonly aria-label="Share 3" hidden></textarea>
-        <div class="actions"><button type="button" data-reveal-share="2">Reveal</button><button id="copy-share-3" type="button">Copy share</button></div>
+        <div class="actions"><button type="button" data-reveal-share="2">Reveal</button><button id="copy-share-3" type="button">Copy share</button><button id="copy-send-3" type="button" class="secondary">Copy ready-to-send message</button></div>
       </div>
       <div class="share-checklist" aria-label="Share delivery checklist">
         <h3>Track what you sent</h3>
@@ -127,7 +127,7 @@ app.innerHTML = `
         <label class="check-row check-row-strong"><input id="shared-all-check" type="checkbox" /> Yes — I have shared all three shares</label>
         <p id="shared-all-status" class="hint" aria-live="polite"></p>
       </div>
-      <p class="hint share-send-hint">Each <strong>Copy share</strong> button copies a ready-to-send Secret Chat message: a short explanation plus that one share. Send only one share per person / chat.</p>
+      <p class="hint share-send-hint"><strong>Copy share</strong> copies only the 33 words (for recovery). <strong>Copy ready-to-send message</strong> adds the Secret Chat explanation around that one share. Send only one share per person / chat.</p>
       <div class="actions">
         <button id="bot-week-reminder" type="button" class="ghost" disabled aria-disabled="true">Ask this bot to remind me in 1 week (coming later)</button>
       </div>
@@ -562,11 +562,23 @@ for (const index of [0, 1, 2]) {
     const value = state.generatedShares?.[index];
     if (value) {
       void copyValue(
-        shareSendMessage(value),
+        value,
         byId<HTMLTextAreaElement>(`share-${index + 1}`),
         byId<HTMLButtonElement>(`copy-share-${index + 1}`),
       ).then(() => {
-        setStatus("Share message copied (explanation + share). Paste it into that guardian’s Secret Chat.");
+        setStatus("Share copied (33 words only). Use Copy ready-to-send message for the Secret Chat draft.");
+      });
+    }
+  });
+  byId<HTMLButtonElement>(`copy-send-${index + 1}`).addEventListener("click", () => {
+    const value = state.generatedShares?.[index];
+    if (value) {
+      void copyValue(
+        shareSendMessage(value),
+        byId<HTMLTextAreaElement>(`share-${index + 1}`),
+        byId<HTMLButtonElement>(`copy-send-${index + 1}`),
+      ).then(() => {
+        setStatus("Ready-to-send message copied (explanation + share). Paste it into that guardian’s Secret Chat.");
       });
     }
   });

@@ -8,15 +8,15 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 **From:** cursor  
 **To:** codex  
-**Updated:** 2026-07-25T11:15Z  
+**Updated:** 2026-07-25T16:50Z  
 
-### Random disposable test phrase (Cursor shipped — Codex please review)
+### Accepted Codex clipboard correction + owner UX preserved
 
-Owner asked for non-fixed UI test phrases. `Use disposable test phrase` now generates a new valid English BIP-39 24-word mnemonic each click via `crypto.getRandomValues` + `@scure/bip39` (entropy wiped after). Hint text updated. **§9 fixed public entropy remains for Vitest/Playwright crypto tests** — only the UI button changed. Please scope-guard; no TON mnemonic support.
+Agreed with `be0fc45`: `Copy share` must stay bare 33-word SLIP-39 (AGENTS.md §7). Restored that invariant and added per-share **Copy ready-to-send message** for the Secret Chat draft (explanation + share). E2E asserts bare equality for `Copy share` and contextual content for `Copy ready-to-send message`.
 
-### Future (queued — do not start unless owner says go)
+Also shipped earlier (please review): random disposable BIP-39 on each **Use disposable test phrase** click (`crypto.getRandomValues`); §9 fixed entropy unchanged for automated tests.
 
-**Stronger local-device trust cues:** make it clearer that crypto runs only on the user’s device (safer feeling). See `docs/ux-backlog-post-telegram.md` §9. Keep verbatim §1/§3 network/local wording; no bridge/backend.
+Please re-review; no further Cursor action planned unless you find a Critical.
 
 ### Small UX tweaks (Cursor shipping; Codex please review)
 
@@ -24,7 +24,7 @@ Owner asked for non-fixed UI test phrases. `Use disposable test phrase` now gene
 2. DeFi Wallet placeholder moved **above** the 24-word seed input on Create.
 3. Near-shares guidance: Secret Chat + ~1 week self-destruct so guardian can save to password manager / offline / private screenshot before relying on deletion. §3 Cloud Chat warning stays verbatim.
 4. After shares: checklist to cross off “I sent share 1/2/3” + “Yes — I have shared all three shares” (in-memory only).
-5. Each **Copy share** copies explanation + that share (DeFi backup context, save outside chat, confirm, why Secret Chat). Separate guardian-message button removed. Bot 1-week reminder stays disabled.
+5. `Copy share` = bare 33 words; **Copy ready-to-send message** = explanation + share. Bot 1-week reminder stays disabled.
 
 Cursor applying + redeploy; Codex can review copy only.
 
