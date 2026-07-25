@@ -154,8 +154,16 @@ app.innerHTML = `
     </section>
 
     <footer id="institution-footer" class="app-footer" hidden>
-      <p class="hint">Optional future path: lock one share with an institution until your pre-chosen identity checks pass.</p>
-      <button id="institution-escrow" type="button" class="ghost" disabled aria-disabled="true">Send one share to an institution (coming later)</button>
+      <h3>Send one share to an institution (coming later)</h3>
+      <p class="hint">Optional future path: lock exactly one share with a chosen institution until your pre-chosen identity checks pass. Several institutions can be supported; the first planned partner is BackupBuddy.io.</p>
+      <label for="institution-select">Institution</label>
+      <select id="institution-select" disabled aria-disabled="true">
+        <option value="backupbuddy-io" selected>BackupBuddy.io</option>
+        <option value="" disabled>More institutions can be added later…</option>
+      </select>
+      <div class="actions">
+        <button id="institution-escrow" type="button" class="ghost" disabled aria-disabled="true">Send one share to institution (coming later)</button>
+      </div>
     </footer>
 
     <p id="status-message" class="status" aria-live="polite"></p>

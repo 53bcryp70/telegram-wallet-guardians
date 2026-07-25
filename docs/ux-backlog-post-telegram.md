@@ -40,7 +40,7 @@ Restyle for a cleaner mobile Mini App look (`src/style.css` + light `src/main.ts
 ### 7. Institution share escrow — UI placeholder only
 Owner idea: a bottom button to **send one share to an institution**, which locks it so release requires pre-chosen user identification.
 
-**For this pass:** add a clear but **disabled/greyed** control, e.g. “Send one share to an institution (coming later)”, with one short sentence that it would lock a share until identity checks pass. **Show only on the Create-shares path** (hidden on chooser and Recover). **Do not** implement send, lock, identity, or institution APIs.
+**For this pass:** disabled/greyed institution picker on Create path only. First listed partner: **BackupBuddy.io**; UI notes that many institutions can be supported later. **Do not** implement send, lock, identity, or institution APIs.
 
 ## Acceptance for this backlog pass
 

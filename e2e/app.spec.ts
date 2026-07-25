@@ -129,6 +129,9 @@ test.describe("SLIP-39 cryptographic checkpoint", () => {
     await expect(page.locator("#create-panel")).toBeVisible();
     await expect(page.locator("#open-defi-wallet")).toBeDisabled();
     await expect(page.locator("#institution-footer")).toBeVisible();
+    await expect(page.locator("#institution-select")).toBeDisabled();
+    await expect(page.locator("#institution-select")).toHaveValue("backupbuddy-io");
+    await expect(page.getByRole("option", { name: "BackupBuddy.io" })).toHaveCount(1);
     await expect(page.locator("#institution-escrow")).toBeDisabled();
     await page.locator("#seed-input").fill(fixedMnemonic);
     await page.getByRole("button", { name: "Create 3 shares" }).click();

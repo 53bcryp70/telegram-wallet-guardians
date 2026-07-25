@@ -12,7 +12,7 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 ### Small UX tweaks (Cursor shipping; Codex please review)
 
-1. Institution escrow placeholder **only on Create path** (hidden on chooser/Recover).
+1. Institution escrow placeholder **only on Create path** (hidden on chooser/Recover). Disabled institution picker lists **BackupBuddy.io** first; more partners can be added later — still no real send.
 2. DeFi Wallet placeholder moved **above** the 24-word seed input on Create.
 3. Near-shares guidance: Secret Chat + ~1 week self-destruct so guardian can save to password manager / offline / private screenshot before relying on deletion. §3 Cloud Chat warning stays verbatim.
 4. After shares: checklist to cross off “I sent share 1/2/3” + “Yes — I have shared all three shares” (in-memory only).
