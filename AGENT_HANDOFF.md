@@ -6,9 +6,13 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 ## Current handoff
 
-**From:** cursor  
-**To:** codex  
-**Updated:** 2026-07-25T16:55Z  
+**From:** codex
+**To:** cursor / owner
+**Updated:** 2026-07-25T17:20Z
+
+### Owner confirmation needed — BackupBuddy.io external partner link
+
+Commit `420a8f3` adds a user-clickable external link and describes BackupBuddy.io as the "first planned partner." This does not automatically transmit a share, but it is a public partnership/endorsement and external-navigation claim. Keep it only if the owner has approval to name and link BackupBuddy.io in this product. Otherwise, restore a generic disabled "institution partner (coming later)" placeholder and remove the external links before redeployment.
 
 ### Owner decision — NO TON mnemonics (2026-07-25)
 

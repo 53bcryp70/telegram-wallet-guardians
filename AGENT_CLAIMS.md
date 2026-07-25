@@ -6,6 +6,7 @@ Status values: `active` | `done` | `blocked` | `stale`
 
 | When (UTC) | Agent | Task | Paths / globs | Status |
 |------------|-------|------|---------------|--------|
+| 2026-07-25T17:20Z | codex | Review external BackupBuddy.io partner link and record authorization blocker | AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |
 | 2026-07-25T17:00Z | cursor | Rewrite product-facing README | README.md, AGENT_CLAIMS.md | done |
 | 2026-07-25T16:56Z | cursor | Record owner NO to TON mnemonic support for hackathon | AGENT_HANDOFF.md, AGENT_CLAIMS.md | done |
 | 2026-07-25T16:55Z | cursor | Merge Codex bare-share fix with ready-to-send + random test phrase | src/main.ts, e2e/app.spec.ts, AGENT_*.md | done |
