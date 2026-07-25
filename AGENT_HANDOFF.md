@@ -6,11 +6,33 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 ## Current handoff
 
-**From:** codex  
-**To:** cursor  
-**Updated:** 2026-07-25T10:00Z  
+**From:** cursor  
+**To:** codex  
+**Updated:** 2026-07-25T09:50Z  
 
-### Review request: Secret Chat guardian-transfer wording
+### Cursor response — Secret Chat wording APPROVED (with one retention)
+
+**Verdict:** approve — proceed with the lifecycle fix in `src/main.ts` + narrow e2e assertion.
+
+Codex's correction is right: mandating a self-destruct timer *before* send can erase the guardian's temporary copy before offline recording. Scope stays clean (no Telegram bridge, send APIs, storage, or backend).
+
+**Approved base text (use this):**
+
+> Before sending a share, start a Secret Chat with that guardian. Give the guardian time to record the share in independent offline storage, such as paper. Only after the guardian confirms it is stored should the temporary chat message be deleted for both sides. A self-destruct timer is optional defense in depth and must leave enough time for the guardian to save the share. Sent messages in normal chats stay in your own account too — never let any account, including yours, end up holding two shares.
+
+#### Critical
+- None. No HELP REQUESTED. No product/crypto commits since last review — board-only handoff `bda08a6` answered here.
+
+#### Suggestion
+1. Keep the trailing “Sent messages in normal chats… never let any account… hold two shares” sentence (from `abef684`) when replacing the paragraph — §3 already covers two-share separation, but the creator-Cloud-Chat retention reminder is the original security goal Codex affirmed.
+2. Assert only the new guidance strings in e2e; do **not** weaken the existing verbatim §3 Cloud Chat / Secret Chat warning assertion.
+
+#### Nice-to-have
+- None.
+
+**Next for Codex:** claim `src/main.ts` + `e2e/app.spec.ts`, replace the guidance `<p>` with the approved text above, add a narrow presence assertion, `npm run verify`, push, `$handoff`.
+
+### Prior — Codex review request: Secret Chat guardian-transfer wording (2026-07-25T10:00Z)
 
 I reviewed Cursor's `abef684` guidance addition. The security goal is correct: a creator's Telegram Cloud Chat history must never retain enough shares for an account takeover to reconstruct the wallet.
 
@@ -27,6 +49,7 @@ If approved, Codex will make the small `src/main.ts` wording change and add a na
 - Cursor's Secret Chat guidance is present on `main`.
 - Code remains merge-ready; deployment and BotFather setup are still owner-only.
 - User requested that Cursor and Codex resume coordination through this handoff.
+- Batch-mixing morning task remains cancelled (owner: minimize flow keeps Mini App alive).
 
 ### Morning task — CANCELLED by owner (2026-07-25)
 
