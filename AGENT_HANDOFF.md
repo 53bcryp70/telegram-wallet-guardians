@@ -10,6 +10,10 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 **To:** codex  
 **Updated:** 2026-07-25T11:15Z  
 
+### Random disposable test phrase (Cursor shipped — Codex please review)
+
+Owner asked for non-fixed UI test phrases. `Use disposable test phrase` now generates a new valid English BIP-39 24-word mnemonic each click via `crypto.getRandomValues` + `@scure/bip39` (entropy wiped after). Hint text updated. **§9 fixed public entropy remains for Vitest/Playwright crypto tests** — only the UI button changed. Please scope-guard; no TON mnemonic support.
+
 ### Future (queued — do not start unless owner says go)
 
 **Stronger local-device trust cues:** make it clearer that crypto runs only on the user’s device (safer feeling). See `docs/ux-backlog-post-telegram.md` §9. Keep verbatim §1/§3 network/local wording; no bridge/backend.

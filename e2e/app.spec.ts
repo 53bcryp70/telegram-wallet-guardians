@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { readFileSync } from "node:fs";
-import { entropyToMnemonic } from "@scure/bip39";
+import { entropyToMnemonic, validateMnemonic } from "@scure/bip39";
 import { wordlist } from "@scure/bip39/wordlists/english.js";
 
 const fixture = JSON.parse(
@@ -133,6 +133,17 @@ test.describe("SLIP-39 cryptographic checkpoint", () => {
     await expect(page.locator("#institution-select")).toHaveValue("backupbuddy-io");
     await expect(page.getByRole("option", { name: "BackupBuddy.io" })).toHaveCount(1);
     await expect(page.locator("#institution-escrow")).toBeDisabled();
+
+    await page.locator("#use-test-phrase").click();
+    const firstDisposable = await page.locator("#seed-input").inputValue();
+    expect(firstDisposable.split(" ")).toHaveLength(24);
+    expect(validateMnemonic(firstDisposable, wordlist)).toBe(true);
+    await page.locator("#use-test-phrase").click();
+    const secondDisposable = await page.locator("#seed-input").inputValue();
+    expect(secondDisposable.split(" ")).toHaveLength(24);
+    expect(validateMnemonic(secondDisposable, wordlist)).toBe(true);
+    expect(secondDisposable).not.toBe(firstDisposable);
+
     await page.locator("#seed-input").fill(fixedMnemonic);
     await page.getByRole("button", { name: "Create 3 shares" }).click();
     await expect(page.locator("#share-section")).toBeVisible();

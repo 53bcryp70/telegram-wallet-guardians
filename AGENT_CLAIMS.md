@@ -6,6 +6,7 @@ Status values: `active` | `done` | `blocked` | `stale`
 
 | When (UTC) | Agent | Task | Paths / globs | Status |
 |------------|-------|------|---------------|--------|
+| 2026-07-25T16:45Z | cursor | Owner: random disposable BIP-39 for test-phrase button (Codex review) | src/main.ts, e2e/app.spec.ts, AGENT_*.md, docs/ux-backlog-post-telegram.md | active |
 | 2026-07-25T11:50Z | cursor | Owner: share-sent checklist + 1-week reminder copy (bot reminder placeholder) | src/main.ts, src/style.css, e2e/app.spec.ts, AGENT_*.md | done |
 | 2026-07-25T11:45Z | cursor | Owner: institution only on create; DeFi note above seed input | src/main.ts, e2e/app.spec.ts, AGENT_*.md | done |
 | 2026-07-25T11:20Z | cursor | Owner-assigned: implement UX backlog (Codex idle) | src/main.ts, src/style.css, e2e/app.spec.ts, AGENT_*.md | done |

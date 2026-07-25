@@ -23,10 +23,17 @@ const state: AppState = {
   path: "choose",
 };
 
-const FIXED_TEST_ENTROPY = Uint8Array.from({ length: 32 }, (_, index) => index);
-
-function publicTestMnemonic(): string {
-  return entropyToMnemonic(FIXED_TEST_ENTROPY, wordlist);
+function disposableTestMnemonic(): string {
+  if (!globalThis.crypto || typeof globalThis.crypto.getRandomValues !== "function") {
+    throw new Error("Secure random-number generation is unavailable.");
+  }
+  const entropy = new Uint8Array(32);
+  globalThis.crypto.getRandomValues(entropy);
+  try {
+    return entropyToMnemonic(entropy, wordlist);
+  } finally {
+    entropy.fill(0);
+  }
 }
 
 const appElement = document.querySelector<HTMLElement>("#app");
@@ -86,7 +93,7 @@ app.innerHTML = `
         <button id="create-shares" type="button">Create 3 shares</button>
         <button id="clear-seed" type="button" class="secondary">Clear</button>
       </div>
-      <p class="hint">Test phrase has no funds. Derived from public fixed test entropy for demos only.</p>
+      <p class="hint">Each click generates a new random English BIP-39 test phrase on this device. Disposable only — no funds. Automated tests still use the fixed public entropy from the project brief.</p>
       <p id="split-error" class="error" role="alert" hidden></p>
     </section>
 
@@ -478,13 +485,21 @@ byId<HTMLButtonElement>("back-from-create").addEventListener("click", () => show
 byId<HTMLButtonElement>("back-from-recover").addEventListener("click", () => showPath("choose"));
 
 byId<HTMLButtonElement>("use-test-phrase").addEventListener("click", () => {
-  const mnemonic = publicTestMnemonic();
-  seedInput.value = mnemonic;
-  updateWordCount(seedInput, "seed-count", 24);
-  setError(splitError, null);
-  void copyValue(mnemonic, seedInput, byId<HTMLButtonElement>("use-test-phrase")).then(() => {
-    setStatus("Disposable public test phrase loaded and copied. It has no funds.");
-  });
+  try {
+    const mnemonic = disposableTestMnemonic();
+    seedInput.value = mnemonic;
+    updateWordCount(seedInput, "seed-count", 24);
+    setError(splitError, null);
+    void copyValue(mnemonic, seedInput, byId<HTMLButtonElement>("use-test-phrase")).then(() => {
+      setStatus("New disposable BIP-39 test phrase loaded and copied. It has no funds.");
+    });
+  } catch (error) {
+    const message =
+      error instanceof Error && error.message === "Secure random-number generation is unavailable."
+        ? error.message
+        : "Share verification failed. No shares were displayed.";
+    setError(splitError, message);
+  }
 });
 
 byId<HTMLButtonElement>("seed-reveal").addEventListener("click", () => {

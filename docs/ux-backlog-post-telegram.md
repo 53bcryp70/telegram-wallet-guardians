@@ -26,8 +26,8 @@ Keep mandatory §3 warnings at the top, but make them easy to scroll past so the
 ### 4. DeFi Wallet next-step (placeholder)
 On the Create path, **above** the 24-word seed input, tell the user that in theory they open their **Wallet in Telegram DeFi Account** next. Include a **greyed-out / disabled** link or button (not working yet — no live deep link required in this pass). Do not add Telegram JS bridge or remote loads.
 
-### 5. Copy test seed phrase button
-Add a button that fills/copies the **public §9 test mnemonic only**, derived at runtime from fixed entropy `00010203…1f` (do not hard-code a “real” mnemonic string in source if avoidable — derive via `@scure/bip39` like tests). Label it clearly as disposable test words with no funds.
+### 5. Disposable test seed phrase button
+Button fills/copies a **new random** valid English BIP-39 24-word phrase each click (`crypto.getRandomValues` → `@scure/bip39`). Label as disposable / no funds. Automated tests keep using §9 fixed public entropy.
 
 ### 6. More appealing UI
 Restyle for a cleaner mobile Mini App look (`src/style.css` + light `src/main.ts` structure). Constraints:
