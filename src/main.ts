@@ -491,9 +491,7 @@ byId<HTMLButtonElement>("use-test-phrase").addEventListener("click", () => {
     seedInput.value = mnemonic;
     updateWordCount(seedInput, "seed-count", 24);
     setError(splitError, null);
-    void copyValue(mnemonic, seedInput, byId<HTMLButtonElement>("use-test-phrase")).then(() => {
-      setStatus("New disposable BIP-39 test phrase loaded and copied. It has no funds.");
-    });
+    setStatus("New disposable BIP-39 test phrase loaded into the field. It has no funds.");
   } catch (error) {
     const message =
       error instanceof Error && error.message === "Secure random-number generation is unavailable."
