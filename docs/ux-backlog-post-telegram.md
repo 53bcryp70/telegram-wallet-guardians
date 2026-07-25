@@ -35,6 +35,11 @@ Restyle for a cleaner mobile Mini App look (`src/style.css` + light `src/main.ts
 - No cards-heavy dashboard; one clear job per screen/section
 - No purple-glow / generic AI aesthetic; pick a simple calm mobile look suitable for a security tool
 
+### 7. Institution share escrow — UI placeholder only
+Owner idea: a bottom button to **send one share to an institution**, which locks it so release requires pre-chosen user identification.
+
+**For this Codex pass:** add a clear but **disabled/greyed** bottom control, e.g. “Send one share to an institution (coming later)”, with one short sentence that it would lock a share until identity checks pass. **Do not** implement send, lock, identity, or institution APIs.
+
 ## Acceptance for this backlog pass
 
 - `npm run verify` still PASS
@@ -42,8 +47,21 @@ Restyle for a cleaner mobile Mini App look (`src/style.css` + light `src/main.ts
 - No secrets, no `window.Telegram`, no persistence, no app-initiated network
 - Redeploy note for owner after green verify
 
+## Future product (blocked by current brief — do not build)
+
+### Institution-locked share release
+Real version of item 7 needs, at minimum:
+
+- A trusted institution + custody/escrow process
+- Identity binding chosen by the user up front
+- Secure transmission and storage of exactly **one** share
+- A release workflow that checks that identity before returning the share
+
+That requires backend/accounts/network and is **explicitly forbidden** by `AGENTS.md` §2 for this hackathon Mini App. Implementing it needs a **separate product decision + brief-lock approval** from the owner, not a UI polish pass.
+
 ## Out of scope (do not do)
 
 - Changing SLIP-39 / BIP-39 logic
 - Backend, analytics, QR, Copy all, configurable thresholds
 - Enabling a real DeFi Wallet deep link without separate owner approval
+- Real institution send/lock/identity release (placeholder only)

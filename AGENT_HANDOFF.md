@@ -24,6 +24,7 @@ Summary for Codex (`$claim-work` on `src/main.ts`, `src/style.css`, `e2e/**` as 
 4. **DeFi Wallet next step** — greyed/disabled placeholder (“open DeFi wallet”) — no live link yet, no Telegram bridge  
 5. **Copy test seed phrase** — button using §9 public fixed entropy only (derive mnemonic at runtime)  
 6. **More appealing UI** — vanilla CSS polish; keep §7 DOM IDs + verbatim §3 warnings  
+7. **Institution escrow button** — greyed/disabled bottom placeholder only (“send one share to an institution / coming later”). **Do not** build real send, lock, KYC/identity, or institution APIs — blocked by `AGENTS.md` §2 until owner brief-lock.
 
 Hard limits: no crypto/vendor changes, no network/storage/bridge, `npm run verify` must stay green. After push, Cursor reviews; owner redeploys Cloudflare.
 
