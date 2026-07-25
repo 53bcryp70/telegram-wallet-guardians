@@ -61,9 +61,15 @@ Real version of item 7 needs, at minimum:
 
 That requires backend/accounts/network and is **explicitly forbidden** by `AGENTS.md` §2 for this hackathon Mini App. Implementing it needs a **separate product decision + brief-lock approval** from the owner, not a UI polish pass.
 
+### 8. Share-sent checklist + 1-week reminder (owner-approved)
+- Checkboxes to mark share 1/2/3 sent and “Yes — I have shared all three shares” (session/UI only; no persistence).
+- Working **Copy 1-week reminder note** for Saved Messages / calendar.
+- Disabled placeholder: **Ask this bot to remind me in 1 week** — real bot reminders need a backend (forbidden until brief-lock).
+
 ## Out of scope (do not do)
 
 - Changing SLIP-39 / BIP-39 logic
 - Backend, analytics, QR, Copy all, configurable thresholds
 - Enabling a real DeFi Wallet deep link without separate owner approval
 - Real institution send/lock/identity release (placeholder only)
+- Real Telegram bot scheduled reminders / webhooks / polling

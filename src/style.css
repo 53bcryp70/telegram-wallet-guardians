@@ -262,6 +262,34 @@ textarea:focus-visible {
   margin-bottom: 0.7rem;
 }
 
+.share-checklist,
+.reminder-block {
+  margin-top: 1rem;
+  padding: 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  background: #f7faf7;
+}
+
+.check-row {
+  display: flex;
+  gap: 0.55rem;
+  align-items: flex-start;
+  font-weight: 600;
+  margin: 0.45rem 0;
+}
+
+.check-row input {
+  width: auto;
+  margin-top: 0.2rem;
+}
+
+.check-row-strong {
+  margin-top: 0.75rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--line);
+}
+
 .error {
   color: var(--danger);
   font-weight: 700;

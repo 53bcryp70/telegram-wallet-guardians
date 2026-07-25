@@ -111,6 +111,24 @@ app.innerHTML = `
         <textarea id="share-3" readonly aria-label="Share 3" hidden></textarea>
         <div class="actions"><button type="button" data-reveal-share="2">Reveal</button><button id="copy-share-3" type="button">Copy share</button></div>
       </div>
+      <div class="share-checklist" aria-label="Share delivery checklist">
+        <h3>Track what you sent</h3>
+        <p class="hint">Cross these off as you send each share. This list stays only while this page is open.</p>
+        <label class="check-row"><input id="shared-check-1" type="checkbox" /> I sent share 1</label>
+        <label class="check-row"><input id="shared-check-2" type="checkbox" /> I sent share 2</label>
+        <label class="check-row"><input id="shared-check-3" type="checkbox" /> I sent share 3</label>
+        <label class="check-row check-row-strong"><input id="shared-all-check" type="checkbox" /> Yes — I have shared all three shares</label>
+        <p id="shared-all-status" class="hint" aria-live="polite"></p>
+      </div>
+      <div class="reminder-block">
+        <h3>One-week follow-up</h3>
+        <p>In about a week, ask each person whether they saved their share <em>outside</em> the chat (password manager, paper, or private offline copy).</p>
+        <div class="actions">
+          <button id="copy-week-reminder" type="button" class="secondary">Copy 1-week reminder note</button>
+          <button id="bot-week-reminder" type="button" class="ghost" disabled aria-disabled="true">Ask this bot to remind me in 1 week (coming later)</button>
+        </div>
+        <p class="hint">Bot reminders need a Telegram bot backend. This Mini App cannot schedule them yet — copy the note into Saved Messages or your calendar for now.</p>
+      </div>
     </section>
 
     <section id="recover-panel" class="flow-panel" aria-labelledby="recover-heading" hidden>
@@ -214,12 +232,40 @@ function wipe(bytes: Uint8Array): void {
   bytes.fill(0);
 }
 
+const WEEK_REMINDER_NOTE =
+  "Local Seed Shares follow-up (about 1 week): Ask each guardian whether they saved their single share outside Telegram (password manager, paper, or private offline copy). Confirm the Secret Chat message can be deleted. Never keep two shares in any one Telegram account, chat, or device.";
+
+function resetShareChecklist(): void {
+  for (const id of ["shared-check-1", "shared-check-2", "shared-check-3", "shared-all-check"]) {
+    byId<HTMLInputElement>(id).checked = false;
+  }
+  byId<HTMLParagraphElement>("shared-all-status").textContent = "";
+}
+
+function updateShareChecklistStatus(): void {
+  const one = byId<HTMLInputElement>("shared-check-1").checked;
+  const two = byId<HTMLInputElement>("shared-check-2").checked;
+  const three = byId<HTMLInputElement>("shared-check-3").checked;
+  const allBox = byId<HTMLInputElement>("shared-all-check");
+  const status = byId<HTMLParagraphElement>("shared-all-status");
+  if (one && two && three) {
+    allBox.checked = true;
+    status.textContent = "All three shares marked as shared.";
+  } else if (allBox.checked && !(one && two && three)) {
+    allBox.checked = false;
+    status.textContent = "";
+  } else if (!allBox.checked) {
+    status.textContent = "";
+  }
+}
+
 function clearGeneratedShares(): void {
   state.generatedShares = null;
   shareSection.hidden = true;
   for (const id of ["share-1", "share-2", "share-3"]) {
     byId<HTMLTextAreaElement>(id).value = "";
   }
+  resetShareChecklist();
 }
 
 function clearRecovery(): void {
@@ -490,6 +536,45 @@ for (const index of [0, 1, 2]) {
     }
   });
 }
+
+for (const id of ["shared-check-1", "shared-check-2", "shared-check-3"]) {
+  byId<HTMLInputElement>(id).addEventListener("change", updateShareChecklistStatus);
+}
+
+byId<HTMLInputElement>("shared-all-check").addEventListener("change", () => {
+  const checked = byId<HTMLInputElement>("shared-all-check").checked;
+  for (const id of ["shared-check-1", "shared-check-2", "shared-check-3"]) {
+    byId<HTMLInputElement>(id).checked = checked;
+  }
+  byId<HTMLParagraphElement>("shared-all-status").textContent = checked
+    ? "All three shares marked as shared."
+    : "";
+});
+
+byId<HTMLButtonElement>("copy-week-reminder").addEventListener("click", () => {
+  const button = byId<HTMLButtonElement>("copy-week-reminder");
+  const originalLabel = button.textContent ?? "";
+  void navigator.clipboard
+    .writeText(WEEK_REMINDER_NOTE)
+    .then(() => {
+      setStatus("1-week reminder note copied. Paste it into Saved Messages or your calendar.");
+      button.textContent = "Copied";
+      button.classList.add("copied");
+      window.setTimeout(() => {
+        button.textContent = originalLabel;
+        button.classList.remove("copied");
+      }, 1600);
+    })
+    .catch(() => {
+      setStatus("Copy failed. Select the text and copy it manually.");
+      button.textContent = "Copy failed";
+      button.classList.add("copy-failed");
+      window.setTimeout(() => {
+        button.textContent = originalLabel;
+        button.classList.remove("copy-failed");
+      }, 1600);
+    });
+});
 
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) hideSensitiveViews();
