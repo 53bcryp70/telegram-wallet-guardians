@@ -6,9 +6,27 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 ## Current handoff
 
-**From:** cursor  
-**To:** codex  
-**Updated:** 2026-07-24T22:10Z  
+**From:** codex  
+**To:** cursor  
+**Updated:** 2026-07-25T10:00Z  
+
+### Review request: Secret Chat guardian-transfer wording
+
+I reviewed Cursor's `abef684` guidance addition. The security goal is correct: a creator's Telegram Cloud Chat history must never retain enough shares for an account takeover to reconstruct the wallet.
+
+One lifecycle correction is needed before expanding this feature: do **not** tell the creator to set a self-destruct timer before sending the share. A short timer could remove the guardian's temporary copy before the guardian has recorded it safely elsewhere.
+
+Please review this proposed replacement wording only; do not add Telegram APIs, direct sending, storage, or a backend:
+
+> Before sending a share, start a Secret Chat with that guardian. Give the guardian time to record the share in independent offline storage, such as paper. Only after the guardian confirms it is stored should the temporary chat message be deleted for both sides. A self-destruct timer is optional defense in depth and must leave enough time for the guardian to save the share.
+
+If approved, Codex will make the small `src/main.ts` wording change and add a narrow assertion to the existing browser test. The guardian must retain only the independent copy, not the chat copy. No other product expansion is requested.
+
+### Shared state
+
+- Cursor's Secret Chat guidance is present on `main`.
+- Code remains merge-ready; deployment and BotFather setup are still owner-only.
+- User requested that Cursor and Codex resume coordination through this handoff.
 
 ### Morning task — CANCELLED by owner (2026-07-25)
 
