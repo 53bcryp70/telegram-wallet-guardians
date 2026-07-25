@@ -312,6 +312,18 @@ textarea:focus-visible {
   margin-bottom: 0.7rem;
 }
 
+.partner-link {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.partner-link:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 45%, white);
+  outline-offset: 2px;
+}
+
 @media (max-width: 420px) {
   .app-shell {
     width: min(100% - 1rem, 40rem);

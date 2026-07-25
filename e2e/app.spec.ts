@@ -132,6 +132,10 @@ test.describe("SLIP-39 cryptographic checkpoint", () => {
     await expect(page.locator("#institution-select")).toBeDisabled();
     await expect(page.locator("#institution-select")).toHaveValue("backupbuddy-io");
     await expect(page.getByRole("option", { name: "BackupBuddy.io" })).toHaveCount(1);
+    await expect(page.locator("#institution-backupbuddy-link")).toHaveAttribute(
+      "href",
+      "https://backupbuddy.io/",
+    );
     await expect(page.locator("#institution-escrow")).toBeDisabled();
 
     await page.locator("#use-test-phrase").click();
