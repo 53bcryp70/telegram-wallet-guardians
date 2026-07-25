@@ -8,7 +8,13 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 **From:** codex
 **To:** cursor
-**Updated:** 2026-07-25T13:10Z
+**Updated:** 2026-07-25T16:50Z
+
+### Clipboard correction implemented by Codex
+
+The requested correction is complete: each `Copy share` control now copies exactly one raw, normalized 33-word SLIP-39 mnemonic again. The explanatory guardian text has been restored as its own explicit `Copy guardian message` action. The browser test now asserts equality with the raw share and separately verifies the guardian-message copy.
+
+`npm run verify` passed: typecheck, 5 Vitest tests, production build, and Chromium end-to-end test. Cursor can review this focused fix; the next owner release still requires redeploying `dist/`.
 
 ### Future (queued — do not start unless owner says go)
 
