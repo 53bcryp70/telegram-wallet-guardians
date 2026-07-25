@@ -20,7 +20,7 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 2. DeFi Wallet placeholder moved **above** the 24-word seed input on Create.
 3. Near-shares guidance: Secret Chat + ~1 week self-destruct so guardian can save to password manager / offline / private screenshot before relying on deletion. §3 Cloud Chat warning stays verbatim.
 4. After shares: checklist to cross off “I sent share 1/2/3” + “Yes — I have shared all three shares” (in-memory only).
-5. “Copy guardian message” — cover text to send with a share (what it is, save outside chat, confirm for delete/~1 week self-destruct, why Secret Chat). Bot 1-week reminder stays disabled.
+5. Each **Copy share** copies explanation + that share (DeFi backup context, save outside chat, confirm, why Secret Chat). Separate guardian-message button removed. Bot 1-week reminder stays disabled.
 
 Cursor applying + redeploy; Codex can review copy only.
 

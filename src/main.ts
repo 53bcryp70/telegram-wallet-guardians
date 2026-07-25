@@ -120,14 +120,9 @@ app.innerHTML = `
         <label class="check-row check-row-strong"><input id="shared-all-check" type="checkbox" /> Yes — I have shared all three shares</label>
         <p id="shared-all-status" class="hint" aria-live="polite"></p>
       </div>
-      <div class="reminder-block">
-        <h3>Message to send with a share</h3>
-        <p>Copy this text and send it in the same Secret Chat <em>with</em> that one share, so the other person knows what to do.</p>
-        <div class="actions">
-          <button id="copy-share-companion" type="button" class="secondary">Copy guardian message</button>
-          <button id="bot-week-reminder" type="button" class="ghost" disabled aria-disabled="true">Ask this bot to remind me in 1 week (coming later)</button>
-        </div>
-        <p class="hint">Send only one share per person / chat. Bot reminders stay disabled until a backend is approved.</p>
+      <p class="hint share-send-hint">Each <strong>Copy share</strong> button copies a ready-to-send Secret Chat message: a short explanation plus that one share. Send only one share per person / chat.</p>
+      <div class="actions">
+        <button id="bot-week-reminder" type="button" class="ghost" disabled aria-disabled="true">Ask this bot to remind me in 1 week (coming later)</button>
       </div>
     </section>
 
@@ -240,16 +235,19 @@ function wipe(bytes: Uint8Array): void {
   bytes.fill(0);
 }
 
-const SHARE_COMPANION_MESSAGE = [
-  "This message is one recovery share from Local Seed Shares (hackathon prototype).",
-  "It is NOT your full wallet recovery phrase. Keep this share safe and separate from any other share.",
-  "",
-  "Please save it outside this chat as soon as you can, for example in a password manager, on paper, or with a careful private screenshot stored offline. Then reply here to confirm you have saved it.",
-  "",
-  "After you confirm, we can delete this chat message (or let the ~1 week Secret Chat self-destruct finish). Do not leave the only copy inside Telegram.",
-  "",
-  "Why a Secret Chat: normal Telegram Cloud Chats are stored in Telegram's cloud. A Secret Chat is end-to-end encrypted on our devices, is better for transferring a single share, and helps keep shares separated so no account holds two shares.",
-].join("\n");
+function shareSendMessage(share: string): string {
+  return [
+    "Hi — this is one recovery share for my Wallet in Telegram DeFi Account backup (Local Seed Shares, hackathon prototype).",
+    "It is NOT the full 24-word recovery phrase. Please keep this share separate from any other share.",
+    "",
+    "Please save it outside this chat as soon as you can — for example in your password manager, on paper, or with a careful private screenshot stored offline. Reply here to confirm when you have saved it outside the chat, so this message can be deleted (or the ~1 week Secret Chat self-destruct can finish).",
+    "",
+    "I opened this new Secret Chat on purpose: it is end-to-end encrypted on our devices, so Telegram cannot read it (unlike normal Cloud Chats). Only this one share should ever be in this chat.",
+    "",
+    "Your share (33 words):",
+    share,
+  ].join("\n");
+}
 
 function resetShareChecklist(): void {
   for (const id of ["shared-check-1", "shared-check-2", "shared-check-3", "shared-all-check"]) {
@@ -548,7 +546,13 @@ for (const index of [0, 1, 2]) {
   byId<HTMLButtonElement>(`copy-share-${index + 1}`).addEventListener("click", () => {
     const value = state.generatedShares?.[index];
     if (value) {
-      void copyValue(value, byId<HTMLTextAreaElement>(`share-${index + 1}`), byId<HTMLButtonElement>(`copy-share-${index + 1}`));
+      void copyValue(
+        shareSendMessage(value),
+        byId<HTMLTextAreaElement>(`share-${index + 1}`),
+        byId<HTMLButtonElement>(`copy-share-${index + 1}`),
+      ).then(() => {
+        setStatus("Share message copied (explanation + share). Paste it into that guardian’s Secret Chat.");
+      });
     }
   });
 }
@@ -565,31 +569,6 @@ byId<HTMLInputElement>("shared-all-check").addEventListener("change", () => {
   byId<HTMLParagraphElement>("shared-all-status").textContent = checked
     ? "All three shares marked as shared."
     : "";
-});
-
-byId<HTMLButtonElement>("copy-share-companion").addEventListener("click", () => {
-  const button = byId<HTMLButtonElement>("copy-share-companion");
-  const originalLabel = button.textContent ?? "";
-  void navigator.clipboard
-    .writeText(SHARE_COMPANION_MESSAGE)
-    .then(() => {
-      setStatus("Guardian message copied. Paste it into the Secret Chat with that one share.");
-      button.textContent = "Copied";
-      button.classList.add("copied");
-      window.setTimeout(() => {
-        button.textContent = originalLabel;
-        button.classList.remove("copied");
-      }, 1600);
-    })
-    .catch(() => {
-      setStatus("Copy failed. Select the text and copy it manually.");
-      button.textContent = "Copy failed";
-      button.classList.add("copy-failed");
-      window.setTimeout(() => {
-        button.textContent = originalLabel;
-        button.classList.remove("copy-failed");
-      }, 1600);
-    });
 });
 
 document.addEventListener("visibilitychange", () => {

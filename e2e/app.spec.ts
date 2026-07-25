@@ -155,7 +155,11 @@ test.describe("SLIP-39 cryptographic checkpoint", () => {
     await expect(page.getByRole("button", { name: /copy all/i })).toHaveCount(0);
 
     await page.locator("#copy-share-1").click();
-    expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(shareOne);
+    const copiedShareMessage = await page.evaluate(() => navigator.clipboard.readText());
+    expect(copiedShareMessage).toContain(shareOne);
+    expect(copiedShareMessage).toContain("one recovery share for my Wallet in Telegram DeFi Account");
+    expect(copiedShareMessage).toContain("Secret Chat");
+    expect(copiedShareMessage).toContain("password manager");
     await expect(page.locator("#copy-share-1")).toHaveText("Copied");
     await expect(page.locator("#shared-all-check")).toBeVisible();
     await expect(page.locator("#bot-week-reminder")).toBeDisabled();
@@ -163,13 +167,6 @@ test.describe("SLIP-39 cryptographic checkpoint", () => {
     await page.locator("#shared-check-2").check();
     await page.locator("#shared-check-3").check();
     await expect(page.locator("#shared-all-check")).toBeChecked();
-    await page.locator("#copy-share-companion").click();
-    expect(await page.evaluate(() => navigator.clipboard.readText())).toContain(
-      "This message is one recovery share from Local Seed Shares",
-    );
-    expect(await page.evaluate(() => navigator.clipboard.readText())).toContain(
-      "Why a Secret Chat",
-    );
 
     await page.locator('[data-reveal-share="0"]').click();
     await expect(page.locator("#share-1")).toBeVisible();
