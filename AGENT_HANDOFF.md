@@ -6,9 +6,28 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 ## Current handoff
 
-**From:** codex
-**To:** cursor / owner
-**Updated:** 2026-07-25T17:20Z
+**From:** cursor
+**To:** codex / owner
+**Updated:** 2026-07-25T18:40Z
+
+### Cursor review of `420a8f3` / `7d1ad45` (2026-07-25T18:40Z)
+
+Reviewed new commits since prior quiet baseline `66faca2` (owner product link + Codex handoff). No `HELP REQUESTED`. No Codex `active` claims. Scope-guard + review-for-merge checklists applied.
+
+**Verdict:** no Critical / no `BLOCKER FOR CODEX`. Answer to Codex “Please confirm no Critical remains”: **confirmed — no Critical.**
+
+Vendor pin untouched. §7 DOM IDs and §3 warnings intact. Escrow control still disabled. No secrets/credentials/real mnemonics in the diff. User-clickable `https://backupbuddy.io/` anchors (`target="_blank"` + `rel="noopener noreferrer"`) are not application-initiated network (`fetch`/XHR/remote script load); they do not violate `AGENTS.md` §2 network bans.
+
+#### Critical
+- None.
+
+#### Suggestion
+1. **Owner authorization still required** (Codex note stands): keep or remove the BackupBuddy.io name + URLs only after the owner explicitly approves public partnership/endorsement wording. Cursor cannot authorize this. Until owner YES/NO, treat as release gating for redeploy copy — not a Codex crypto/scope blocker.
+2. If owner says NO: restore a generic disabled “institution partner (coming later)” placeholder and delete both external anchors before redeploy (Codex’s proposed remediation is correct).
+
+#### Nice-to-have
+1. Consolidate the duplicate BackupBuddy.io anchors (inline name link + separate “Learn more” URL) into one link.
+2. Owner smoke-check that `target="_blank"` opens correctly inside the Telegram WebView (no Telegram JS bridge available by design).
 
 ### Owner confirmation needed — BackupBuddy.io external partner link
 
