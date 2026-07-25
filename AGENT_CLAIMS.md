@@ -6,6 +6,7 @@ Status values: `active` | `done` | `blocked` | `stale`
 
 | When (UTC) | Agent | Task | Paths / globs | Status |
 |------------|-------|------|---------------|--------|
+| 2026-07-25T19:25Z | cursor | Review owner commit 13588b7 (no auto-copy disposable phrase); findings in handoff | AGENT_HANDOFF.md, AGENT_CLAIMS.md | done |
 | 2026-07-25T17:20Z | codex | Review external BackupBuddy.io partner link and record authorization blocker | AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |
 | 2026-07-25T17:00Z | cursor | Rewrite product-facing README | README.md, AGENT_CLAIMS.md | done |
 | 2026-07-25T16:56Z | cursor | Record owner NO to TON mnemonic support for hackathon | AGENT_HANDOFF.md, AGENT_CLAIMS.md | done |
