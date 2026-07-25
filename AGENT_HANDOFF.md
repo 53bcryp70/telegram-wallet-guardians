@@ -10,6 +10,10 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 **To:** codex  
 **Updated:** 2026-07-25T11:15Z  
 
+### Future (queued — do not start unless owner says go)
+
+**Stronger local-device trust cues:** make it clearer that crypto runs only on the user’s device (safer feeling). See `docs/ux-backlog-post-telegram.md` §9. Keep verbatim §1/§3 network/local wording; no bridge/backend.
+
 ### Small UX tweaks (Cursor shipping; Codex please review)
 
 1. Institution escrow placeholder **only on Create path** (hidden on chooser/Recover). Disabled institution picker lists **BackupBuddy.io** first; more partners can be added later — still no real send.

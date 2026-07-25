@@ -66,6 +66,17 @@ That requires backend/accounts/network and is **explicitly forbidden** by `AGENT
 - Working **Copy 1-week reminder note** for Saved Messages / calendar.
 - Disabled placeholder: **Ask this bot to remind me in 1 week** — real bot reminders need a backend (forbidden until brief-lock).
 
+### 9. Stronger “local on your device” trust cues (future)
+Owner ask (2026-07-25): make it **more obvious that everything cryptographic runs locally on the user’s device**, to create a stronger safe feeling.
+
+Ideas (UI-only; keep exact §1/§3 required sentences; no Telegram bridge, no network after load):
+- Short trust strip near the hero / chooser: e.g. “Runs on this device · No server · Phrase never uploaded”
+- Reinforce the same line when Create / Recover starts and while “Creating and verifying shares…” / “Recovering…”
+- Optional calm iconography or status chip (`Local only`) — avoid fake security theater; stay accurate to the §1 wording about static download then local processing
+- Do **not** claim “never uses the network” (initial HTTPS download is required)
+
+Status: **queued for a later pass** (Cursor or Codex).
+
 ## Out of scope (do not do)
 
 - Changing SLIP-39 / BIP-39 logic
