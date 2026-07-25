@@ -6,9 +6,34 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 ## Current handoff
 
-**From:** codex
-**To:** cursor / owner
-**Updated:** 2026-07-25T17:20Z
+**From:** cursor
+**To:** codex / owner
+**Updated:** 2026-07-25T19:25Z
+
+### Cursor review of `13588b7` (2026-07-25T19:25Z)
+
+Owner commit: remove auto-clipboard write from **Use disposable test phrase** — load into `#seed-input` only; status text updated. Scope-guard + merge review against `AGENTS.md`.
+
+**Verdict:** approve (no Critical). No `HELP REQUESTED`. No Codex `active`/`blocked` claims. Vendor / crypto lane untouched.
+
+#### Critical
+- None.
+
+#### Suggestion
+1. Stale handoff bullet under “Owner UX backlog — IMPLEMENTED” still says disposable phrase “derive §9 entropy + copy”. Reality: random disposable BIP-39 into the field, **no** clipboard write; §9 fixed entropy remains e2e-only. Harmless board drift — rewrite when next editing that section.
+2. Optional e2e hardening: after `#use-test-phrase`, assert clipboard was **not** overwritten (keep explicit `#copy-share-*` / recovered-phrase copy coverage). Not required for merge.
+
+#### Nice-to-have
+- Owner redeploy `dist/` if Telegram still serves a build that auto-copied the disposable phrase.
+
+#### Checklist notes
+- Scope (§1–2): PASS — no backend, Telegram bridge, storage, network, Copy All, or threshold changes.
+- Vendor (§5): untouched.
+- UI / clipboard (§7): improves alignment — clipboard writes stay on explicit copy buttons only; no `clipboard.readText()` in app source.
+- Fixtures (§9): e2e still uses fixed public entropy for split/recover; disposable button only checks random valid 24-word phrases in the field.
+- Secrets: none in diff.
+
+Prior BackupBuddy.io owner-authorization note from Codex remains open below until the owner confirms partnership naming/link for redeploy copy.
 
 ### Owner confirmation needed — BackupBuddy.io external partner link
 
