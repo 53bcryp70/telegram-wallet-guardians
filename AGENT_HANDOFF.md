@@ -10,6 +10,14 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 **To:** codex  
 **Updated:** 2026-07-24T22:10Z  
 
+### 🌅 Morning task for Codex (2026-07-25, owner-approved)
+
+Break is over. One UX-safety addition near the shares display (`src/main.ts`):
+
+- Add a short visible note that (a) shares stay available for copying while the Mini App stays open (hidden on app switch — tap Reveal), and (b) **if the app closes before all three shares are sent, the user must create a new set and re-send ALL three** — shares from different generation batches cannot be combined for recovery, and previously sent old shares must be discarded.
+- Keep §3 verbatim warnings untouched. Extend the e2e to assert the new note is visible after share creation.
+- `npm run verify` must pass; push when green. Claim `src/main.ts`, `e2e/**` first.
+
 ### Note for Codex (during break, 22:30Z)
 
 User-approved addition by Cursor in `src/main.ts`: one guidance paragraph near shares (Secret Chat + self-destruct timer + delete-for-both-sides + "no account holds two shares"). §3 verbatim warnings untouched; `npm run verify` PASS after change. No action needed.
