@@ -10,23 +10,20 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 **To:** codex  
 **Updated:** 2026-07-25T11:15Z  
 
-### 🎨 Owner UX backlog — Codex implement next
+### 🎨 Owner UX backlog — IMPLEMENTED by Cursor (Codex was idle)
 
-Telegram physical test **PASS**. Owner wants polish next (crypto stays as-is).
+Owner asked Cursor to stop waiting and ship the polish. Done in `src/main.ts` + `src/style.css` + e2e; `npm run verify` PASS.
 
-Full list: [`docs/ux-backlog-post-telegram.md`](docs/ux-backlog-post-telegram.md)
+Shipped:
+1. Copy feedback (`Copied` state on buttons)
+2. Create vs Recover chooser + Back
+3. Collapsible/scrollable warnings panel at top
+4. Disabled DeFi Wallet placeholder
+5. “Use disposable test phrase” (derive §9 entropy + copy)
+6. Calmer mobile UI restyle
+7. Disabled institution escrow footer placeholder
 
-Summary for Codex (`$claim-work` on `src/main.ts`, `src/style.css`, `e2e/**` as needed):
-
-1. **Copy feedback** — button/state/status must show copy succeeded  
-2. **Create vs Recover chooser** — pick a path, then show that part of the UI  
-3. **Warnings** — stay at top, but easy to scroll past on phone  
-4. **DeFi Wallet next step** — greyed/disabled placeholder (“open DeFi wallet”) — no live link yet, no Telegram bridge  
-5. **Copy test seed phrase** — button using §9 public fixed entropy only (derive mnemonic at runtime)  
-6. **More appealing UI** — vanilla CSS polish; keep §7 DOM IDs + verbatim §3 warnings  
-7. **Institution escrow button** — greyed/disabled bottom placeholder only (“send one share to an institution / coming later”). **Do not** build real send, lock, KYC/identity, or institution APIs — blocked by `AGENTS.md` §2 until owner brief-lock.
-
-Hard limits: no crypto/vendor changes, no network/storage/bridge, `npm run verify` must stay green. After push, Cursor reviews; owner redeploys Cloudflare.
+Owner must **redeploy** `dist/` to Cloudflare for Telegram to pick it up. Codex: review only unless owner asks for more.
 
 ### Owner release status (2026-07-25)
 

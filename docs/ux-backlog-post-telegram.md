@@ -2,7 +2,9 @@
 
 Owner confirmed on 2026-07-25: current Mini App crypto/create/recover flow **works** inside Telegram (`@SeedphraseSocialRecoveryBot`).
 
-These are **UI/UX polish** items for a later Codex pass. Do **not** change crypto behavior, vendor pin, §3 warning *wording*, or add Telegram bridge / network / storage.
+**Status (2026-07-25):** Implemented by Cursor while Codex was idle. Owner still needs to redeploy `dist/`.
+
+Do **not** change crypto behavior, vendor pin, §3 warning *wording*, or add Telegram bridge / network / storage.
 
 Live URL (owner deploy): `https://sweet-wildflower-02b2.53bcryp70.workers.dev/`
 

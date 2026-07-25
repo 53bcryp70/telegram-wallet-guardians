@@ -1,3 +1,5 @@
+import { entropyToMnemonic } from "@scure/bip39";
+import { wordlist } from "@scure/bip39/wordlists/english.js";
 import {
   entropyTo24WordMnemonic,
   mnemonicTo32ByteEntropy,
@@ -11,13 +13,21 @@ type AppState = {
   busy: boolean;
   generatedShares: [string, string, string] | null;
   recoveredMnemonic: string | null;
+  path: "choose" | "create" | "recover";
 };
 
 const state: AppState = {
   busy: false,
   generatedShares: null,
   recoveredMnemonic: null,
+  path: "choose",
 };
+
+const FIXED_TEST_ENTROPY = Uint8Array.from({ length: 32 }, (_, index) => index);
+
+function publicTestMnemonic(): string {
+  return entropyToMnemonic(FIXED_TEST_ENTROPY, wordlist);
+}
 
 const appElement = document.querySelector<HTMLElement>("#app");
 
@@ -29,18 +39,36 @@ const app = appElement;
 
 app.innerHTML = `
   <main class="app-shell" aria-busy="false">
-    <header>
+    <header class="hero">
       <p class="eyebrow">Local Seed Shares</p>
-      <h1>Split a test recovery phrase locally</h1>
-      <p class="warning"><strong>Hackathon prototype.</strong> Use only with a disposable test wallet containing no real funds.</p>
-      <p>Supports only the English 24-word BIP-39 recovery phrase from Wallet in Telegram's DeFi Account.</p>
-      <p>This project is not affiliated with or approved by Telegram, Wallet in Telegram, Trezor, SatoshiLabs, or Ian Coleman.</p>
-      <p>The application files are downloaded from the static host when the Mini App opens. After loading, cryptographic processing happens locally on this device. The app makes no application-initiated network requests and does not intentionally transmit or save your phrase or shares.</p>
-      <p>This app does not read your clipboard automatically.</p>
+      <h1>Local seed sharing</h1>
+      <p class="lede">Split or recover a disposable 24-word phrase on this device.</p>
     </header>
 
-    <section aria-labelledby="create-heading">
-      <h2 id="create-heading">Create 3 shares</h2>
+    <details class="warnings-panel" open>
+      <summary>Important warnings — tap to expand or collapse</summary>
+      <div class="warnings-body">
+        <p class="warning"><strong>Hackathon prototype.</strong> Use only with a disposable test wallet containing no real funds.</p>
+        <p>Supports only the English 24-word BIP-39 recovery phrase from Wallet in Telegram's DeFi Account.</p>
+        <p>This project is not affiliated with or approved by Telegram, Wallet in Telegram, Trezor, SatoshiLabs, or Ian Coleman.</p>
+        <p>The application files are downloaded from the static host when the Mini App opens. After loading, cryptographic processing happens locally on this device. The app makes no application-initiated network requests and does not intentionally transmit or save your phrase or shares.</p>
+        <p>This app does not read your clipboard automatically.</p>
+      </div>
+    </details>
+
+    <section id="path-chooser" class="path-chooser" aria-label="Choose what to do">
+      <h2 class="path-title">What do you want to do?</h2>
+      <div class="path-actions">
+        <button id="choose-create" type="button">Create shares from seed phrase</button>
+        <button id="choose-recover" type="button" class="secondary">Recover phrase from shares</button>
+      </div>
+    </section>
+
+    <section id="create-panel" class="flow-panel" aria-labelledby="create-heading" hidden>
+      <div class="panel-bar">
+        <h2 id="create-heading">Create 3 shares</h2>
+        <button id="back-from-create" type="button" class="secondary compact">Back</button>
+      </div>
       <p>Paste an English 24-word BIP-39 phrase. The app creates a fixed 2-of-3 backup.</p>
       <p class="warning">These shares reconstruct your original 24-word phrase through Local Seed Shares. Do not enter them directly into Trezor or another wallet's SLIP-39 recovery flow because that may restore a different wallet.</p>
       <label for="seed-input">24-word recovery phrase</label>
@@ -50,10 +78,16 @@ app.innerHTML = `
       </div>
       <p class="word-count" id="seed-count">0 / 24 words</p>
       <div class="actions">
+        <button id="use-test-phrase" type="button" class="secondary">Use disposable test phrase</button>
         <button id="create-shares" type="button">Create 3 shares</button>
         <button id="clear-seed" type="button" class="secondary">Clear</button>
       </div>
+      <p class="hint">Test phrase has no funds. Derived from public fixed test entropy for demos only.</p>
       <p id="split-error" class="error" role="alert" hidden></p>
+      <div class="placeholder-block">
+        <p>Next, in theory you open your Wallet in Telegram DeFi Account.</p>
+        <button id="open-defi-wallet" type="button" class="ghost" disabled aria-disabled="true">Open DeFi Wallet (coming later)</button>
+      </div>
     </section>
 
     <section id="share-section" aria-labelledby="shares-heading" hidden>
@@ -79,8 +113,11 @@ app.innerHTML = `
       </div>
     </section>
 
-    <section aria-labelledby="recover-heading">
-      <h2 id="recover-heading">Recover 24 words</h2>
+    <section id="recover-panel" class="flow-panel" aria-labelledby="recover-heading" hidden>
+      <div class="panel-bar">
+        <h2 id="recover-heading">Recover 24 words</h2>
+        <button id="back-from-recover" type="button" class="secondary compact">Back</button>
+      </div>
       <p>Paste two different compatible 33-word shares.</p>
       <label for="recover-share-a">Share A</label>
       <div class="input-row"><input id="recover-share-a" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" translate="no" lang="en" /><button type="button" data-reveal-input="recover-share-a" aria-pressed="false">Reveal</button></div>
@@ -97,6 +134,12 @@ app.innerHTML = `
         <button id="copy-recovered-seed" type="button">Copy phrase</button>
       </div>
     </section>
+
+    <footer class="app-footer">
+      <p class="hint">Optional future path: lock one share with an institution until your pre-chosen identity checks pass.</p>
+      <button id="institution-escrow" type="button" class="ghost" disabled aria-disabled="true">Send one share to an institution (coming later)</button>
+    </footer>
+
     <p id="status-message" class="status" aria-live="polite"></p>
   </main>
 `;
@@ -110,6 +153,9 @@ function byId<T extends HTMLElement>(id: string): T {
 }
 
 const shell = app.querySelector<HTMLElement>(".app-shell")!;
+const pathChooser = byId<HTMLElement>("path-chooser");
+const createPanel = byId<HTMLElement>("create-panel");
+const recoverPanel = byId<HTMLElement>("recover-panel");
 const seedInput = byId<HTMLInputElement>("seed-input");
 const seedCount = byId<HTMLParagraphElement>("seed-count");
 const createButton = byId<HTMLButtonElement>("create-shares");
@@ -122,6 +168,7 @@ const recoverShareA = byId<HTMLInputElement>("recover-share-a");
 const recoverShareB = byId<HTMLInputElement>("recover-share-b");
 const recoveredSection = byId<HTMLElement>("recovered-section");
 const recoveredSeed = byId<HTMLInputElement>("recovered-seed");
+const warningsPanel = app.querySelector<HTMLDetailsElement>(".warnings-panel");
 
 function setError(target: HTMLParagraphElement, message: string | null): void {
   target.hidden = message === null;
@@ -186,12 +233,35 @@ function clearRecovery(): void {
   hideSensitiveViews();
 }
 
+function showPath(path: AppState["path"]): void {
+  state.path = path;
+  pathChooser.hidden = path !== "choose";
+  createPanel.hidden = path !== "create";
+  recoverPanel.hidden = path !== "recover";
+  shareSection.hidden = !(path === "create" && state.generatedShares !== null);
+  if (path !== "choose" && warningsPanel) {
+    warningsPanel.open = false;
+  }
+  if (path === "create") {
+    createPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  if (path === "recover") {
+    recoverPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
 function sharesVerify(entropy: Uint8Array, shares: readonly [string, string, string]): boolean {
-  const pairs: Array<[string, string]> = [[shares[0], shares[1]], [shares[0], shares[2]], [shares[1], shares[2]]];
+  const pairs: Array<[string, string]> = [
+    [shares[0], shares[1]],
+    [shares[0], shares[2]],
+    [shares[1], shares[2]],
+  ];
   try {
     return pairs.every(([left, right]) => {
       const recovered = recoverTwoOfThree(left, right);
-      const matches = recovered.length === entropy.length && recovered.every((value, index) => value === entropy[index]);
+      const matches =
+        recovered.length === entropy.length &&
+        recovered.every((value, index) => value === entropy[index]);
       wipe(recovered);
       return matches;
     });
@@ -266,6 +336,7 @@ async function createShares(): Promise<void> {
       updateWordCount(seedInput, "seed-count", 24);
       hideSensitiveViews();
       shareSection.hidden = false;
+      shareSection.scrollIntoView({ behavior: "smooth", block: "start" });
       setStatus("Three verified shares are ready. Copy them one at a time.");
     } catch (error) {
       clearGeneratedShares();
@@ -306,17 +377,53 @@ async function recoverPhrase(): Promise<void> {
   });
 }
 
-async function copyValue(value: string, fallback: HTMLInputElement | HTMLTextAreaElement): Promise<void> {
+async function copyValue(
+  value: string,
+  fallback: HTMLInputElement | HTMLTextAreaElement,
+  button?: HTMLButtonElement,
+): Promise<void> {
+  const originalLabel = button?.textContent ?? "";
   try {
     await navigator.clipboard.writeText(value);
     setStatus("Sensitive recovery information copied to your clipboard.");
+    if (button) {
+      button.textContent = "Copied";
+      button.classList.add("copied");
+      window.setTimeout(() => {
+        button.textContent = originalLabel;
+        button.classList.remove("copied");
+      }, 1600);
+    }
   } catch {
     fallback.hidden = false;
     fallback.focus();
     fallback.select();
     setStatus("Copy failed. Select the text and copy it manually.");
+    if (button) {
+      button.textContent = "Copy failed";
+      button.classList.add("copy-failed");
+      window.setTimeout(() => {
+        button.textContent = originalLabel;
+        button.classList.remove("copy-failed");
+      }, 1600);
+    }
   }
 }
+
+byId<HTMLButtonElement>("choose-create").addEventListener("click", () => showPath("create"));
+byId<HTMLButtonElement>("choose-recover").addEventListener("click", () => showPath("recover"));
+byId<HTMLButtonElement>("back-from-create").addEventListener("click", () => showPath("choose"));
+byId<HTMLButtonElement>("back-from-recover").addEventListener("click", () => showPath("choose"));
+
+byId<HTMLButtonElement>("use-test-phrase").addEventListener("click", () => {
+  const mnemonic = publicTestMnemonic();
+  seedInput.value = mnemonic;
+  updateWordCount(seedInput, "seed-count", 24);
+  setError(splitError, null);
+  void copyValue(mnemonic, seedInput, byId<HTMLButtonElement>("use-test-phrase")).then(() => {
+    setStatus("Disposable public test phrase loaded and copied. It has no funds.");
+  });
+});
 
 byId<HTMLButtonElement>("seed-reveal").addEventListener("click", () => {
   setInputVisibility(seedInput, seedInput.type === "password", byId<HTMLButtonElement>("seed-reveal"));
@@ -357,16 +464,28 @@ byId<HTMLButtonElement>("clear-seed").addEventListener("click", () => {
 });
 byId<HTMLButtonElement>("clear-recovery").addEventListener("click", clearRecovery);
 byId<HTMLButtonElement>("recovered-seed-reveal").addEventListener("click", () => {
-  setInputVisibility(recoveredSeed, recoveredSeed.type === "password", byId<HTMLButtonElement>("recovered-seed-reveal"));
+  setInputVisibility(
+    recoveredSeed,
+    recoveredSeed.type === "password",
+    byId<HTMLButtonElement>("recovered-seed-reveal"),
+  );
 });
 byId<HTMLButtonElement>("copy-recovered-seed").addEventListener("click", () => {
-  if (state.recoveredMnemonic) void copyValue(state.recoveredMnemonic, recoveredSeed);
+  if (state.recoveredMnemonic) {
+    void copyValue(
+      state.recoveredMnemonic,
+      recoveredSeed,
+      byId<HTMLButtonElement>("copy-recovered-seed"),
+    );
+  }
 });
 
 for (const index of [0, 1, 2]) {
   byId<HTMLButtonElement>(`copy-share-${index + 1}`).addEventListener("click", () => {
     const value = state.generatedShares?.[index];
-    if (value) void copyValue(value, byId<HTMLTextAreaElement>(`share-${index + 1}`));
+    if (value) {
+      void copyValue(value, byId<HTMLTextAreaElement>(`share-${index + 1}`), byId<HTMLButtonElement>(`copy-share-${index + 1}`));
+    }
   });
 }
 

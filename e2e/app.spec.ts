@@ -124,6 +124,10 @@ test.describe("SLIP-39 cryptographic checkpoint", () => {
     expect(checkpoint.secureRandomCalls).toBeGreaterThan(0);
 
     initialRequests.length = 0;
+    await expect(page.locator("#open-defi-wallet")).toBeDisabled();
+    await expect(page.locator("#institution-escrow")).toBeDisabled();
+    await page.getByRole("button", { name: "Create shares from seed phrase" }).click();
+    await expect(page.locator("#create-panel")).toBeVisible();
     await page.locator("#seed-input").fill(fixedMnemonic);
     await page.getByRole("button", { name: "Create 3 shares" }).click();
     await expect(page.locator("#share-section")).toBeVisible();
@@ -147,22 +151,32 @@ test.describe("SLIP-39 cryptographic checkpoint", () => {
 
     await page.locator("#copy-share-1").click();
     expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(shareOne);
-
-    await page.locator("#recover-share-a").fill(shareOne);
-    await page.locator("#recover-share-b").fill(shareTwo);
-    await page.getByRole("button", { name: "Recover 24 words" }).click();
-    await expect(page.locator("#recovered-seed")).toHaveValue(fixedMnemonic);
+    await expect(page.locator("#copy-share-1")).toHaveText("Copied");
 
     await page.locator('[data-reveal-share="0"]').click();
-    await page.locator("#recovered-seed-reveal").click();
     await expect(page.locator("#share-1")).toBeVisible();
-    await expect(page.locator("#recovered-seed")).toHaveAttribute("type", "text");
     await page.evaluate(() => {
       Object.defineProperty(document, "hidden", { configurable: true, value: true });
       document.dispatchEvent(new Event("visibilitychange"));
       Object.defineProperty(document, "hidden", { configurable: true, value: false });
     });
     await expect(page.locator("#share-1")).toBeHidden();
+
+    await page.locator("#back-from-create").click();
+    await page.getByRole("button", { name: "Recover phrase from shares" }).click();
+    await expect(page.locator("#recover-panel")).toBeVisible();
+    await page.locator("#recover-share-a").fill(shareOne);
+    await page.locator("#recover-share-b").fill(shareTwo);
+    await page.getByRole("button", { name: "Recover 24 words" }).click();
+    await expect(page.locator("#recovered-seed")).toHaveValue(fixedMnemonic);
+
+    await page.locator("#recovered-seed-reveal").click();
+    await expect(page.locator("#recovered-seed")).toHaveAttribute("type", "text");
+    await page.evaluate(() => {
+      Object.defineProperty(document, "hidden", { configurable: true, value: true });
+      document.dispatchEvent(new Event("visibilitychange"));
+      Object.defineProperty(document, "hidden", { configurable: true, value: false });
+    });
     await expect(page.locator("#recovered-seed")).toHaveAttribute("type", "password");
 
     await page.locator("#clear-recovery").click();
@@ -191,6 +205,8 @@ test.describe("SLIP-39 cryptographic checkpoint", () => {
       "Enter two different compatible 33-word shares from the same set.",
     );
 
+    await page.locator("#back-from-recover").click();
+    await page.getByRole("button", { name: "Create shares from seed phrase" }).click();
     await page.locator("#clear-seed").click();
     await expect(page.locator("#share-section")).toBeHidden();
     await expect(page.locator("#share-1")).toHaveValue("");
@@ -199,6 +215,8 @@ test.describe("SLIP-39 cryptographic checkpoint", () => {
     await expect(page.locator("#share-2")).not.toHaveValue("");
     const replacementShareTwo = await page.locator("#share-2").inputValue();
     expect(replacementShareTwo).not.toBe(shareTwo);
+    await page.locator("#back-from-create").click();
+    await page.getByRole("button", { name: "Recover phrase from shares" }).click();
     await page.locator("#clear-recovery").click();
     await page.locator("#recover-share-a").fill(shareOne);
     await page.locator("#recover-share-b").fill(replacementShareTwo);
