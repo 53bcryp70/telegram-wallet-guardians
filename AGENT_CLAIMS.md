@@ -6,6 +6,7 @@ Status values: `active` | `done` | `blocked` | `stale`
 
 | When (UTC) | Agent | Task | Paths / globs | Status |
 |------------|-------|------|---------------|--------|
+| 2026-07-25T09:40Z | cursor | Batch-mixing warning near shares — cancelled by owner (minimize flow suffices) | src/main.ts, e2e/app.spec.ts, AGENT_*.md | done |
 | 2026-07-24T22:30Z | cursor | User-approved: add Secret Chat/self-destruct transfer guidance near shares | src/main.ts, AGENT_*.md | done |
 | 2026-07-24T22:05Z | cursor | Final merge review: warning fixes verified, independent verify PASS, merge-ready | AGENT_HANDOFF.md, AGENT_CLAIMS.md | done |
 | 2026-07-24T21:50Z | cursor | Review prototype commits 1db9026/f5dfd2a; findings in handoff | AGENT_HANDOFF.md, AGENT_CLAIMS.md | done |
