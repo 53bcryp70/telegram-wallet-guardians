@@ -71,6 +71,10 @@ app.innerHTML = `
       </div>
       <p>Paste an English 24-word BIP-39 phrase. The app creates a fixed 2-of-3 backup.</p>
       <p class="warning">These shares reconstruct your original 24-word phrase through Local Seed Shares. Do not enter them directly into Trezor or another wallet's SLIP-39 recovery flow because that may restore a different wallet.</p>
+      <div class="placeholder-block">
+        <p>Next, in theory you open your Wallet in Telegram DeFi Account.</p>
+        <button id="open-defi-wallet" type="button" class="ghost" disabled aria-disabled="true">Open DeFi Wallet (coming later)</button>
+      </div>
       <label for="seed-input">24-word recovery phrase</label>
       <div class="input-row">
         <input id="seed-input" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" translate="no" lang="en" />
@@ -84,10 +88,6 @@ app.innerHTML = `
       </div>
       <p class="hint">Test phrase has no funds. Derived from public fixed test entropy for demos only.</p>
       <p id="split-error" class="error" role="alert" hidden></p>
-      <div class="placeholder-block">
-        <p>Next, in theory you open your Wallet in Telegram DeFi Account.</p>
-        <button id="open-defi-wallet" type="button" class="ghost" disabled aria-disabled="true">Open DeFi Wallet (coming later)</button>
-      </div>
     </section>
 
     <section id="share-section" aria-labelledby="shares-heading" hidden>
@@ -135,7 +135,7 @@ app.innerHTML = `
       </div>
     </section>
 
-    <footer class="app-footer">
+    <footer id="institution-footer" class="app-footer" hidden>
       <p class="hint">Optional future path: lock one share with an institution until your pre-chosen identity checks pass.</p>
       <button id="institution-escrow" type="button" class="ghost" disabled aria-disabled="true">Send one share to an institution (coming later)</button>
     </footer>
@@ -169,6 +169,7 @@ const recoverShareB = byId<HTMLInputElement>("recover-share-b");
 const recoveredSection = byId<HTMLElement>("recovered-section");
 const recoveredSeed = byId<HTMLInputElement>("recovered-seed");
 const warningsPanel = app.querySelector<HTMLDetailsElement>(".warnings-panel");
+const institutionFooter = byId<HTMLElement>("institution-footer");
 
 function setError(target: HTMLParagraphElement, message: string | null): void {
   target.hidden = message === null;
@@ -239,6 +240,7 @@ function showPath(path: AppState["path"]): void {
   createPanel.hidden = path !== "create";
   recoverPanel.hidden = path !== "recover";
   shareSection.hidden = !(path === "create" && state.generatedShares !== null);
+  institutionFooter.hidden = path !== "create";
   if (path !== "choose" && warningsPanel) {
     warningsPanel.open = false;
   }

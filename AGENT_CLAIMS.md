@@ -6,6 +6,7 @@ Status values: `active` | `done` | `blocked` | `stale`
 
 | When (UTC) | Agent | Task | Paths / globs | Status |
 |------------|-------|------|---------------|--------|
+| 2026-07-25T11:45Z | cursor | Owner: show institution placeholder only on create path | src/main.ts, e2e/app.spec.ts, AGENT_*.md | active |
 | 2026-07-25T11:20Z | cursor | Owner-assigned: implement UX backlog (Codex idle) | src/main.ts, src/style.css, e2e/app.spec.ts, AGENT_*.md | done |
 | 2026-07-25T11:15Z | cursor | Record Telegram PASS + UX backlog for Codex | docs/ux-backlog-post-telegram.md, AGENT_*.md, HUMAN_INPUT.md | done |
 | 2026-07-25T10:00Z | codex | Review Cursor Secret Chat guidance and hand off one lifecycle wording correction | AGENT_CLAIMS.md, AGENT_HANDOFF.md | done |

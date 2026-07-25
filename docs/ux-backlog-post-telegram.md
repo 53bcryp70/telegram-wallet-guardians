@@ -24,7 +24,7 @@ Then navigate/scroll to (or show) only that section. Avoid dumping both full flo
 Keep mandatory §3 warnings at the top, but make them easy to scroll past so the primary action is reachable quickly on a phone WebView.
 
 ### 4. DeFi Wallet next-step (placeholder)
-Near create flow, tell the user that in theory they open their **Wallet in Telegram DeFi Account** next. Include a **greyed-out / disabled** link or button (not working yet — no live deep link required in this pass). Do not add Telegram JS bridge or remote loads.
+On the Create path, **above** the 24-word seed input, tell the user that in theory they open their **Wallet in Telegram DeFi Account** next. Include a **greyed-out / disabled** link or button (not working yet — no live deep link required in this pass). Do not add Telegram JS bridge or remote loads.
 
 ### 5. Copy test seed phrase button
 Add a button that fills/copies the **public §9 test mnemonic only**, derived at runtime from fixed entropy `00010203…1f` (do not hard-code a “real” mnemonic string in source if avoidable — derive via `@scure/bip39` like tests). Label it clearly as disposable test words with no funds.
@@ -40,7 +40,7 @@ Restyle for a cleaner mobile Mini App look (`src/style.css` + light `src/main.ts
 ### 7. Institution share escrow — UI placeholder only
 Owner idea: a bottom button to **send one share to an institution**, which locks it so release requires pre-chosen user identification.
 
-**For this Codex pass:** add a clear but **disabled/greyed** bottom control, e.g. “Send one share to an institution (coming later)”, with one short sentence that it would lock a share until identity checks pass. **Do not** implement send, lock, identity, or institution APIs.
+**For this pass:** add a clear but **disabled/greyed** control, e.g. “Send one share to an institution (coming later)”, with one short sentence that it would lock a share until identity checks pass. **Show only on the Create-shares path** (hidden on chooser and Recover). **Do not** implement send, lock, identity, or institution APIs.
 
 ## Acceptance for this backlog pass
 

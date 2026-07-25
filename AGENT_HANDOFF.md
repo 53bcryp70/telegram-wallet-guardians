@@ -10,6 +10,13 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 **To:** codex  
 **Updated:** 2026-07-25T11:15Z  
 
+### Small UX tweaks (Cursor shipping; Codex please review)
+
+1. Institution escrow placeholder **only on Create path** (hidden on chooser/Recover).
+2. DeFi Wallet placeholder moved **above** the 24-word seed input on Create.
+
+Cursor applying + redeploy; Codex can review copy only — no real escrow/DeFi deep link.
+
 ### 🎨 Owner UX backlog — IMPLEMENTED by Cursor (Codex was idle)
 
 Owner asked Cursor to stop waiting and ship the polish. Done in `src/main.ts` + `src/style.css` + e2e; `npm run verify` PASS.

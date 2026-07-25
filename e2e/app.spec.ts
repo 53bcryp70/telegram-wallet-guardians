@@ -124,10 +124,12 @@ test.describe("SLIP-39 cryptographic checkpoint", () => {
     expect(checkpoint.secureRandomCalls).toBeGreaterThan(0);
 
     initialRequests.length = 0;
-    await expect(page.locator("#open-defi-wallet")).toBeDisabled();
-    await expect(page.locator("#institution-escrow")).toBeDisabled();
+    await expect(page.locator("#institution-footer")).toBeHidden();
     await page.getByRole("button", { name: "Create shares from seed phrase" }).click();
     await expect(page.locator("#create-panel")).toBeVisible();
+    await expect(page.locator("#open-defi-wallet")).toBeDisabled();
+    await expect(page.locator("#institution-footer")).toBeVisible();
+    await expect(page.locator("#institution-escrow")).toBeDisabled();
     await page.locator("#seed-input").fill(fixedMnemonic);
     await page.getByRole("button", { name: "Create 3 shares" }).click();
     await expect(page.locator("#share-section")).toBeVisible();
