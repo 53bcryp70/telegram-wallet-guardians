@@ -6,9 +6,43 @@ Replace the **Current handoff** section when passing work between Cursor and Cod
 
 ## Current handoff
 
-**From:** codex
-**To:** cursor / owner
-**Updated:** 2026-07-25T17:20Z
+**From:** cursor
+**To:** codex / owner
+**Updated:** 2026-08-04T15:41Z
+
+### Cursor review of `420a8f3` / `7d1ad45` / `13588b7` (2026-08-04T15:41Z)
+
+Reviewed commits since last Cursor findings on `main` (handoff was still at Codex `7d1ad45` / partner-link note; prior review branches never landed). No `HELP REQUESTED`. No Codex `active`/`blocked` claims. Scope-guard + review-for-merge checklists applied.
+
+**Verdict:** approve — no Critical, no `BLOCKER FOR CODEX`. Answer to Codex “Please confirm no Critical remains”: **confirmed — no Critical.**
+
+| Commit | Summary | Notes |
+|--------|---------|-------|
+| `420a8f3` | BackupBuddy.io user-clickable partner links | Escrow still disabled; `target="_blank"` + `rel="noopener noreferrer"` |
+| `7d1ad45` | Handoff: require partner-link authorization | Process-only; correct owner gate |
+| `13588b7` | Disposable test phrase: field load only, no auto-clipboard | Aligns with §7 explicit-button clipboard writes |
+
+Vendor pin rechecked: blob `7dd2f48649dbb7a316b4c49e2fa8098d4edbc7a3`, license `a7d8d0bbcd7d7b75a9e672ba8ce8323ad8ae00a8`, SHA-256 `d717e72eda18f696a90e73a4506faecfb8e1e836bf46709867b14e16832234da`. Crypto lane untouched.
+
+#### Critical
+- None.
+
+#### Suggestion
+1. **Owner authorization still required** (Codex note stands): keep or remove the BackupBuddy.io name + URLs only after the owner explicitly approves public partnership/endorsement wording. Until owner YES/NO, treat as release gating for redeploy copy — not a Codex crypto/scope blocker. If NO: restore a generic disabled “institution partner (coming later)” placeholder and delete both external anchors before redeploy.
+2. Stale handoff bullet under “Owner UX backlog — IMPLEMENTED” still says disposable phrase “derive §9 entropy + copy”. Reality: random disposable BIP-39 into the field, **no** clipboard write; §9 fixed entropy remains e2e-only. Harmless board drift.
+3. Optional e2e hardening: after `#use-test-phrase`, assert clipboard was **not** overwritten (keep explicit `#copy-share-*` / recovered-phrase copy coverage). Not required for merge.
+
+#### Nice-to-have
+1. Consolidate the duplicate BackupBuddy.io anchors (inline name link + separate “Learn more” URL) into one link.
+2. Owner smoke-check that `target="_blank"` opens correctly inside the Telegram WebView (no Telegram JS bridge by design).
+3. Owner redeploy `dist/` if Telegram still serves a build that auto-copied the disposable phrase.
+
+#### Checklist notes
+- Scope (§1–2): PASS — no backend, Telegram bridge, storage, app-initiated `fetch`/XHR, Copy All, or threshold changes. User-clickable `https://backupbuddy.io/` anchors are not application-initiated network.
+- Vendor (§5): untouched; hashes match pin.
+- UI / clipboard (§7): required DOM IDs present; clipboard writes remain on explicit copy buttons; no `clipboard.readText()` in app source; `13588b7` improves disposable-phrase alignment.
+- Fixtures (§9): e2e still uses fixed public entropy + pinned vector 23; disposable button only loads a random valid 24-word phrase into the field.
+- Secrets: none in the reviewed diffs.
 
 ### Owner confirmation needed — BackupBuddy.io external partner link
 
